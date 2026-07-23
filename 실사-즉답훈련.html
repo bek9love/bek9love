@@ -48,6 +48,7 @@
     --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
   }
   *{margin:0;padding:0;box-sizing:border-box}
+  [hidden]{display:none!important}
   html{-webkit-text-size-adjust:100%}
   body{
     font-family:'Pretendard','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',-apple-system,sans-serif;
@@ -136,6 +137,34 @@
     font-size:.85rem;color:var(--ink);display:flex;gap:8px}
   .warn .i{color:var(--hard);font-weight:700;flex:none}
 
+  /* 보완 (승격된 메모) */
+  .adds{margin-top:14px}
+  .add-l{font-size:.64rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--good);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+  .add-l::before{content:"＋";font-size:.9rem}
+  ul.add-points li::before{background:var(--good)}
+  ul.add-points li{padding-right:26px}
+  .add-del{position:absolute;right:0;top:2px;border:none;background:none;color:var(--ink-faint);
+    cursor:pointer;font-size:.72rem;line-height:1;padding:3px 5px;border-radius:5px}
+  .add-del:hover{color:var(--hard);background:var(--hard-tint)}
+
+  /* 메모 */
+  .memo{margin-top:16px;border-top:1px solid var(--line-soft);padding-top:14px}
+  .memo-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;gap:8px}
+  .memo-l{font-size:.72rem;font-weight:700;color:var(--ink-soft);letter-spacing:.01em}
+  .memo-l .sub2{font-weight:400;color:var(--ink-faint);font-size:.68rem;margin-left:4px}
+  .memo-status{font-size:.66rem;color:var(--good);font-weight:600;opacity:0;transition:opacity .3s}
+  .memo-status.on{opacity:1}
+  textarea#memo{width:100%;min-height:56px;resize:vertical;font-family:inherit;font-size:.88rem;
+    line-height:1.55;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);
+    border-radius:9px;padding:10px 12px}
+  textarea#memo:focus{outline:none;border-color:var(--amber);background:var(--surface)}
+  textarea#memo::placeholder{color:var(--ink-faint)}
+  .card.revealed .memo.hasmemo{background:var(--amber-tint);margin-left:-22px;margin-right:-22px;
+    padding:14px 22px 4px;border-top:1px solid var(--amber);border-radius:0}
+  .tag{font-size:.6rem;font-weight:700;border-radius:99px;padding:2px 7px;letter-spacing:.03em}
+  .tag-memo{background:var(--amber-tint);color:var(--amber)}
+  .tag-add{background:var(--good-tint);color:var(--good)}
+
   /* grade */
   .grade{margin-top:18px;display:none;gap:8px}
   .grade.show{display:flex;animation:fade .25s ease}
@@ -216,6 +245,7 @@
       <div class="answer" id="answer">
         <div class="alabel">핵심 포인트 — 뼈대만, 자기 말로</div>
         <ul class="points" id="points"></ul>
+        <div class="adds" id="adds"></div>
         <div class="say" id="say" hidden><div class="l">말로</div><div id="sayText"></div></div>
         <div class="warn" id="warn" hidden><span class="i">⚠</span><span id="warnText"></span></div>
       </div>
@@ -224,6 +254,14 @@
         <button class="gbtn g" data-g="good"><b>✓ 즉답</b><span>바로 나옴<span class="kbd">1</span></span></button>
         <button class="gbtn s" data-g="soft"><b>△ 애매</b><span>더듬음<span class="kbd">2</span></span></button>
         <button class="gbtn h" data-g="hard"><b>✗ 막힘</b><span>안 떠오름<span class="kbd">3</span></span></button>
+      </div>
+
+      <div class="memo hasmemo" id="memoBox">
+        <div class="memo-head">
+          <span class="memo-l">✎ 메모<span class="sub2">— 보완할 점을 적어두면 정답 확인 때 함께 표시됩니다</span></span>
+          <span class="memo-status" id="memoStatus">저장됨</span>
+        </div>
+        <textarea id="memo" placeholder="이 질문을 보고 떠오른 답변 보완 아이디어를 적어두세요…"></textarea>
       </div>
     </div>
   </div>
@@ -501,9 +539,18 @@ const DECK = [
 
 // ---------- 상태 ----------
 const LS_KEY = "silsa-drill-v1";
-let store = {};
-try { store = JSON.parse(localStorage.getItem(LS_KEY) || "{}"); } catch(e){ store = {}; }
-function save(){ try { localStorage.setItem(LS_KEY, JSON.stringify(store)); } catch(e){} }
+const LS_MEMO = "silsa-memo-v1";
+const LS_ADD  = "silsa-add-v1";
+let store = {};    // {cardId: grade}
+let memos = {};    // {cardId: "메모 텍스트"}
+let adds  = {};    // {cardId: ["보완 항목", ...]}  ← 승격된 메모(정답에 반영)
+try { store = JSON.parse(localStorage.getItem(LS_KEY)  || "{}"); } catch(e){ store = {}; }
+try { memos = JSON.parse(localStorage.getItem(LS_MEMO) || "{}"); } catch(e){ memos = {}; }
+try { adds  = JSON.parse(localStorage.getItem(LS_ADD)  || "{}"); } catch(e){ adds  = {}; }
+function save(){     try { localStorage.setItem(LS_KEY,  JSON.stringify(store)); } catch(e){} }
+function saveMemos(){try { localStorage.setItem(LS_MEMO, JSON.stringify(memos)); } catch(e){} }
+function saveAdds(){ try { localStorage.setItem(LS_ADD,  JSON.stringify(adds));  } catch(e){} }
+function esc(s){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
 let opt = { cat:"ALL", shuffle:false, weak:false, timer:false };
 let deck = [];      // 현재 필터/정렬된 카드 배열
@@ -545,14 +592,30 @@ function render(){
   $("#e-cat").textContent = CATS[card.c];
   $("#e-id").textContent = card.id;
   const st = store[card.id];
-  $("#e-flag").innerHTML = st ? '지난 채점 <b>'+({good:"✓ 즉답",soft:"△ 애매",hard:"✗ 막힘"}[st])+'</b>' : '';
+  const hasMemo = !!(memos[card.id] && memos[card.id].trim());
+  const hasAdd  = !!(adds[card.id] && adds[card.id].length);
+  let flag = st ? '지난 채점 <b>'+({good:"✓ 즉답",soft:"△ 애매",hard:"✗ 막힘"}[st])+'</b>' : '';
+  if(hasAdd)  flag += ' <span class="tag tag-add">보완 '+adds[card.id].length+'</span>';
+  if(hasMemo) flag += ' <span class="tag tag-memo">📝 메모</span>';
+  $("#e-flag").innerHTML = flag;
   $("#qtext").textContent = card.q;
   // 답
   $("#points").innerHTML = card.p.map(t=>"<li>"+t+"</li>").join("");
+  const a = adds[card.id] || [];
+  $("#adds").innerHTML = a.length
+    ? '<div class="add-l">보완 — 내가 추가함</div><ul class="points add-points">'
+      + a.map((t,i)=>'<li>'+esc(t)+'<button class="add-del" data-i="'+i+'" title="이 보완 항목 삭제">✕</button></li>').join('')
+      + '</ul>'
+    : '';
   if(card.s){ $("#say").hidden=false; $("#sayText").textContent = card.s; } else $("#say").hidden=true;
   if(card.w){ $("#warn").hidden=false; $("#warnText").textContent = card.w; } else $("#warn").hidden=true;
+  // 메모
+  $("#memo").value = memos[card.id] || "";
+  $("#memoBox").classList.toggle("hasmemo", hasMemo);
+  $("#memoStatus").classList.remove("on");
   // 리셋
   revealed = false;
+  $("#card").classList.remove("revealed");
   $("#answer").classList.remove("show");
   $("#grade").classList.remove("show");
   $("#revealWrap").style.display = "";
@@ -568,6 +631,7 @@ function reveal(){
   if(revealed || !deck[idx]) return;
   revealed = true;
   stopTimer();
+  $("#card").classList.add("revealed");
   $("#answer").classList.add("show");
   $("#grade").classList.add("show");
   $("#revealWrap").style.display = "none";
@@ -645,10 +709,63 @@ $("#cat").addEventListener("change", e=>{ opt.cat=e.target.value; buildDeck(); r
 $("#shuffle").addEventListener("click", e=>toggle(e.currentTarget,"shuffle"));
 $("#weak").addEventListener("click", e=>toggle(e.currentTarget,"weak"));
 $("#timer").addEventListener("click", e=>{ toggle(e.currentTarget,"timer"); });
-$("#reset").addEventListener("click", ()=>{
-  if(confirm("모든 자가채점 기록을 지울까요?")){ store={}; save(); buildDeck(); render(); }
-});
+$("#reset").addEventListener("click", resetFlow);
 $("#btnReveal").addEventListener("click", reveal);
+
+// 메모: 입력 즉시 저장
+let memoTimer = null;
+$("#memo").addEventListener("input", e=>{
+  const card = deck[idx]; if(!card) return;
+  const v = e.target.value;
+  if(v.trim()) memos[card.id] = v; else delete memos[card.id];
+  saveMemos();
+  const s = $("#memoStatus"); s.classList.add("on");
+  clearTimeout(memoTimer); memoTimer = setTimeout(()=>s.classList.remove("on"), 1200);
+});
+// 메모 입력 중 단축키(1/2/3/Space) 오작동 방지 — 위 keydown에서 처리
+
+// 보완 항목 삭제
+$("#adds").addEventListener("click", e=>{
+  const b = e.target.closest(".add-del"); if(!b) return;
+  const card = deck[idx]; if(!card) return;
+  adds[card.id].splice(+b.dataset.i, 1);
+  if(!adds[card.id].length) delete adds[card.id];
+  saveAdds(); render();
+});
+
+// 초기화: 메모를 정답에 반영할지 물은 뒤 점수 초기화
+function resetFlow(){
+  const memoIds = Object.keys(memos).filter(id => memos[id] && memos[id].trim() && DECK.some(c=>c.id===id));
+  if(memoIds.length){
+    const review = confirm(
+      "메모가 "+memoIds.length+"건 있습니다.\n\n"+
+      "각 메모를 정답(보완 항목)에 반영할지 하나씩 확인할까요?\n반영된 메모는 다음 테스트의 정답에 함께 표시됩니다.\n\n"+
+      "[확인] 하나씩 검토   [취소] 메모는 그대로 두고 건너뛰기");
+    if(review){
+      let promoted = 0;
+      memoIds.forEach(id=>{
+        const card = DECK.find(c=>c.id===id);
+        const yes = confirm(
+          "["+card.id+"] "+card.q+"\n\n"+
+          "내 메모:\n"+memos[id]+"\n\n"+
+          "이 메모를 정답의 '보완' 항목으로 반영할까요?\n\n"+
+          "[확인] 반영(메모→정답)   [취소] 메모 그대로 둠");
+        if(yes){
+          adds[id] = adds[id] || [];
+          adds[id].push(memos[id].trim());
+          delete memos[id];
+          promoted++;
+        }
+      });
+      saveMemos(); saveAdds();
+      if(promoted) alert(promoted+"건의 메모를 정답에 반영했습니다.");
+    }
+  }
+  if(confirm("자가채점 점수를 초기화할까요?\n(메모·보완 항목은 유지됩니다)")){
+    store = {}; save();
+  }
+  buildDeck(deck[idx] && deck[idx].id); render();
+}
 $("#grade").addEventListener("click", e=>{ const b=e.target.closest(".gbtn"); if(b) grade(b.dataset.g); });
 $("#prev").addEventListener("click", ()=>go(-1));
 $("#next").addEventListener("click", ()=>go(1));
@@ -664,7 +781,8 @@ $("#theme").addEventListener("click", ()=>{
 
 // keyboard
 document.addEventListener("keydown", e=>{
-  if(e.target.tagName==="SELECT") return;
+  const tag = e.target.tagName;
+  if(tag==="SELECT" || tag==="TEXTAREA" || tag==="INPUT") return;
   if(e.code==="Space"){ e.preventDefault(); if(!revealed) reveal(); else go(1); }
   else if(e.key==="1" && revealed) grade("good");
   else if(e.key==="2" && revealed) grade("soft");
