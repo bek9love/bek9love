@@ -148,6 +148,18 @@
     cursor:pointer;font-size:.72rem;line-height:1;padding:3px 5px;border-radius:5px}
   .add-del:hover{color:var(--hard);background:var(--hard-tint)}
 
+  /* 편집된 정답 포인트 (추가/대체 표시) */
+  ul.points li.pt{padding-right:26px}
+  ul.points li.p-add::before{background:var(--good)}
+  ul.points li.p-edit::before{background:var(--amber)}
+  .pmark{font-size:.58rem;font-weight:700;border-radius:99px;padding:1px 6px;margin-right:6px;
+    vertical-align:1px;letter-spacing:.02em}
+  .pm-add{background:var(--good-tint);color:var(--good)}
+  .pm-edit{background:var(--amber-tint);color:var(--amber)}
+  .pt-del{position:absolute;right:0;top:2px;border:none;background:none;color:var(--ink-faint);
+    cursor:pointer;font-size:.72rem;line-height:1;padding:3px 5px;border-radius:5px}
+  .pt-del:hover{color:var(--hard);background:var(--hard-tint)}
+
   /* 메모 */
   .memo{margin-top:16px;border-top:1px solid var(--line-soft);padding-top:14px}
   .memo-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;gap:8px}
@@ -574,15 +586,32 @@ const DECK = [
 const LS_KEY = "silsa-drill-v1";
 const LS_MEMO = "silsa-memo-v1";
 const LS_ADD  = "silsa-add-v1";
+const LS_PTS  = "silsa-pts-v1";
 let store = {};    // {cardId: grade}
 let memos = {};    // {cardId: "메모 텍스트"}
-let adds  = {};    // {cardId: ["보완 항목", ...]}  ← 승격된 메모(정답에 반영)
+let adds  = {};    // {cardId: ["보완 항목", ...]}  ← 구버전(신규추가) 호환용
+let pts   = {};    // {cardId: [{t,k}]}  k: base|add|edit  ← 편집된 정답(신규추가/대체 반영)
 try { store = JSON.parse(localStorage.getItem(LS_KEY)  || "{}"); } catch(e){ store = {}; }
 try { memos = JSON.parse(localStorage.getItem(LS_MEMO) || "{}"); } catch(e){ memos = {}; }
 try { adds  = JSON.parse(localStorage.getItem(LS_ADD)  || "{}"); } catch(e){ adds  = {}; }
+try { pts   = JSON.parse(localStorage.getItem(LS_PTS)  || "{}"); } catch(e){ pts   = {}; }
 function save(){     try { localStorage.setItem(LS_KEY,  JSON.stringify(store)); } catch(e){} }
 function saveMemos(){try { localStorage.setItem(LS_MEMO, JSON.stringify(memos)); } catch(e){} }
 function saveAdds(){ try { localStorage.setItem(LS_ADD,  JSON.stringify(adds));  } catch(e){} }
+function savePts(){  try { localStorage.setItem(LS_PTS,  JSON.stringify(pts));   } catch(e){} }
+// 카드의 현재 정답 포인트(편집 반영). pts 오버라이드가 있으면 그것, 없으면 원본+구버전 adds
+function effPoints(card){
+  if(pts[card.id]) return pts[card.id];
+  const base = card.p.map(t=>({t, k:"base"}));
+  const extra = (adds[card.id] || []).map(t=>({t, k:"add"}));
+  return base.concat(extra);
+}
+// 편집을 pts에 확정(구버전 adds는 흡수 후 제거)
+function commitPts(card, arr){
+  pts[card.id] = arr;
+  if(adds[card.id]) delete adds[card.id];
+  savePts(); saveAdds();
+}
 function esc(s){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
 let opt = { cat:"ALL", shuffle:false, weak:false, timer:false };
@@ -609,22 +638,29 @@ function buildDeck(keepId){
 
 // ---------- 렌더 ----------
 const $ = s => document.querySelector(s);
-// 현재 카드의 상단 태그(지난채점·보완·메모)와 보완 목록만 부분 갱신
-function refreshAddsUI(){
+// 상단 태그(지난채점·보완·메모)만 갱신
+function refreshFlag(){
   const card = deck[idx]; if(!card) return;
   const st = store[card.id];
   const hasMemo = !!(memos[card.id] && memos[card.id].trim());
-  const hasAdd  = !!(adds[card.id] && adds[card.id].length);
+  const modCount = effPoints(card).filter(p=>p.k!=="base").length;
   let flag = st ? '지난 채점 <b>'+({good:"✓ 즉답",soft:"△ 애매",hard:"✗ 막힘"}[st])+'</b>' : '';
-  if(hasAdd)  flag += ' <span class="tag tag-add">보완 '+adds[card.id].length+'</span>';
-  if(hasMemo) flag += ' <span class="tag tag-memo">📝 메모</span>';
+  if(modCount) flag += ' <span class="tag tag-add">보완 '+modCount+'</span>';
+  if(hasMemo)  flag += ' <span class="tag tag-memo">📝 메모</span>';
   $("#e-flag").innerHTML = flag;
-  const a = adds[card.id] || [];
-  $("#adds").innerHTML = a.length
-    ? '<div class="add-l">보완 — 내가 추가함</div><ul class="points add-points">'
-      + a.map((t,i)=>'<li>'+esc(t)+'<button class="add-del" data-i="'+i+'" title="이 보완 항목 삭제">✕</button></li>').join('')
-      + '</ul>'
-    : '';
+}
+// 정답 포인트 목록만 갱신(기존/추가/수정 구분, 추가·수정 항목엔 삭제 버튼)
+function renderPoints(){
+  const card = deck[idx]; if(!card) return;
+  const eff = effPoints(card);
+  $("#points").innerHTML = eff.map((p,i)=>{
+    const cls = p.k==="add" ? " pt p-add" : (p.k==="edit" ? " pt p-edit" : "");
+    const mark = p.k==="add" ? '<span class="pmark pm-add">추가</span>'
+               : p.k==="edit" ? '<span class="pmark pm-edit">수정</span>' : '';
+    const del = p.k==="base" ? '' : '<button class="pt-del" data-i="'+i+'" title="이 항목 삭제">✕</button>';
+    return '<li class="'+cls.trim()+'" data-i="'+i+'">'+mark+esc(p.t)+del+'</li>';
+  }).join("");
+  $("#adds").innerHTML = "";
 }
 function render(){
   updateStats();
@@ -649,10 +685,10 @@ function render(){
   $("#e-id").textContent = card.id;
   const st = store[card.id];
   const hasMemo = !!(memos[card.id] && memos[card.id].trim());
-  refreshAddsUI();
+  refreshFlag();
   $("#qtext").textContent = card.q;
   // 답
-  $("#points").innerHTML = card.p.map(t=>"<li>"+t+"</li>").join("");
+  renderPoints();
   if(card.s){ $("#say").hidden=false; $("#sayText").textContent = card.s; } else $("#say").hidden=true;
   if(card.w){ $("#warn").hidden=false; $("#warnText").textContent = card.w; } else $("#warn").hidden=true;
   // 메모
@@ -773,13 +809,16 @@ $("#memo").addEventListener("input", e=>{
 });
 // 메모 입력 중 단축키(1/2/3/Space) 오작동 방지 — 위 keydown에서 처리
 
-// 보완 항목 삭제
-$("#adds").addEventListener("click", e=>{
-  const b = e.target.closest(".add-del"); if(!b) return;
+// 추가/수정 항목 삭제 (부분 갱신 — 공개된 답 유지)
+$("#points").addEventListener("click", e=>{
+  const b = e.target.closest(".pt-del"); if(!b) return;
   const card = deck[idx]; if(!card) return;
-  adds[card.id].splice(+b.dataset.i, 1);
-  if(!adds[card.id].length) delete adds[card.id];
-  saveAdds(); refreshAddsUI();
+  const arr = effPoints(card).slice();
+  arr.splice(+b.dataset.i, 1);
+  // 편집 흔적이 모두 사라지면 원본으로 되돌림
+  if(arr.every(p=>p.k==="base")) { delete pts[card.id]; if(adds[card.id]) delete adds[card.id]; savePts(); saveAdds(); }
+  else commitPts(card, arr);
+  renderPoints(); refreshFlag();
 });
 
 // ---------- 커스텀 모달 / 토스트 (샌드박스 confirm/alert 대체) ----------
@@ -826,19 +865,52 @@ async function resetFlow(){
       let promoted = 0;
       for(const id of memoIds){
         const card = DECK.find(c=>c.id===id);
-        const yes = await modal({
-          title:"["+card.id+"] 메모 반영",
-          body:card.q+"\n\n── 내 메모 ──\n"+memos[id]+"\n\n이 메모를 정답의 '보완' 항목으로 반영할까요?",
-          actions:[{label:"반영",value:true,kind:"good"},{label:"그대로 둠",value:false}]
+        const memoText = memos[id].trim();
+        // ① 신규 추가 / 기존 대체 / 반영 안 함
+        const mode = await modal({
+          title:"["+card.id+"] 메모 반영 방식",
+          body:card.q+"\n\n── 내 메모 ──\n"+memoText+"\n\n어떻게 반영할까요?",
+          actions:[
+            {label:"신규 추가", value:"add", kind:"good"},
+            {label:"기존 답변 대체", value:"replace", kind:"primary"},
+            {label:"반영 안 함", value:"skip"}
+          ]
         });
-        if(yes){
-          adds[id] = adds[id] || [];
-          adds[id].push(memos[id].trim());
-          delete memos[id];
-          promoted++;
+        if(mode==="skip" || !mode) continue;
+        const eff = effPoints(card);
+        const listBody = eff.map((p,i)=>(i+1)+". "+p.t).join("\n");
+        if(mode==="add"){
+          // ② 어디에 추가할지 선택
+          const acts = [{label:"맨 위", value:0}];
+          eff.forEach((p,i)=> acts.push({label:(i+1)+"번 뒤", value:i+1}));
+          acts.push({label:"취소", value:-1});
+          const pos = await modal({
+            title:"["+card.id+"] 어디에 추가?",
+            body:"현재 정답 항목:\n"+listBody+"\n\n＋ 추가할 내용:\n"+memoText+"\n\n추가할 위치를 고르세요.",
+            actions:acts
+          });
+          if(pos===-1 || pos===undefined) continue;
+          const arr = eff.slice();
+          arr.splice(pos, 0, {t:memoText, k:"add"});
+          commitPts(card, arr);
+          delete memos[id]; promoted++;
+        } else if(mode==="replace"){
+          // ② 어느 항목을 대체할지 선택
+          const acts = eff.map((p,i)=>({label:(i+1)+"번", value:i}));
+          acts.push({label:"취소", value:-1});
+          const ti = await modal({
+            title:"["+card.id+"] 어느 것을 대체?",
+            body:"현재 정답 항목:\n"+listBody+"\n\n→ 대체할 내용:\n"+memoText+"\n\n대체할 항목 번호를 고르세요.",
+            actions:acts
+          });
+          if(ti===-1 || ti===undefined) continue;
+          const arr = eff.slice();
+          arr[ti] = {t:memoText, k:"edit"};
+          commitPts(card, arr);
+          delete memos[id]; promoted++;
         }
       }
-      saveMemos(); saveAdds();
+      saveMemos();
       if(promoted) toast(promoted+"건을 정답에 반영했습니다");
     }
   }
