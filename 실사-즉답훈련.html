@@ -1,0 +1,681 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>현장실사 즉답 훈련</title>
+<style>
+  :root{
+    --paper:#eef1f5; --surface:#ffffff; --surface-2:#f6f8fb;
+    --ink:#16222e; --ink-soft:#4a5b6b; --ink-faint:#7c8a99;
+    --line:#d9e0e8; --line-soft:#e7ecf1;
+    --accent:#1b3a5b; --accent-soft:#31597f; --accent-tint:#eaf1f8;
+    --amber:#b8791f; --amber-tint:#fbf1df;
+    --good:#2e8f5e; --good-tint:#e6f4ec;
+    --soft:#c1861e; --soft-tint:#fbf1dc;
+    --hard:#c34a3f; --hard-tint:#fbe9e7;
+    --shadow:0 1px 2px rgba(20,40,60,.06), 0 8px 26px rgba(20,40,60,.08);
+    --radius:14px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#0f1720; --surface:#16212e; --surface-2:#1b2836;
+      --ink:#e7edf3; --ink-soft:#a7b6c4; --ink-faint:#728496;
+      --line:#2b3a4b; --line-soft:#243342;
+      --accent:#6ea6d8; --accent-soft:#8cbce6; --accent-tint:#182a3b;
+      --amber:#d9a441; --amber-tint:#2a2313;
+      --good:#4cb583; --good-tint:#15291f;
+      --soft:#d3a24a; --soft-tint:#2a2314;
+      --hard:#e07d72; --hard-tint:#2c1a18;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"]{
+    --paper:#eef1f5; --surface:#ffffff; --surface-2:#f6f8fb;
+    --ink:#16222e; --ink-soft:#4a5b6b; --ink-faint:#7c8a99;
+    --line:#d9e0e8; --line-soft:#e7ecf1;
+    --accent:#1b3a5b; --accent-soft:#31597f; --accent-tint:#eaf1f8;
+    --amber:#b8791f; --amber-tint:#fbf1df;
+    --good:#2e8f5e; --good-tint:#e6f4ec; --soft:#c1861e; --soft-tint:#fbf1dc;
+    --hard:#c34a3f; --hard-tint:#fbe9e7;
+    --shadow:0 1px 2px rgba(20,40,60,.06), 0 8px 26px rgba(20,40,60,.08);
+  }
+  :root[data-theme="dark"]{
+    --paper:#0f1720; --surface:#16212e; --surface-2:#1b2836;
+    --ink:#e7edf3; --ink-soft:#a7b6c4; --ink-faint:#728496;
+    --line:#2b3a4b; --line-soft:#243342;
+    --accent:#6ea6d8; --accent-soft:#8cbce6; --accent-tint:#182a3b;
+    --amber:#d9a441; --amber-tint:#2a2313;
+    --good:#4cb583; --good-tint:#15291f; --soft:#d3a24a; --soft-tint:#2a2314;
+    --hard:#e07d72; --hard-tint:#2c1a18;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Pretendard','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',-apple-system,sans-serif;
+    background:var(--paper); color:var(--ink);
+    line-height:1.6; padding:18px 16px 40px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto}
+  .num{font-variant-numeric:tabular-nums}
+
+  /* header */
+  header{margin-bottom:14px}
+  .titlerow{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  h1{font-size:1.32rem;letter-spacing:-.02em;color:var(--ink)}
+  .sub{font-size:.76rem;color:var(--ink-faint);margin-top:2px;letter-spacing:.01em}
+  .theme{background:none;border:1px solid var(--line);color:var(--ink-soft);
+    border-radius:8px;padding:5px 10px;font-size:.72rem;cursor:pointer;font-family:inherit}
+  .theme:hover{border-color:var(--accent)}
+
+  /* progress strip */
+  .stats{display:flex;gap:10px;margin:12px 0 6px;flex-wrap:wrap}
+  .stat{flex:1;min-width:88px;background:var(--surface);border:1px solid var(--line);
+    border-radius:10px;padding:8px 11px;box-shadow:var(--shadow)}
+  .stat .k{font-size:.66rem;color:var(--ink-faint);letter-spacing:.04em;text-transform:uppercase}
+  .stat .v{font-size:1.18rem;font-weight:700;letter-spacing:-.01em;margin-top:1px}
+  .stat .v small{font-size:.72rem;font-weight:500;color:var(--ink-faint)}
+  .bar{height:5px;background:var(--line-soft);border-radius:99px;overflow:hidden;margin-top:8px}
+  .bar > i{display:block;height:100%;width:0;background:var(--accent);
+    border-radius:99px;transition:width .35s ease}
+
+  /* controls */
+  .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0 14px}
+  select,.chip,.ctl{font-family:inherit;font-size:.76rem;color:var(--ink);
+    background:var(--surface);border:1px solid var(--line);border-radius:8px;
+    padding:7px 11px;cursor:pointer}
+  select{padding-right:26px;background-image:linear-gradient(45deg,transparent 50%,var(--ink-faint) 50%),linear-gradient(135deg,var(--ink-faint) 50%,transparent 50%);
+    background-position:calc(100% - 14px) 52%,calc(100% - 9px) 52%;background-size:5px 5px,5px 5px;background-repeat:no-repeat;-webkit-appearance:none;appearance:none}
+  .chip[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+  :root[data-theme="dark"] .chip[aria-pressed="true"],
+  @media (prefers-color-scheme:dark){}
+  .chip:hover,.ctl:hover{border-color:var(--accent)}
+  .spacer{flex:1}
+  .ctl.reset{color:var(--hard);border-color:transparent;background:transparent}
+  .ctl.reset:hover{background:var(--hard-tint);border-color:transparent}
+
+  /* card */
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);overflow:hidden;position:relative}
+  .card.overtime{border-color:var(--soft)}
+  .timerbar{height:3px;background:transparent}
+  .timerbar > i{display:block;height:100%;width:100%;background:var(--amber);border-radius:0 3px 3px 0}
+  .timerbar.run > i{transition:width linear}
+  .body{padding:22px 22px 20px}
+  .eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .cat{font-size:.68rem;font-weight:700;letter-spacing:.05em;color:var(--accent);
+    background:var(--accent-tint);padding:3px 9px;border-radius:99px}
+  .qid{font-size:.68rem;color:var(--ink-faint);font-variant-numeric:tabular-nums;letter-spacing:.03em}
+  .flag{font-size:.66rem;color:var(--ink-faint);margin-left:auto}
+  .flag b{color:var(--ink-soft);font-weight:600}
+  .q{font-size:1.28rem;font-weight:650;letter-spacing:-.015em;line-height:1.42;color:var(--ink);text-wrap:balance}
+  .q .qmark{color:var(--accent);font-weight:800;margin-right:2px}
+
+  .reveal-wrap{margin-top:18px}
+  .btn-reveal{width:100%;background:var(--accent);color:#fff;border:none;border-radius:10px;
+    padding:13px;font-size:.92rem;font-weight:650;font-family:inherit;cursor:pointer;letter-spacing:.01em}
+  :root[data-theme="dark"] .btn-reveal{color:#0f1720}
+  @media (prefers-color-scheme:dark){.btn-reveal{color:#0f1720}}
+  .btn-reveal:hover{background:var(--accent-soft)}
+  .btn-reveal .hint{font-weight:400;opacity:.75;font-size:.74rem;margin-left:6px}
+  .overtime-note{text-align:center;font-size:.74rem;color:var(--soft);font-weight:600;margin-bottom:8px;display:none}
+  .card.overtime .overtime-note{display:block}
+
+  /* answer */
+  .answer{margin-top:16px;border-top:1px dashed var(--line);padding-top:16px;display:none}
+  .answer.show{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .alabel{font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px}
+  ul.points{list-style:none;display:flex;flex-direction:column;gap:7px}
+  ul.points li{position:relative;padding-left:18px;font-size:.96rem;color:var(--ink)}
+  ul.points li::before{content:"";position:absolute;left:3px;top:.62em;width:5px;height:5px;
+    border-radius:50%;background:var(--accent)}
+  .say{margin-top:14px;background:var(--amber-tint);border-left:3px solid var(--amber);
+    border-radius:0 8px 8px 0;padding:11px 14px;font-size:.9rem;color:var(--ink)}
+  .say .l{font-size:.64rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--amber);margin-bottom:4px}
+  .warn{margin-top:12px;background:var(--hard-tint);border-radius:8px;padding:10px 13px;
+    font-size:.85rem;color:var(--ink);display:flex;gap:8px}
+  .warn .i{color:var(--hard);font-weight:700;flex:none}
+
+  /* grade */
+  .grade{margin-top:18px;display:none;gap:8px}
+  .grade.show{display:flex;animation:fade .25s ease}
+  .gbtn{flex:1;border:1px solid var(--line);background:var(--surface-2);border-radius:10px;
+    padding:11px 6px;font-family:inherit;cursor:pointer;color:var(--ink);text-align:center;line-height:1.25}
+  .gbtn b{display:block;font-size:.9rem;font-weight:700}
+  .gbtn span{font-size:.68rem;color:var(--ink-faint)}
+  .gbtn.g:hover{border-color:var(--good);background:var(--good-tint)}
+  .gbtn.s:hover{border-color:var(--soft);background:var(--soft-tint)}
+  .gbtn.h:hover{border-color:var(--hard);background:var(--hard-tint)}
+  .gbtn .kbd{display:inline-block;font-size:.6rem;color:var(--ink-faint);border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:3px;vertical-align:1px}
+
+  /* nav */
+  nav{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:10px}
+  .navbtn{background:var(--surface);border:1px solid var(--line);color:var(--ink-soft);
+    border-radius:9px;padding:9px 15px;font-size:.82rem;font-family:inherit;cursor:pointer}
+  .navbtn:hover:not(:disabled){border-color:var(--accent);color:var(--ink)}
+  .navbtn:disabled{opacity:.38;cursor:default}
+  .pos{font-size:.78rem;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+  .pos b{color:var(--ink);font-weight:700}
+  .status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-left:7px;vertical-align:0}
+  .sd-good{background:var(--good)} .sd-soft{background:var(--soft)} .sd-hard{background:var(--hard)}
+  .sd-none{background:var(--line);border:1px solid var(--ink-faint)}
+
+  .foot{margin-top:16px;font-size:.7rem;color:var(--ink-faint);text-align:center;line-height:1.7}
+  .foot kbd{border:1px solid var(--line);border-radius:4px;padding:0 5px;font-family:inherit;color:var(--ink-soft)}
+  .empty{padding:40px 20px;text-align:center;color:var(--ink-faint);font-size:.9rem}
+  @media (max-width:520px){
+    .body{padding:18px 16px}
+    .q{font-size:1.14rem}
+    .gbtn b{font-size:.82rem}
+    .stat .v{font-size:1.05rem}
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="titlerow">
+      <div>
+        <h1>현장실사 즉답 훈련</h1>
+        <div class="sub">제12회 대한민국 공무원상 현장실사 · ’26.7.27(월) 13:00 · 인사혁신처 · 박성민 연구사</div>
+      </div>
+      <button class="theme" id="theme">◐ 테마</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="k">즉답률</div><div class="v num" id="s-rate">—</div></div>
+      <div class="stat"><div class="k">채점한 문항</div><div class="v num" id="s-done">0<small> 문항</small></div></div>
+      <div class="stat"><div class="k">약한 카드</div><div class="v num" id="s-weak">0<small> 장</small></div></div>
+    </div>
+    <div class="bar"><i id="progbar"></i></div>
+  </header>
+
+  <div class="controls">
+    <select id="cat" aria-label="카테고리 선택"></select>
+    <button class="chip" id="shuffle" aria-pressed="false">🔀 랜덤</button>
+    <button class="chip" id="weak" aria-pressed="false">약한 카드만</button>
+    <button class="chip" id="timer" aria-pressed="false">⏱ 15초</button>
+    <span class="spacer"></span>
+    <button class="ctl reset" id="reset">기록 초기화</button>
+  </div>
+
+  <div class="card" id="card">
+    <div class="timerbar" id="tbar"><i></i></div>
+    <div class="body" id="cardbody">
+      <div class="eyebrow">
+        <span class="cat" id="e-cat">—</span>
+        <span class="qid" id="e-id"></span>
+        <span class="flag" id="e-flag"></span>
+      </div>
+      <div class="q" id="q"><span class="qmark">Q.</span> <span id="qtext"></span></div>
+
+      <div class="reveal-wrap" id="revealWrap">
+        <div class="overtime-note">⏱ 시간 초과 — 실사에서는 즉답이 필요합니다</div>
+        <button class="btn-reveal" id="btnReveal">답 확인 <span class="hint">Space</span></button>
+      </div>
+
+      <div class="answer" id="answer">
+        <div class="alabel">핵심 포인트 — 뼈대만, 자기 말로</div>
+        <ul class="points" id="points"></ul>
+        <div class="say" id="say" hidden><div class="l">말로</div><div id="sayText"></div></div>
+        <div class="warn" id="warn" hidden><span class="i">⚠</span><span id="warnText"></span></div>
+      </div>
+
+      <div class="grade" id="grade">
+        <button class="gbtn g" data-g="good"><b>✓ 즉답</b><span>바로 나옴<span class="kbd">1</span></span></button>
+        <button class="gbtn s" data-g="soft"><b>△ 애매</b><span>더듬음<span class="kbd">2</span></span></button>
+        <button class="gbtn h" data-g="hard"><b>✗ 막힘</b><span>안 떠오름<span class="kbd">3</span></span></button>
+      </div>
+    </div>
+  </div>
+
+  <nav>
+    <button class="navbtn" id="prev">← 이전</button>
+    <div class="pos"><b id="pos-i">0</b> / <span id="pos-n">0</span><span class="status-dot sd-none" id="posdot"></span></div>
+    <button class="navbtn" id="next">다음 →</button>
+  </nav>
+
+  <div class="foot">
+    <kbd>Space</kbd> 답 확인 / 다음 · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 자가채점 · <kbd>←</kbd><kbd>→</kbd> 이동<br>
+    기록은 이 브라우저에 자동 저장됩니다. 답은 외울 문장이 아니라 <b>떠올릴 뼈대</b>입니다.
+  </div>
+</div>
+
+<script>
+"use strict";
+// ---------- 질문 뱅크 (실사-최종-본인용.md 기반) ----------
+const CATS = {
+  "1":"1. 기관 특성","2":"2. 헌신·우수성","3":"3. 가시적 성과","4":"4. 기여도",
+  "5":"5. 언론","6":"6. 미담·역경","7":"7. 인사우대",
+  "A":"A. 공적 설명","C":"C. 성과 검증","D":"D. 소송·신상","E":"E. 평판·마무리",
+  "F":"F. 추가 검증","G":"G. 과기·보완","N":"N. 수치 암기"
+};
+const DECK = [
+  {c:"1",id:"Q1-1",q:"소속 부서의 담당 업무는?",p:[
+    "낙농과 = 젖소 사양·번식·착유 등 낙농 전 분야 국가 연구부서",
+    "중심 업무 = 고령화·노동력 부족 대응 스마트낙농·자동화 기술 개발"]},
+  {c:"1",id:"Q1-2",q:"부서의 중요도·특수성은?",p:[
+    "국내 유일의 낙농 전담 연구조직",
+    "국민 필수식품(우유) 생산 기반을 연구로 뒷받침"]},
+  {c:"1",id:"Q1-3",q:"기관의 핵심 업무인가?",p:[
+    "(정직) 모든 과가 각자의 핵심 임무 — “낙농과만 핵심”은 조심",
+    "단 시급성 최고: 노동 3,661h(3배)·착유 40% / 60대↑ 56.4%·후계 32.1%",
+    "제1회 농진청 특별성과 포상 추천과·본인 수상 → 그 성과가 로봇착유기 국산화·수출"],
+    w:"“우리 과만 핵심”이라고 단정하지 말 것 — 시급성·객관 수상으로 답."},
+  {c:"2",id:"Q2-1",q:"무탈 처리였나, 헌신이었나?",p:[
+    "신념: 기술이 부족해도 로봇착유는 반드시 필요하다 판단",
+    "’14~’16 전국 외산 로봇착유기 실태조사 연구책임자",
+    "전국 순회 기술지원 컨설팅 50회+, 원내 우사 설치 전 과정 참여",
+    "Q&A 책자 3종(국·대만·러) 400부 제작·배포"],
+    s:"어느 하나도 사무실에서 할 수 있는 일이 아니었습니다."},
+  {c:"2",id:"Q2-4",q:"일상 업무 아닌가? 유사 수행자와 비교하면?",p:[
+    "세계 5번째·아시아 최초 — 자국 기술 개발·상용화국 네·스·독·미 다음",
+    "국가 연구기관 차원 국산화·보급 담당은 국내 유일",
+    "보급 17 + 수출 13(조서) → 수출 15(제출 후 +2)",
+    "대만·독일·폴란드 추가 수출 협의 중, ’26.11 독일 출장 예정"]},
+  {c:"2",id:"Q2-6",q:"국민 파급효과가 미약하다는 지적에는?",p:[
+    "우유 = 전 국민 매일 소비, 공급 기반(낙농가) 고령화로 붕괴 중",
+    "착유 자동화 = 낙농가 존속의 문제",
+    "외산 장비·데이터 종속 → 국산 전환 = 식량 산업 기반 수호",
+    "낙농가 무너지면 수입 의존↑ = 소비자 가격·식량 안보 문제"]},
+  {c:"2",id:"Q2-7",q:"과학기술 관련성·타 분야 영향은?",p:[
+    "로봇착유기 = 데이터 생산 공장(산유·유성분·사료섭취)",
+    "외산이면 해외 서버로 → 국산화로 착유 데이터 20만 건 국가 자산화",
+    "AI 3대 강국·소버린 AI를 농축산 현장에서 구현",
+    "AI 알고리즘 6종 자체 개발·제1저자 논문",
+    "후속 특허 2건(3D 유두인식·원유 분리) 제출 후 출원·발명자 참여, AX 스프린트 BCS"]},
+  {c:"2",id:"Q2-8",q:"사회·경제적 효과는? (제품화·파생·평가)",p:[
+    "보급 15농가 17대·2개국 13대 → 16농가 18대·15대",
+    "노동 두당 69.2→41.7h(약 40%↓)·구입비 40%↓ / 인건비 9.4 + 사료비 8.3백만/년",
+    "제출 후 로봇팔 자체 제작 2.4→1.8억",
+    "센서 기술이전 43건·1,553백만(=업체 매출 총액) / 사료급이 부가가치 2,296백만",
+    "’26.5.18 제1회 농진청 특별성과 포상(공개검증·외부심사)"],
+    w:"1,553백만은 센서 계열 — 로봇착유기와 묶지 말 것."},
+  {c:"2",id:"Q2-9",q:"사회적 재난 대응성은?",p:[
+    "(선제 인정) 재난 분야 공적은 아님",
+    "다만 낙농가 고령화·노동력 부족이라는 산업 위기에 대한 기술적 대응"]},
+  {c:"2",id:"Q2-10",q:"담당자로서인가, 국민 입장인가?",p:[
+    "일하는 기준 = 늘 농가·산업 전체의 입장",
+    "생산 데이터를 국가 기관 데이터센터에 수집 → 민간 개방 목적",
+    "독점보다 국가 귀속 → 후발 주자 궤도 진입 지원",
+    "기술이전 계약서에 데이터 공유 특약 — 소신을 조항으로 제도화"]},
+  {c:"3",id:"Q3-1",q:"가장 가시적인 성과 하나는?",p:[
+    "수출 — 아시아 최초 상용화 국산 로봇착유기, 대만 7 + 러 6 = 13대(제출 후 +2→15)",
+    "지금 실험축사에서 실물 가동 중 — 시연 제안 가능"]},
+  {c:"3",id:"Q3-2",q:"성과 산출 근거와 타당성은?",p:[
+    "수출: 계약서·수출신고필증·선적자료",
+    "보급: 농가별 설치 목록·장비번호 (17 + 제출 후 1 = 18)",
+    "성능: 시험성적서 / 데이터: 플랫폼 기록 — 전 수치 원자료 보유"]},
+  {c:"4",id:"Q4-1",q:"시작부터 종료까지 모두 본인이 주도했나?",p:[
+    "(인정) 혼자 다 할 수 없고, 혼자 하려 했다면 실패했을 것 — 기적의 연속",
+    "다만 매 단계에 있었음: ’11.10 임용, ’14~16 책임자·’17 책임자·’19~20 참여",
+    "상용화 = 과가 주도 / ’23.8 복직과 함께 전담",
+    "전담 후 보급 8→17, 수출 13 (전부 NTIS 확인)"]},
+  {c:"4",id:"B-2",q:"복직 후 본인이 '주도적으로' 한 일은? 팀·업체 말고.",p:[
+    "① ’24 하반기 원내 실험축사 실증 체계 — 기획·예산·운영 주도(기안 문서)",
+    "② 농가 50회+ 직접 방문, 고장 원인·운영 교육 → 보급 5→17",
+    "③ 해외 관계자 초빙 직접 시연 → 수출 13(현 15)",
+    "제작은 ㈜다운·기술 기반은 선배, 돌게·팔리게·나가게 만든 것이 내 역할"]},
+  {c:"4",id:"B-3",q:"’19년 실증 과제 참여율 5% — 이름만 올린 것 아닌가?",p:[
+    "주도하지 않은 것은 사실 — 실 대표과제 구조에서 인건비 계상 비율",
+    "’17년 분방 착유기 검증 책임자 경험으로 [담당 부분] 수행",
+    "공적 중심은 복직 이후 — 보급 5→17·수출 13(결재 문서·실적)"]},
+  {c:"4",id:"B-5",q:"복직 후 2년 10개월 만에 다 했다는 건가?",p:[
+    "기반은 과가 마련, 나는 그 위에서 확산·수출에 집중",
+    "그 기간 어디 있었는지는 컨설팅 50여 회가 증명 — 대부분 현장"]},
+  {c:"5",id:"Q5-1",q:"언론에 자주 언급되나?",p:[
+    "로봇착유기 관련 134건(대표 MBC ’25.8.7 수출 보도)",
+    "보급이 더딜 때 보도가 프로젝트의 추진력",
+    "수출 보도 → “국산” 색안경 깨짐, 국내 농가 문의·상담 급증",
+    "국산 등장 후 외산 장비 가격 인하·안정 효과"]},
+  {c:"5",id:"Q5-2",q:"공적이 중요해서인가, 기획성 홍보인가?",p:[
+    "기획 보도는 올해 1건뿐(100선 후보·홍보팀 요청)",
+    "나머지는 자연 보도, MBC도 수출식 행사 취재",
+    "핵심 지표 = 건수 아닌, 보도 → 농가 문의·도입 상담 연결"]},
+  {c:"6",id:"Q6-1",q:"조서의 미담(한계극복·현장접목·업무협력)이 사실인가?",p:[
+    "첫 문장: “모두 사실입니다.”",
+    "① 한계극복 = 과 성과 — 로봇팔 역발상·3D 유두탐지(신의 한 수)",
+    "② 현장접목 = 전부 내가 직접 — 책자 3종 400부·컨설팅 50회+",
+    "③ 업무협력 = 민간↔농진청·부처 간 조정 역할"],
+    w:"특허 분쟁은 전면 비언급 — 어느 문항에서도 먼저 꺼내지 않음."},
+  {c:"6",id:"G-1",q:"가장 힘들었던 순간은?",p:[
+    "복직 직후 농가마다 “국산은 안 된다”던 때 — 방법은 직접 가는 것",
+    "고성 청산목장: 소 적응 실패 → 함께 원인 찾고 기초부터 재교육",
+    "지금은 그 농가 권유로 옆집이 외산 계약 파기, 국산 15호 목장"],
+    w:"실제 일화만·감정 상세 금지 / 소송은 먼저 꺼내지 않음."},
+  {c:"7",id:"Q7-1",q:"우대조치 사전안내를 받았는지?",p:[
+    "“네” — 추천 절차 중 인사부서가 계획·특별승진 요건 설명 + 희망 청취"],
+    w:"면담 미실시 시: “제도 설명은 들었고, 공식 안내 면담은 예정되어 있습니다”로 사실대로."},
+  {c:"7",id:"Q7-2",q:"“약 1/3은 최종 탈락” 안내를 받으면?",p:[
+    "“네, 알고 있습니다. 결과와 무관하게 검증에 성실히 임하겠습니다.”"]},
+  {c:"A",id:"A-1",q:"공적을 직접 설명해 주시죠. (2분 30초)",p:[
+    "한 문장: 아시아 최초 상용화 국산 로봇착유기를 보급 확대·수출로 완성",
+    "상용화 = 과 3차 과제(’17~21) / 나 = ’14책임자·’17책임자·’19참여·’23.8전담",
+    "당시 8대 정체(고장·불신·A/S) → ’24 실증체계 + 농가 50회+ + 책자 3언어 + 99%·13.8%↓",
+    "국내 검증 → 수출 대만 7·러 6 = 13 → 현재 16농가 18·수출 15",
+    "의미: 데이터 20만 건 국가 자산화 + 국산 로봇착유기 수출 가능 입증"]},
+  {c:"C",id:"C-1",q:"수출 주체는 ㈜다운인데 본인 공적인가?",p:[
+    "계약 주체는 ㈜다운 맞음",
+    "바이어는 미검증 장비를 안 삼 — 그 검증이 내 역할",
+    "실험축사 직접 시연·설명, 17대 운영 데이터, 대만·러 Q&A 책자",
+    "민간이 계약하고 국가 연구기관이 기술 신뢰를 보증한 것"]},
+  {c:"C",id:"C-2",q:"보급률 5.4%로 산업 구조를 바꿨다고 할 수 있나?",p:[
+    "맞습니다, 조서 기준 5.4%",
+    "단 전담 후 8→17, 제출 후 18로 계속 증가 추세",
+    "외산 독점 시장에 40% 저렴한 국산 선택지가 생긴 것 자체가 구조 변화"]},
+  {c:"C",id:"C-5",q:"경제효과 수치의 산출 근거는?",p:[
+    "1,553백만 = 기술이전 업체들이 이전 기술로 낸 매출액 총액(센서 43건)",
+    "업체별 기술명·계약일·매출액 구분 자료 준비",
+    "부가가치유발 2,296백만 = [산출 기관·방법론]"],
+    w:"센서 계열 수치 — 로봇착유기와 묶지 말 것."},
+  {c:"C",id:"C-6",q:"일상 업무와 다른 '탁월한' 실적인 이유는?",p:[
+    "① 과의 아시아 최초·세계 5번째 상용화를 시장 성과로 완성한 완결성",
+    "② 외산 독점 시장에 국산 선택지를 만든 구조 변화",
+    "③ 착유 데이터 20만 건을 국가 자산으로 만든 데이터 자립"],
+    s:"꼬리 “5번째 기준?” → 자국 기술로 개발·상용화한 국가 기준(네·스·독·미 다음, 영·덴은 라이선스·인수라 제외)."},
+  {c:"C",id:"C-7",q:"노동시간 3,661h인데 69.2→41.7h? 단위가 안 맞지 않나?",p:[
+    "단위가 다름: 3,661 = 호당/년, 69.2→41.7 = 두당/년(전체 평균, 규모별 상이)",
+    "절감분 = 착유 자동화로 착유 작업 시간이 빠진 것",
+    "조사 농가·기간·계산식 원자료 준비 (검산 3,661÷69.2≈53두)"]},
+  {c:"C",id:"C-9",q:"'2개국 수출'인데 러시아를 유럽이라 하는 건 과장 아닌가?",p:[
+    "대만 7·러 6 등 2개국 13대 수출",
+    "러시아가 유럽·아시아에 걸쳐 그렇게 표기 — “대만과 러시아 2개국”이 정확"],
+    w:"“유럽 진출”을 스스로 강조하지 말 것 — 국가명·대수만."},
+  {c:"C",id:"C-11",q:"기술이전 43건 중 실제 판매 제품은 몇 종, 몇 농가?",p:[
+    "43건 = 계약 건수, 제품화·판매 중은 [제품 종수·명·농가 수 — 확인]",
+    "사업화 매출 1,553백만이 실제 시장 성과 지표"],
+    w:"기술이전 목록에 “제품화 여부” 열을 추가해 즉답 준비."},
+  {c:"C",id:"C-12",q:"수출 13대는 유상 판매인가, 무상지원·실증 물량인가? (반드시 나옴)",p:[
+    "[확인 필수: 유상 판매 / 실증·지원 물량 구분]",
+    "수출계약서·신고필증·인보이스·선적자료로 구분 제시",
+    "설치 완료 / 설치 예정 장비도 구분해 말할 것"],
+    w:"유상 아닌 물량 섞였으면 숨기지 말고 먼저 구분 제시."},
+  {c:"C",id:"C-13",q:"외산보다 40% 저렴하면 성능이 떨어지는 것 아닌가?",p:[
+    "목표는 가격만 아닌 안정성·성능 확보 — 실증으로 99%·13.8%↓",
+    "단 외산은 장기 내구성 경험이 더 많음(인정), 가동자료로 유지보수 보완 중",
+    "제출 후 로봇팔 자체 제작으로 2.4→1.8억 추가 인하"],
+    w:"무조건 “외산보다 우수” 금지 — 현실 인정 + 개선 중이 신뢰를 얻음."},
+  {c:"D",id:"D-1",q:"특허 소송이 언론에 보도됐던데?",p:[
+    "’18년 제소된 위체류형 센서 특허 분쟁 — 최종 승소로 ’22년 초 완전 종결",
+    "상대는 기술이전 파트너와 무관한 별개 업체 / 판결문·확정증명 준비",
+    "위체류형 센서는 현재 5개 업체 29건 기술이전 실시 중"],
+    w:"상대 동기 규정·동병상련·감정 부연 금지."},
+  {c:"D",id:"D-2",q:"휴직 사유는?",p:[
+    "육아휴직 1년 + 질병휴직 6개월",
+    "건강 완전 회복, 복직 후 성과로 증명"],
+    s:"질병 캐물으면: “소송이 길어지며 건강이 나빠져 치료받았고, 완전히 회복했습니다.” 진단명 언급 의무 없음."},
+  {c:"D",id:"D-3",q:"현재 수사·조사·징계 절차 중인 것은?",p:[
+    "없습니다 — 특허도 민사·승소로 종결",
+    "신고할 사항이 생기면 즉시 신고하겠습니다"]},
+  {c:"E",id:"E-1",q:"동료들은 뭐라고 할 것 같나?",p:[
+    "“현장에 가장 많이 나가는 사람” — 실제 듣는 평가",
+    "컨설팅 기록 50여 회가 그 증거"]},
+  {c:"E",id:"E-2",q:"후보 100명 중 왜 본인인가?",p:[
+    "가장 뛰어난 연구자라고는 못함 — 낙농 현장에 가장 가까운 연구자",
+    "13년 현장 최우선 → 조서 15농가 17대(현 16·18) 매일 가동·대만·러 수출"]},
+  {c:"E",id:"E-3",q:"마지막으로 할 말은?",p:[
+    "모든 내용 자료로 확인 가능·추가 자료 언제든 제출",
+    "실험축사에서 실제 돌아가는 로봇착유기 시연 제안"]},
+  {c:"F",id:"F-4",q:"최근 다녀온 농가 세 곳, 이름과 방문 목적은? (불시 검증)",p:[
+    "[농가 1] / [농가 2] / [농가 3] — 전체 기록은 컨설팅 대장",
+    "“확인해 보시겠습니까?”"],
+    w:"소리 내어 즉답 연습 필수 — 기록이 아니라 즉답 여부를 봄."},
+  {c:"F",id:"F-5",q:"설치 농가 중 문제 있는 곳은 없나?",p:[
+    "있습니다 — [실제 사례 1건: 상황·조치]",
+    "문제 농가가 하나도 없다면 사실이 아닐 것",
+    "중요한 건 문제 시 즉시 대응하는 체계 = 국산의 강점"],
+    w:"“없습니다” 금지."},
+  {c:"F",id:"F-7",q:"㈜다운 유착·특혜 시비는? 한 기업 팔아주는 것 아닌가?",p:[
+    "㈜다운 = 공모 절차로 선정된 협력업체",
+    "국유특허는 통상실시(비독점) — 어느 업체든 같은 조건",
+    "센서 등 43건이 여러 업체에 이전·실시 중",
+    "외산 독점 시장에 국산 선택지·경쟁을 만든 것이 우리가 한 일"]},
+  {c:"F",id:"F-9",q:"기술개발은 선배들이 했다면서, 상은 그분들이 받아야 하지 않나?",p:[
+    "그분들의 공이 큼",
+    "단 포상 계기는 상용화가 아니라 수출 — 그 단계는 내가 주도",
+    "’26.5 특별성과 포상도 이 성과로 내 수상(공개검증·외부심사, 보도자료에 내 이름)",
+    "오늘도 선배 성과를 내 것이라 말하지 않았음"]},
+  {c:"G",id:"G-2",q:"과학기술적 기여는 무엇인가?",p:[
+    "핵심기술 30여 종 국산화 → 낙농 선진국 합류(자국 기술 5번째 상용화)",
+    "착유 데이터 20만 건 국가 자산화",
+    "그 데이터로 AI 알고리즘 6종·제1저자 논문"],
+    s:"재난 물으면: 재난 분야는 아니나 낙농가 고령화 산업 위기의 기술적 대응."},
+  {c:"G",id:"G-3",q:"기존 장관표창 공적과 중복 아닌가?",p:[
+    "다른 공적",
+    "’20 장관표창 2건 = 과학기술 유공(’20.4.21)·정부혁신 유공(’20.12.31) [당시 사유 확인]",
+    "이번 = 로봇착유기 보급 확대·수출(’24~26) — 시기·내용 구분"]},
+  {c:"G",id:"G-4",q:"수상하면 특별승진 기대가 있나?",p:[
+    "우대가 있다면 감사한 일",
+    "단 목표는 따로: BCS 측정·AX 스프린트·텐덤형·수출형 신규 과제",
+    "11월 독일 출장으로 현지 사후관리 체계 / K-Farm 데모축사·하노버 K-축산",
+    "상은 그 일을 더 잘하게 해주는 힘"]},
+  // ---- N. 수치 암기 (즉답 드릴) ----
+  {c:"N",id:"N-01",q:"보급 대수는? (복직 시 / 조서 / 현재)",p:[
+    "복직 시 8대 → 조서(’26.4) 15개소 17대(보급률 5.4%)",
+    "전체 310대 = 국립축산과학원 자체 조사 ’26 기준",
+    "현재(’26.7) 16농가 18대"]},
+  {c:"N",id:"N-02",q:"수출 대수는? (조서 / 현재)",p:[
+    "조서 13대 (대만 7·러시아 6)",
+    "현재 15대 (러시아 +2 → 8)"]},
+  {c:"N",id:"N-03",q:"유두탐지 정확도 / 착유시간은?",p:[
+    "유두탐지 정확도 99%",
+    "착유시간 446초 (13.8% 단축)"]},
+  {c:"N",id:"N-04",q:"가격은? (외산 대비 / 현재)",p:[
+    "외산 대비 40%↓ (2.4억)",
+    "제출 후 자체 로봇팔로 1.8억 / K2(2026 최신) 견적도 1.8억"]},
+  {c:"N",id:"N-05",q:"세계 몇 번째 상용화, 기준은?",p:[
+    "세계 5번째·아시아 최초",
+    "자국 기술로 개발·상용화한 국가 기준 (네덜란드·스웨덴·독일·미국 다음)"]},
+  {c:"N",id:"N-06",q:"데이터·AI 수치는?",p:[
+    "착유 데이터 20만 건+ (15개소·98종)",
+    "AI 알고리즘 6종 / 제1저자 논문"]},
+  {c:"N",id:"N-07",q:"사업화 수치는?",p:[
+    "센서 기술이전 43건·1,553백만(업체 매출 총액)",
+    "사료급이 기술이전 126백만·부가가치유발 2,296백만"],
+    w:"로봇착유기와 묶지 말 것 (센서 계열)."},
+  {c:"N",id:"N-08",q:"노동시간 단위는?",p:[
+    "3,661시간 = 호당/년 (타 축종 3배·착유 40%)",
+    "69.2→41.7시간 = 두당/년 (전체 평균)"]},
+  {c:"N",id:"N-09",q:"연간 절감액은?",p:[
+    "농가당/년 인건비 9.4백만 + 사료비 8.3백만"]},
+  {c:"N",id:"N-10",q:"특별성과 포상은?",p:[
+    "’26.5.18 제1회 농진청 특별성과 포상 (조서 제출 이후)",
+    "공개검증·외부심사·운영위, 축산 유일, 포상금 700만원",
+    "보도자료: “박성민 연구사…2개국 15대 수출”"]},
+  {c:"N",id:"N-11",q:"임용·휴직 시기는?",p:[
+    "임용 ’11.10.1 낙농과",
+    "휴직 ’22.2~’23.8 (육아 1년 + 질병 6개월), 수공 13년2월은 제외 수치"]},
+  {c:"N",id:"N-12",q:"착유 연구 이력 3건은?",p:[
+    "’14.2~16.12 착유시스템 생산성 연구책임자",
+    "’17.3~12 국내 개발 분방 착유기 검증 연구책임자",
+    "’19.1~20.1 국산 착유로봇 시제품 실증 참여(5%) — 전부 NTIS"]},
+  {c:"N",id:"N-13",q:"상용화 시점·주체는?",p:[
+    "’21년, 3차 과제(’17~21)",
+    "낙농과·㈜다운 공동, TRL 9"]},
+  {c:"N",id:"N-14",q:"현장 지원(컨설팅·책자)은?",p:[
+    "컨설팅 50회 이상",
+    "Q&A 책자 3종(국문·대만어·러시아어) 400부"]},
+  {c:"N",id:"N-15",q:"언론 보도 건수는?",p:[
+    "로봇착유기 134건 (MBC ’25.8.7 등)",
+    "사료급이 49건 / 센서 126건"]},
+];
+
+// ---------- 상태 ----------
+const LS_KEY = "silsa-drill-v1";
+let store = {};
+try { store = JSON.parse(localStorage.getItem(LS_KEY) || "{}"); } catch(e){ store = {}; }
+function save(){ try { localStorage.setItem(LS_KEY, JSON.stringify(store)); } catch(e){} }
+
+let opt = { cat:"ALL", shuffle:false, weak:false, timer:false };
+let deck = [];      // 현재 필터/정렬된 카드 배열
+let idx = 0;
+let revealed = false;
+let tHandle = null;
+
+const isWeak = id => store[id]==="soft" || store[id]==="hard";
+
+function shuffleArr(a){
+  const r = a.slice();
+  for(let i=r.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [r[i],r[j]]=[r[j],r[i]]; }
+  return r;
+}
+function buildDeck(keepId){
+  let base = DECK.filter(c => opt.cat==="ALL" ? true : c.c===opt.cat);
+  if(opt.weak) base = base.filter(c => isWeak(c.id));
+  deck = opt.shuffle ? shuffleArr(base) : base;
+  if(keepId){ const k = deck.findIndex(c=>c.id===keepId); idx = k>=0?k:0; }
+  else idx = 0;
+  if(idx >= deck.length) idx = 0;
+}
+
+// ---------- 렌더 ----------
+const $ = s => document.querySelector(s);
+function render(){
+  updateStats();
+  const card = deck[idx];
+  const cardEl = $("#card");
+  cardEl.classList.remove("overtime");
+  if(!card){
+    $("#cardbody").innerHTML = '<div class="empty">해당 조건에 카드가 없습니다.<br>필터를 바꾸거나 “약한 카드만”을 꺼 보세요.</div>';
+    $("#prev").disabled = $("#next").disabled = true;
+    $("#pos-i").textContent = "0"; $("#pos-n").textContent = "0";
+    $("#posdot").className = "status-dot sd-none";
+    return;
+  }
+  // 필드
+  $("#e-cat").textContent = CATS[card.c];
+  $("#e-id").textContent = card.id;
+  const st = store[card.id];
+  $("#e-flag").innerHTML = st ? '지난 채점 <b>'+({good:"✓ 즉답",soft:"△ 애매",hard:"✗ 막힘"}[st])+'</b>' : '';
+  $("#qtext").textContent = card.q;
+  // 답
+  $("#points").innerHTML = card.p.map(t=>"<li>"+t+"</li>").join("");
+  if(card.s){ $("#say").hidden=false; $("#sayText").textContent = card.s; } else $("#say").hidden=true;
+  if(card.w){ $("#warn").hidden=false; $("#warnText").textContent = card.w; } else $("#warn").hidden=true;
+  // 리셋
+  revealed = false;
+  $("#answer").classList.remove("show");
+  $("#grade").classList.remove("show");
+  $("#revealWrap").style.display = "";
+  // nav
+  $("#prev").disabled = idx===0;
+  $("#next").disabled = idx===deck.length-1;
+  $("#pos-i").textContent = idx+1;
+  $("#pos-n").textContent = deck.length;
+  $("#posdot").className = "status-dot " + (st?("sd-"+st):"sd-none");
+  startTimer();
+}
+function reveal(){
+  if(revealed || !deck[idx]) return;
+  revealed = true;
+  stopTimer();
+  $("#answer").classList.add("show");
+  $("#grade").classList.add("show");
+  $("#revealWrap").style.display = "none";
+}
+function grade(g){
+  const card = deck[idx]; if(!card) return;
+  store[card.id] = g; save();
+  // 다음으로
+  if(idx < deck.length-1){ idx++; render(); }
+  else { render(); } // 마지막이면 채점만 반영
+}
+function go(d){
+  if(!deck.length) return;
+  const n = idx + d;
+  if(n<0 || n>=deck.length) return;
+  idx = n; render();
+}
+
+// ---------- 타이머 ----------
+function stopTimer(){
+  if(tHandle){ clearTimeout(tHandle); tHandle=null; }
+  const bar = $("#tbar"); bar.classList.remove("run");
+  bar.querySelector("i").style.width = "100%";
+}
+function startTimer(){
+  stopTimer();
+  const bar = $("#tbar"); const fill = bar.querySelector("i");
+  if(!opt.timer){ fill.style.width="100%"; fill.style.opacity="0"; return; }
+  fill.style.opacity="1";
+  fill.style.transition="none"; fill.style.width="100%";
+  // 강제 reflow 후 애니메이션
+  void fill.offsetWidth;
+  bar.classList.add("run");
+  fill.style.transitionDuration = "15s";
+  fill.style.width = "0%";
+  tHandle = setTimeout(()=>{ $("#card").classList.add("overtime"); }, 15000);
+}
+
+// ---------- 통계 ----------
+function updateStats(){
+  const ids = new Set(DECK.map(c=>c.id));
+  let good=0, done=0, weak=0;
+  DECK.forEach(c=>{
+    const s = store[c.id];
+    if(s){ done++; if(s==="good") good++; if(s==="soft"||s==="hard") weak++; }
+  });
+  $("#s-rate").textContent = done ? Math.round(good/done*100)+"%" : "—";
+  $("#s-done").innerHTML = done + '<small> / '+DECK.length+'</small>';
+  $("#s-weak").innerHTML = weak + '<small> 장</small>';
+  $("#progbar").style.width = (done/DECK.length*100)+"%";
+}
+
+// ---------- 컨트롤 ----------
+function initCat(){
+  const sel = $("#cat");
+  const counts = {};
+  DECK.forEach(c=> counts[c.c]=(counts[c.c]||0)+1);
+  let html = '<option value="ALL">전체 ('+DECK.length+')</option>';
+  Object.keys(CATS).forEach(k=>{
+    if(counts[k]) html += '<option value="'+k+'">'+CATS[k]+' ('+counts[k]+')</option>';
+  });
+  sel.innerHTML = html;
+  sel.value = opt.cat;
+}
+function toggle(btn, key){
+  opt[key] = !opt[key];
+  btn.setAttribute("aria-pressed", opt[key]);
+  const keep = deck[idx] && deck[idx].id;
+  buildDeck(key==="weak"?null:keep);
+  render();
+}
+
+// events
+$("#cat").addEventListener("change", e=>{ opt.cat=e.target.value; buildDeck(); render(); });
+$("#shuffle").addEventListener("click", e=>toggle(e.currentTarget,"shuffle"));
+$("#weak").addEventListener("click", e=>toggle(e.currentTarget,"weak"));
+$("#timer").addEventListener("click", e=>{ toggle(e.currentTarget,"timer"); });
+$("#reset").addEventListener("click", ()=>{
+  if(confirm("모든 자가채점 기록을 지울까요?")){ store={}; save(); buildDeck(); render(); }
+});
+$("#btnReveal").addEventListener("click", reveal);
+$("#grade").addEventListener("click", e=>{ const b=e.target.closest(".gbtn"); if(b) grade(b.dataset.g); });
+$("#prev").addEventListener("click", ()=>go(-1));
+$("#next").addEventListener("click", ()=>go(1));
+
+// theme toggle
+const root = document.documentElement;
+$("#theme").addEventListener("click", ()=>{
+  const cur = root.getAttribute("data-theme");
+  const sysDark = window.matchMedia("(prefers-color-scheme:dark)").matches;
+  const now = cur ? cur : (sysDark?"dark":"light");
+  root.setAttribute("data-theme", now==="dark"?"light":"dark");
+});
+
+// keyboard
+document.addEventListener("keydown", e=>{
+  if(e.target.tagName==="SELECT") return;
+  if(e.code==="Space"){ e.preventDefault(); if(!revealed) reveal(); else go(1); }
+  else if(e.key==="1" && revealed) grade("good");
+  else if(e.key==="2" && revealed) grade("soft");
+  else if(e.key==="3" && revealed) grade("hard");
+  else if(e.key==="ArrowRight") go(1);
+  else if(e.key==="ArrowLeft") go(-1);
+  else if(e.key==="r"||e.key==="R"){ if(!revealed) reveal(); }
+});
+
+// init
+initCat();
+buildDeck();
+render();
+</script>
