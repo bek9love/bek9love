@@ -191,7 +191,28 @@
 
   .foot{margin-top:16px;font-size:.7rem;color:var(--ink-faint);text-align:center;line-height:1.7}
   .foot kbd{border:1px solid var(--line);border-radius:4px;padding:0 5px;font-family:inherit;color:var(--ink-soft)}
-  .empty{padding:40px 20px;text-align:center;color:var(--ink-faint);font-size:.9rem}
+  .empty{padding:40px 20px;text-align:center;color:var(--ink-faint);font-size:.9rem;line-height:1.7}
+
+  /* 모달 / 토스트 (샌드박스에서 confirm/alert 차단 대체) */
+  .ov{position:fixed;inset:0;background:rgba(8,16,26,.58);display:flex;align-items:center;
+    justify-content:center;padding:20px;z-index:100}
+  .dlg{background:var(--surface);border:1px solid var(--line);border-radius:14px;max-width:460px;
+    width:100%;box-shadow:0 24px 64px rgba(0,0,0,.4);overflow:hidden;animation:pop .18s ease}
+  @keyframes pop{from{opacity:0;transform:scale(.96) translateY(6px)}to{opacity:1;transform:none}}
+  .dlg-t{font-size:1rem;font-weight:700;padding:17px 19px 0;color:var(--ink)}
+  .dlg-b{padding:9px 19px 4px;font-size:.9rem;color:var(--ink-soft);white-space:pre-wrap;
+    line-height:1.6;max-height:54vh;overflow:auto}
+  .dlg-a{display:flex;gap:8px;justify-content:flex-end;padding:15px 19px 17px;flex-wrap:wrap}
+  .dlg-btn{font-family:inherit;font-size:.84rem;font-weight:650;border-radius:9px;padding:9px 16px;
+    cursor:pointer;border:1px solid var(--line);background:var(--surface-2);color:var(--ink)}
+  .dlg-btn:hover{border-color:var(--ink-faint)}
+  .dlg-btn.primary{background:#1b3a5b;border-color:#1b3a5b;color:#fff}
+  .dlg-btn.good{background:#2e8f5e;border-color:#2e8f5e;color:#fff}
+  .dlg-btn.hard{background:#c34a3f;border-color:#c34a3f;color:#fff}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#1b3a5b;color:#fff;
+    padding:10px 20px;border-radius:99px;font-size:.84rem;font-weight:600;z-index:110;
+    box-shadow:0 10px 28px rgba(0,0,0,.35);animation:pop .18s ease}
+  @media (prefers-reduced-motion:reduce){.dlg,.toast{animation:none}}
   @media (max-width:520px){
     .body{padding:18px 16px}
     .q{font-size:1.14rem}
@@ -264,6 +285,7 @@
         <textarea id="memo" placeholder="이 질문을 보고 떠오른 답변 보완 아이디어를 적어두세요…"></textarea>
       </div>
     </div>
+    <div class="empty" id="empty" hidden></div>
   </div>
 
   <nav>
@@ -277,6 +299,15 @@
     기록은 이 브라우저에 자동 저장됩니다. 답은 외울 문장이 아니라 <b>떠올릴 뼈대</b>입니다.
   </div>
 </div>
+
+<div class="ov" id="ov" hidden>
+  <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dlgT">
+    <div class="dlg-t" id="dlgT"></div>
+    <div class="dlg-b" id="dlgB"></div>
+    <div class="dlg-a" id="dlgA"></div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
 
 <script>
 "use strict";
@@ -582,12 +613,18 @@ function render(){
   const cardEl = $("#card");
   cardEl.classList.remove("overtime");
   if(!card){
-    $("#cardbody").innerHTML = '<div class="empty">해당 조건에 카드가 없습니다.<br>필터를 바꾸거나 “약한 카드만”을 꺼 보세요.</div>';
+    stopTimer();
+    $("#cardbody").style.display = "none";
+    const emptyEl = $("#empty");
+    emptyEl.hidden = false;
+    emptyEl.innerHTML = '해당 조건에 카드가 없습니다.<br>필터를 바꾸거나 “약한 카드만”을 꺼 보세요.';
     $("#prev").disabled = $("#next").disabled = true;
     $("#pos-i").textContent = "0"; $("#pos-n").textContent = "0";
     $("#posdot").className = "status-dot sd-none";
     return;
   }
+  $("#cardbody").style.display = "";
+  $("#empty").hidden = true;
   // 필드
   $("#e-cat").textContent = CATS[card.c];
   $("#e-id").textContent = card.id;
@@ -733,37 +770,72 @@ $("#adds").addEventListener("click", e=>{
   saveAdds(); render();
 });
 
+// ---------- 커스텀 모달 / 토스트 (샌드박스 confirm/alert 대체) ----------
+let modalOpen = false;
+function modal({title, body, actions}){
+  return new Promise(resolve=>{
+    modalOpen = true;
+    const ov = $("#ov"), aWrap = $("#dlgA");
+    $("#dlgT").textContent = title || "";
+    $("#dlgB").textContent = body || "";
+    aWrap.innerHTML = "";
+    const close = val => { ov.hidden = true; modalOpen = false; resolve(val); };
+    actions.forEach(ac=>{
+      const b = document.createElement("button");
+      b.className = "dlg-btn" + (ac.kind ? " "+ac.kind : "");
+      b.textContent = ac.label;
+      b.addEventListener("click", ()=>close(ac.value));
+      aWrap.appendChild(b);
+    });
+    ov._close = () => close(actions[actions.length-1].value); // ESC/배경 = 마지막(취소성) 값
+    ov.hidden = false;
+    const f = aWrap.querySelector(".dlg-btn"); if(f) f.focus();
+  });
+}
+function toast(msg){
+  const t = $("#toast");
+  t.textContent = msg; t.hidden = false;
+  clearTimeout(t._h); t._h = setTimeout(()=>{ t.hidden = true; }, 1900);
+}
+// 배경 클릭·ESC로 모달 닫기(취소 처리)
+$("#ov").addEventListener("click", e=>{ if(e.target.id==="ov" && $("#ov")._close) $("#ov")._close(); });
+
 // 초기화: 메모를 정답에 반영할지 물은 뒤 점수 초기화
-function resetFlow(){
+async function resetFlow(){
+  if(modalOpen) return;
   const memoIds = Object.keys(memos).filter(id => memos[id] && memos[id].trim() && DECK.some(c=>c.id===id));
   if(memoIds.length){
-    const review = confirm(
-      "메모가 "+memoIds.length+"건 있습니다.\n\n"+
-      "각 메모를 정답(보완 항목)에 반영할지 하나씩 확인할까요?\n반영된 메모는 다음 테스트의 정답에 함께 표시됩니다.\n\n"+
-      "[확인] 하나씩 검토   [취소] 메모는 그대로 두고 건너뛰기");
+    const review = await modal({
+      title:"메모를 정답에 반영할까요?",
+      body:"작성한 메모가 "+memoIds.length+"건 있습니다.\n\n각 메모를 정답(보완 항목)에 반영할지 하나씩 확인할 수 있습니다. 반영된 메모는 다음 테스트의 정답에 함께 표시됩니다.",
+      actions:[{label:"하나씩 검토",value:true,kind:"primary"},{label:"건너뛰기",value:false}]
+    });
     if(review){
       let promoted = 0;
-      memoIds.forEach(id=>{
+      for(const id of memoIds){
         const card = DECK.find(c=>c.id===id);
-        const yes = confirm(
-          "["+card.id+"] "+card.q+"\n\n"+
-          "내 메모:\n"+memos[id]+"\n\n"+
-          "이 메모를 정답의 '보완' 항목으로 반영할까요?\n\n"+
-          "[확인] 반영(메모→정답)   [취소] 메모 그대로 둠");
+        const yes = await modal({
+          title:"["+card.id+"] 메모 반영",
+          body:card.q+"\n\n── 내 메모 ──\n"+memos[id]+"\n\n이 메모를 정답의 '보완' 항목으로 반영할까요?",
+          actions:[{label:"반영",value:true,kind:"good"},{label:"그대로 둠",value:false}]
+        });
         if(yes){
           adds[id] = adds[id] || [];
           adds[id].push(memos[id].trim());
           delete memos[id];
           promoted++;
         }
-      });
+      }
       saveMemos(); saveAdds();
-      if(promoted) alert(promoted+"건의 메모를 정답에 반영했습니다.");
+      if(promoted) toast(promoted+"건을 정답에 반영했습니다");
     }
   }
-  if(confirm("자가채점 점수를 초기화할까요?\n(메모·보완 항목은 유지됩니다)")){
-    store = {}; save();
-  }
+  const clr = await modal({
+    title:"자가채점 점수 초기화",
+    body:"모든 즉답/애매/막힘 채점 기록을 지울까요?\n(메모·보완 항목은 유지됩니다)",
+    actions:[{label:"초기화",value:true,kind:"hard"},{label:"취소",value:false}]
+  });
+  if(clr){ store = {}; save(); toast("점수를 초기화했습니다"); }
   buildDeck(deck[idx] && deck[idx].id); render();
 }
 $("#grade").addEventListener("click", e=>{ const b=e.target.closest(".gbtn"); if(b) grade(b.dataset.g); });
@@ -781,6 +853,7 @@ $("#theme").addEventListener("click", ()=>{
 
 // keyboard
 document.addEventListener("keydown", e=>{
+  if(modalOpen){ if(e.key==="Escape" && $("#ov")._close) $("#ov")._close(); return; }
   const tag = e.target.tagName;
   if(tag==="SELECT" || tag==="TEXTAREA" || tag==="INPUT") return;
   if(e.code==="Space"){ e.preventDefault(); if(!revealed) reveal(); else go(1); }
