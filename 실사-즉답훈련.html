@@ -982,8 +982,8 @@ function toggle(btn, key){
 $("#cat").addEventListener("change", e=>{ opt.cat=e.target.value; setIds=null; buildDeck(); render(); });
 $("#shuffle").addEventListener("click", e=>toggle(e.currentTarget,"shuffle"));
 $("#btnNewset").addEventListener("click", ()=>newSet());
-$("#btnReport").addEventListener("click", ()=>{ if(deck.length) showReport(); });
-$("#dbReport").addEventListener("click", ()=>{ if(deck.length) showReport(); });
+$("#btnReport").addEventListener("click", askMemoThenReport);
+$("#dbReport").addEventListener("click", askMemoThenReport);
 $("#dbNew").addEventListener("click", ()=>newSet());
 $("#timer").addEventListener("click", e=>{
   // 타이머는 덱/공개상태를 건드리지 않고 독립 처리
@@ -1127,67 +1127,82 @@ function showRestore(){
 }
 
 // 초기화: 메모를 정답에 반영할지 물은 뒤 점수 초기화
+// 메모를 정답에 반영하는 공통 루프(각 메모: 추가/대체 선택, 현재 정답 표시)
+async function reflectMemos(memoIds){
+  let promoted = 0;
+  for(const id of memoIds){
+    const card = DECK.find(c=>c.id===id);
+    const memoText = memos[id].trim();
+    const eff = effPoints(card);
+    const listBody = eff.map((p,i)=>(i+1)+". "+p.t).join("\n");
+    // ① 신규 추가 / 기존 대체 / 반영 안 함 — 현재 정답을 함께 보여줌
+    const mode = await modal({
+      title:"["+card.id+"] 메모 반영 방식",
+      body:card.q+"\n\n── 현재 정답 ──\n"+listBody+"\n\n── 내 메모 ──\n"+memoText+"\n\n어떻게 반영할까요?",
+      actions:[
+        {label:"신규 추가", value:"add", kind:"good"},
+        {label:"기존 답변 대체", value:"replace", kind:"primary"},
+        {label:"반영 안 함", value:"skip"}
+      ]
+    });
+    if(mode==="skip" || !mode) continue;
+    if(mode==="add"){
+      const acts = [{label:"맨 위", value:0}];
+      eff.forEach((p,i)=> acts.push({label:(i+1)+"번 뒤", value:i+1}));
+      acts.push({label:"취소", value:-1});
+      const pos = await modal({
+        title:"["+card.id+"] 어디에 추가?",
+        body:"현재 정답 항목:\n"+listBody+"\n\n＋ 추가할 내용:\n"+memoText+"\n\n추가할 위치를 고르세요.",
+        actions:acts
+      });
+      if(pos===-1 || pos===undefined) continue;
+      const arr = eff.slice();
+      arr.splice(pos, 0, {t:memoText, k:"add"});
+      commitPts(card, arr);
+      delete memos[id]; promoted++;
+    } else if(mode==="replace"){
+      const acts = eff.map((p,i)=>({label:(i+1)+"번", value:i}));
+      acts.push({label:"취소", value:-1});
+      const ti = await modal({
+        title:"["+card.id+"] 어느 것을 대체?",
+        body:"현재 정답 항목:\n"+listBody+"\n\n→ 대체할 내용:\n"+memoText+"\n\n대체할 항목 번호를 고르세요.",
+        actions:acts
+      });
+      if(ti===-1 || ti===undefined) continue;
+      const arr = eff.slice();
+      arr[ti] = {t:memoText, k:"edit"};
+      commitPts(card, arr);
+      delete memos[id]; promoted++;
+    }
+  }
+  saveMemos();
+  if(promoted) toast(promoted+"건을 정답에 반영했습니다");
+  return promoted;
+}
+// 메모가 있으면 반영을 물은 뒤 결과 보고서 표시(세트 중간에도 결과 버튼으로 호출)
+async function askMemoThenReport(){
+  if(modalOpen || !deck.length) return;
+  const memoIds = Object.keys(memos).filter(id => memos[id] && memos[id].trim() && DECK.some(c=>c.id===id));
+  if(memoIds.length){
+    const go = await modal({
+      title:"메모를 정답에 반영할까요?",
+      body:"작성한 메모가 "+memoIds.length+"건 있습니다.\n결과를 보기 전에 정답에 반영할지 하나씩 확인할 수 있습니다.",
+      actions:[{label:"하나씩 검토",value:true,kind:"primary"},{label:"나중에",value:false}]
+    });
+    if(go) await reflectMemos(memoIds);
+  }
+  showReport();
+}
 async function resetFlow(){
   if(modalOpen) return;
   const memoIds = Object.keys(memos).filter(id => memos[id] && memos[id].trim() && DECK.some(c=>c.id===id));
   if(memoIds.length){
     const review = await modal({
       title:"메모를 정답에 반영할까요?",
-      body:"작성한 메모가 "+memoIds.length+"건 있습니다.\n\n각 메모를 정답(보완 항목)에 반영할지 하나씩 확인할 수 있습니다. 반영된 메모는 다음 테스트의 정답에 함께 표시됩니다.",
+      body:"작성한 메모가 "+memoIds.length+"건 있습니다.\n\n각 메모를 정답에 반영할지 하나씩 확인할 수 있습니다. 반영된 메모는 다음 테스트의 정답에 함께 표시됩니다.",
       actions:[{label:"하나씩 검토",value:true,kind:"primary"},{label:"건너뛰기",value:false}]
     });
-    if(review){
-      let promoted = 0;
-      for(const id of memoIds){
-        const card = DECK.find(c=>c.id===id);
-        const memoText = memos[id].trim();
-        // ① 신규 추가 / 기존 대체 / 반영 안 함
-        const mode = await modal({
-          title:"["+card.id+"] 메모 반영 방식",
-          body:card.q+"\n\n── 내 메모 ──\n"+memoText+"\n\n어떻게 반영할까요?",
-          actions:[
-            {label:"신규 추가", value:"add", kind:"good"},
-            {label:"기존 답변 대체", value:"replace", kind:"primary"},
-            {label:"반영 안 함", value:"skip"}
-          ]
-        });
-        if(mode==="skip" || !mode) continue;
-        const eff = effPoints(card);
-        const listBody = eff.map((p,i)=>(i+1)+". "+p.t).join("\n");
-        if(mode==="add"){
-          // ② 어디에 추가할지 선택
-          const acts = [{label:"맨 위", value:0}];
-          eff.forEach((p,i)=> acts.push({label:(i+1)+"번 뒤", value:i+1}));
-          acts.push({label:"취소", value:-1});
-          const pos = await modal({
-            title:"["+card.id+"] 어디에 추가?",
-            body:"현재 정답 항목:\n"+listBody+"\n\n＋ 추가할 내용:\n"+memoText+"\n\n추가할 위치를 고르세요.",
-            actions:acts
-          });
-          if(pos===-1 || pos===undefined) continue;
-          const arr = eff.slice();
-          arr.splice(pos, 0, {t:memoText, k:"add"});
-          commitPts(card, arr);
-          delete memos[id]; promoted++;
-        } else if(mode==="replace"){
-          // ② 어느 항목을 대체할지 선택
-          const acts = eff.map((p,i)=>({label:(i+1)+"번", value:i}));
-          acts.push({label:"취소", value:-1});
-          const ti = await modal({
-            title:"["+card.id+"] 어느 것을 대체?",
-            body:"현재 정답 항목:\n"+listBody+"\n\n→ 대체할 내용:\n"+memoText+"\n\n대체할 항목 번호를 고르세요.",
-            actions:acts
-          });
-          if(ti===-1 || ti===undefined) continue;
-          const arr = eff.slice();
-          arr[ti] = {t:memoText, k:"edit"};
-          commitPts(card, arr);
-          delete memos[id]; promoted++;
-        }
-      }
-      saveMemos();
-      if(promoted) toast(promoted+"건을 정답에 반영했습니다");
-    }
+    if(review) await reflectMemos(memoIds);
   }
   const clr = await modal({
     title:"자가채점 점수 초기화",
