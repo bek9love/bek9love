@@ -226,6 +226,42 @@
     padding:10px 20px;border-radius:99px;font-size:.84rem;font-weight:600;z-index:110;
     box-shadow:0 10px 28px rgba(0,0,0,.35);animation:pop .18s ease}
   @media (prefers-reduced-motion:reduce){.dlg,.toast{animation:none}}
+
+  /* 정답 원본 복원 / 완료 배너 / 결과 보고서 */
+  .revert{margin-top:12px;background:none;border:1px dashed var(--line);color:var(--ink-faint);
+    font-family:inherit;font-size:.76rem;padding:6px 12px;border-radius:8px;cursor:pointer}
+  .revert:hover{border-color:var(--amber);color:var(--amber)}
+  .donebar{background:var(--good-tint);border:1px solid var(--good);border-radius:10px;
+    padding:9px 13px;margin-bottom:12px;font-size:.85rem;color:var(--ink);text-align:center}
+  .linkb{background:none;border:none;color:var(--accent);font-family:inherit;font-size:.85rem;
+    font-weight:700;cursor:pointer;padding:2px 4px}
+  .linkb:hover{text-decoration:underline}
+  .report{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:22px}
+  .rep-h{font-size:1.15rem;font-weight:700;color:var(--accent)}
+  .rep-sub{font-size:.78rem;color:var(--ink-faint);margin-bottom:14px}
+  .rep-rate{font-size:2.6rem;font-weight:800;letter-spacing:-.02em;line-height:1}
+  .rep-rate small{font-size:.9rem;font-weight:600;color:var(--ink-faint);letter-spacing:0}
+  .rep-tiles{display:flex;gap:8px;margin:16px 0}
+  .rtile{flex:1;border-radius:10px;padding:11px;text-align:center;border:1px solid var(--line)}
+  .rtile .n{font-size:1.4rem;font-weight:700;font-variant-numeric:tabular-nums}
+  .rtile .l{font-size:.68rem;color:var(--ink-faint);margin-top:2px}
+  .rtile.g{background:var(--good-tint)} .rtile.g .n{color:var(--good)}
+  .rtile.s{background:var(--soft-tint)} .rtile.s .n{color:var(--soft)}
+  .rtile.h{background:var(--hard-tint)} .rtile.h .n{color:var(--hard)}
+  .rep-wl-t{font-size:.72rem;font-weight:700;color:var(--ink-soft);letter-spacing:.03em;margin:6px 0}
+  .wrow{display:flex;gap:8px;align-items:baseline;padding:8px 10px;border:1px solid var(--line-soft);
+    border-radius:8px;margin-bottom:5px;cursor:pointer;background:var(--surface-2);text-align:left;width:100%;font-family:inherit}
+  .wrow:hover{border-color:var(--accent)}
+  .wrow .wid{font-size:.66rem;font-weight:700;color:var(--ink-faint);flex:none;font-variant-numeric:tabular-nums}
+  .wrow .wq{font-size:.82rem;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+  .wrow .wk{font-size:.62rem;font-weight:700;padding:1px 6px;border-radius:99px;flex:none}
+  .wk.s{background:var(--soft-tint);color:var(--soft)} .wk.h{background:var(--hard-tint);color:var(--hard)}
+  .rep-perfect{background:var(--good-tint);color:var(--good);border-radius:10px;padding:12px;text-align:center;font-weight:700;margin:6px 0}
+  .rep-acts{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+  .rep-acts button{flex:1;min-width:120px;font-family:inherit;font-size:.84rem;font-weight:650;border-radius:9px;padding:11px;cursor:pointer;border:1px solid var(--line)}
+  .rep-acts .ra-all{background:#1b3a5b;color:#fff;border-color:#1b3a5b}
+  .rep-acts .ra-weak{background:#c1861e;color:#fff;border-color:#c1861e}
+  .rep-acts .ra-close{background:var(--surface-2);color:var(--ink)}
   @media (max-width:520px){
     .body{padding:18px 16px}
     .q{font-size:1.14rem}
@@ -256,11 +292,14 @@
   <div class="controls">
     <select id="cat" aria-label="카테고리 선택"></select>
     <button class="chip" id="shuffle" aria-pressed="false">🔀 랜덤</button>
-    <button class="chip" id="weak" aria-pressed="false">약한 카드만</button>
     <button class="chip" id="timer" aria-pressed="false">⏱ 15초</button>
+    <button class="ctl" id="btnNewset">🔁 새 세트</button>
+    <button class="ctl" id="btnReport">📊 결과</button>
     <span class="spacer"></span>
     <button class="ctl reset" id="reset">기록 초기화</button>
   </div>
+
+  <div class="donebar" id="donebar" hidden>✓ 이 세트를 모두 풀었습니다. <button class="linkb" id="dbReport">📊 결과 보기</button> · <button class="linkb" id="dbNew">🔁 새 세트</button></div>
 
   <div class="card" id="card">
     <div class="timerbar" id="tbar"><i></i></div>
@@ -281,6 +320,7 @@
         <div class="alabel">핵심 포인트 — 뼈대만, 자기 말로</div>
         <ul class="points" id="points"></ul>
         <div class="adds" id="adds"></div>
+        <button class="revert" id="revertPts" hidden>↺ 이 카드 정답을 원본으로 되돌리기</button>
         <div class="say" id="say" hidden><div class="l">말로</div><div id="sayText"></div></div>
         <div class="warn" id="warn" hidden><span class="i">⚠</span><span id="warnText"></span></div>
       </div>
@@ -308,9 +348,11 @@
     <button class="navbtn" id="next">다음 →</button>
   </nav>
 
+  <div class="report" id="report" hidden></div>
+
   <div class="foot">
-    <kbd>Space</kbd> 답 확인 / 다음 · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 자가채점 · <kbd>←</kbd><kbd>→</kbd> 이동<br>
-    기록은 이 브라우저에 자동 저장됩니다. 답은 외울 문장이 아니라 <b>떠올릴 뼈대</b>입니다.
+    <kbd>Space</kbd> 답 확인 / 다음(미제출) · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 자가채점 · <kbd>←</kbd><kbd>→</kbd> 이동<br>
+    ‘다음’은 아직 안 푼 문항으로 넘어갑니다. 세트를 모두 풀면 <b>결과 보고서</b>가 나옵니다. 기록은 이 브라우저에 자동 저장됩니다.
   </div>
 </div>
 
@@ -614,13 +656,25 @@ function commitPts(card, arr){
 }
 function esc(s){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
-let opt = { cat:"ALL", shuffle:false, weak:false, timer:false };
-let deck = [];      // 현재 필터/정렬된 카드 배열
+let opt = { cat:"ALL", shuffle:false, timer:false };
+let deck = [];      // 현재 세트(필터/정렬된 카드 배열)
+let setIds = null;  // 명시적 세트(약한 것만 다시 등). null이면 카테고리 기준
 let idx = 0;
 let revealed = false;
 let tHandle = null;
 
 const isWeak = id => store[id]==="soft" || store[id]==="hard";
+// 세트 진행 판정
+const setComplete = () => deck.length>0 && deck.every(c=>store[c.id]);
+function nextUngradedIndex(from){
+  const n = deck.length;
+  for(let s=1;s<=n;s++){ const j=(from+s)%n; if(!store[deck[j].id]) return j; }
+  return -1;
+}
+function firstUngradedIndex(){
+  for(let i=0;i<deck.length;i++){ if(!store[deck[i].id]) return i; }
+  return -1;
+}
 
 function shuffleArr(a){
   const r = a.slice();
@@ -628,11 +682,12 @@ function shuffleArr(a){
   return r;
 }
 function buildDeck(keepId){
-  let base = DECK.filter(c => opt.cat==="ALL" ? true : c.c===opt.cat);
-  if(opt.weak) base = base.filter(c => isWeak(c.id));
+  let base;
+  if(setIds){ const s=new Set(setIds); base = DECK.filter(c => s.has(c.id)); }
+  else base = DECK.filter(c => opt.cat==="ALL" ? true : c.c===opt.cat);
   deck = opt.shuffle ? shuffleArr(base) : base;
   if(keepId){ const k = deck.findIndex(c=>c.id===keepId); idx = k>=0?k:0; }
-  else idx = 0;
+  else { const fu = firstUngradedIndex(); idx = fu>=0 ? fu : 0; }  // 미제출 문항부터
   if(idx >= deck.length) idx = 0;
 }
 
@@ -661,6 +716,8 @@ function renderPoints(){
     return '<li class="'+cls.trim()+'" data-i="'+i+'">'+mark+esc(p.t)+del+'</li>';
   }).join("");
   $("#adds").innerHTML = "";
+  const edited = eff.some(p=>p.k!=="base");
+  $("#revertPts").hidden = !edited;
 }
 function render(){
   updateStats();
@@ -672,14 +729,19 @@ function render(){
     $("#cardbody").style.display = "none";
     const emptyEl = $("#empty");
     emptyEl.hidden = false;
-    emptyEl.innerHTML = '해당 조건에 카드가 없습니다.<br>필터를 바꾸거나 “약한 카드만”을 꺼 보세요.';
+    emptyEl.innerHTML = '해당 조건에 카드가 없습니다.<br>카테고리를 바꾸거나 “🔁 새 세트”를 눌러 보세요.';
     $("#prev").disabled = $("#next").disabled = true;
     $("#pos-i").textContent = "0"; $("#pos-n").textContent = "0";
     $("#posdot").className = "status-dot sd-none";
+    $("#donebar").hidden = true;
     return;
   }
+  reportOpen = false;
+  $("#report").hidden = true;
+  $("#card").style.display = "";
   $("#cardbody").style.display = "";
   $("#empty").hidden = true;
+  $("#donebar").hidden = !setComplete();
   // 필드
   $("#e-cat").textContent = CATS[card.c];
   $("#e-id").textContent = card.id;
@@ -701,9 +763,9 @@ function render(){
   $("#answer").classList.remove("show");
   $("#grade").classList.remove("show");
   $("#revealWrap").style.display = "";
-  // nav
+  // nav — 미완료 세트에선 '다음'이 미제출 문항으로, 완료 세트에선 순차 검토
   $("#prev").disabled = idx===0;
-  $("#next").disabled = idx===deck.length-1;
+  $("#next").disabled = setComplete() ? (idx===deck.length-1) : (nextUngradedIndex(idx)===-1);
   $("#pos-i").textContent = idx+1;
   $("#pos-n").textContent = deck.length;
   $("#posdot").className = "status-dot " + (st?("sd-"+st):"sd-none");
@@ -720,16 +782,86 @@ function reveal(){
 }
 function grade(g){
   const card = deck[idx]; if(!card) return;
+  const before = setComplete();
   store[card.id] = g; save();
-  // 다음으로
-  if(idx < deck.length-1){ idx++; render(); }
-  else { render(); } // 마지막이면 채점만 반영
+  refreshFlag(); updateStats();
+  const after = setComplete();
+  if(after && !before){ showReport(); return; }   // 방금 세트 완성 → 보고서
+  if(!after){ const ni = nextUngradedIndex(idx); if(ni!==-1){ idx=ni; render(); return; } }
+  render(); // 완료 세트에서 재채점 등: 제자리 갱신
 }
-function go(d){
+// '다음' — 미완료면 미제출 문항으로, 완료면 순차 검토
+function goNext(){
   if(!deck.length) return;
-  const n = idx + d;
-  if(n<0 || n>=deck.length) return;
-  idx = n; render();
+  if(setComplete()){ if(idx<deck.length-1){ idx++; render(); } return; }
+  const ni = nextUngradedIndex(idx);
+  if(ni!==-1){ idx=ni; render(); }
+}
+function goPrev(){ if(idx>0){ idx--; render(); } }
+
+// ---------- 결과 보고서 / 세트 ----------
+let reportOpen = false;
+function showReport(){
+  if(!deck.length) return;
+  reportOpen = true;
+  stopTimer();
+  let good=0,soft=0,hard=0,ungraded=0; const weak=[];
+  deck.forEach(c=>{ const s=store[c.id];
+    if(s==="good")good++; else if(s==="soft"){soft++;weak.push([c,"s"]);}
+    else if(s==="hard"){hard++;weak.push([c,"h"]);} else ungraded++; });
+  const total=deck.length, done=good+soft+hard, rate=done?Math.round(good/done*100):0;
+  const setName = setIds ? "약한 것만" : (opt.cat==="ALL"?"전체":CATS[opt.cat]);
+  let html = '<div class="rep-h">세트 결과 — '+esc(setName)+'</div>'
+    + '<div class="rep-sub">'+total+'문항 중 '+done+'문항 완료'+(ungraded?(' · 미제출 '+ungraded+'문항'):'')+'</div>'
+    + '<div class="rep-rate">'+rate+'<small>% 즉답</small></div>'
+    + '<div class="rep-tiles">'
+    +   '<div class="rtile g"><div class="n">'+good+'</div><div class="l">✓ 즉답</div></div>'
+    +   '<div class="rtile s"><div class="n">'+soft+'</div><div class="l">△ 애매</div></div>'
+    +   '<div class="rtile h"><div class="n">'+hard+'</div><div class="l">✗ 막힘</div></div>'
+    + '</div>';
+  if(weak.length){
+    html += '<div class="rep-wl-t">복습할 문항 '+weak.length+' — 눌러서 이동</div>'
+      + weak.map(([c,k])=>'<button class="wrow" data-id="'+esc(c.id)+'"><span class="wid">'+esc(c.id)
+        +'</span><span class="wq">'+esc(c.q)+'</span><span class="wk '+k+'">'+(k==="s"?"애매":"막힘")+'</span></button>').join("");
+  } else {
+    html += '<div class="rep-perfect">🎉 약점 없음 — 전 문항 즉답!</div>';
+  }
+  html += '<div class="rep-acts"><button class="ra-all">🔁 전체 다시 풀기</button>'
+    + (weak.length?'<button class="ra-weak">🎯 약한 것만 다시</button>':'')
+    + '<button class="ra-close">닫고 검토</button></div>';
+  const rep = $("#report");
+  rep.innerHTML = html;
+  rep.hidden = false;
+  $("#card").style.display = "none";
+  $("#donebar").hidden = true;
+  rep.querySelectorAll(".wrow").forEach(b=> b.addEventListener("click", ()=>{
+    const k = deck.findIndex(c=>c.id===b.dataset.id);
+    if(k>=0){ idx=k; closeReport(); }
+  }));
+  rep.querySelector(".ra-all").addEventListener("click", ()=>newSet());
+  const rw = rep.querySelector(".ra-weak");
+  if(rw) rw.addEventListener("click", ()=>weakRedrill(weak.map(([c])=>c.id)));
+  rep.querySelector(".ra-close").addEventListener("click", closeReport);
+}
+function closeReport(){ reportOpen=false; $("#report").hidden=true; $("#card").style.display=""; render(); }
+// 현재 세트 다시 — 세트 문항의 채점만 초기화 후 재구성(랜덤이면 재섞기)
+function newSet(){
+  reportOpen=false; $("#report").hidden=true; $("#card").style.display="";
+  deck.forEach(c=>{ if(store[c.id]) delete store[c.id]; });
+  save();
+  buildDeck();
+  render();
+  toast("새 세트를 시작합니다");
+}
+// 약한 것만 다시 — 약한 카드 id로 세트 구성, 해당 채점 초기화 후 드릴
+function weakRedrill(ids){
+  reportOpen=false; $("#report").hidden=true; $("#card").style.display="";
+  setIds = ids.slice();
+  ids.forEach(id=>{ if(store[id]) delete store[id]; });
+  save();
+  buildDeck();
+  render();
+  toast("약한 "+ids.length+"문항으로 새 세트");
 }
 
 // ---------- 타이머 ----------
@@ -753,15 +885,16 @@ function startTimer(){
 
 // ---------- 통계 ----------
 function updateStats(){
+  const set = deck.length ? deck : DECK;
   let good=0, done=0, weak=0;
-  DECK.forEach(c=>{
+  set.forEach(c=>{
     const s = store[c.id];
     if(s){ done++; if(s==="good") good++; if(s==="soft"||s==="hard") weak++; }
   });
   $("#s-rate").textContent = done ? Math.round(good/done*100)+"%" : "—";
-  $("#s-done").innerHTML = done + '<small> / '+DECK.length+'</small>';
+  $("#s-done").innerHTML = done + '<small> / '+set.length+'</small>';
   $("#s-weak").innerHTML = weak + '<small> 장</small>';
-  $("#progbar").style.width = (done/DECK.length*100)+"%";
+  $("#progbar").style.width = (set.length? done/set.length*100:0)+"%";
 }
 
 // ---------- 컨트롤 ----------
@@ -785,9 +918,12 @@ function toggle(btn, key){
 }
 
 // events
-$("#cat").addEventListener("change", e=>{ opt.cat=e.target.value; buildDeck(); render(); });
+$("#cat").addEventListener("change", e=>{ opt.cat=e.target.value; setIds=null; buildDeck(); render(); });
 $("#shuffle").addEventListener("click", e=>toggle(e.currentTarget,"shuffle"));
-$("#weak").addEventListener("click", e=>toggle(e.currentTarget,"weak"));
+$("#btnNewset").addEventListener("click", ()=>newSet());
+$("#btnReport").addEventListener("click", ()=>{ if(deck.length) showReport(); });
+$("#dbReport").addEventListener("click", ()=>{ if(deck.length) showReport(); });
+$("#dbNew").addEventListener("click", ()=>newSet());
 $("#timer").addEventListener("click", e=>{
   // 타이머는 덱/공개상태를 건드리지 않고 독립 처리
   opt.timer = !opt.timer;
@@ -920,11 +1056,31 @@ async function resetFlow(){
     actions:[{label:"초기화",value:true,kind:"hard"},{label:"취소",value:false}]
   });
   if(clr){ store = {}; save(); toast("점수를 초기화했습니다"); }
-  buildDeck(deck[idx] && deck[idx].id); render();
+  // 정답 편집(메모 반영)도 전체 원점 복원할지
+  if(Object.keys(pts).length || Object.keys(adds).length){
+    const rev = await modal({
+      title:"정답 편집 초기화",
+      body:"메모로 추가·대체한 정답을 모두 원본으로 되돌릴까요?\n(개별 카드는 답 확인 화면의 ‘↺ 원본으로’ 버튼으로도 되돌릴 수 있습니다)",
+      actions:[{label:"모두 원본으로",value:true,kind:"hard"},{label:"편집 유지",value:false}]
+    });
+    if(rev){ pts={}; adds={}; savePts(); saveAdds(); toast("정답을 원본으로 되돌렸습니다"); }
+  }
+  setIds = null;
+  buildDeck(); render();
 }
 $("#grade").addEventListener("click", e=>{ const b=e.target.closest(".gbtn"); if(b) grade(b.dataset.g); });
-$("#prev").addEventListener("click", ()=>go(-1));
-$("#next").addEventListener("click", ()=>go(1));
+$("#prev").addEventListener("click", goPrev);
+$("#next").addEventListener("click", goNext);
+
+// 정답 원본 복원(이 카드)
+$("#revertPts").addEventListener("click", ()=>{
+  const card = deck[idx]; if(!card) return;
+  if(pts[card.id]) delete pts[card.id];
+  if(adds[card.id]) delete adds[card.id];
+  savePts(); saveAdds();
+  renderPoints(); refreshFlag();
+  toast("원본 정답으로 되돌렸습니다");
+});
 
 // theme toggle
 const root = document.documentElement;
@@ -938,14 +1094,15 @@ $("#theme").addEventListener("click", ()=>{
 // keyboard
 document.addEventListener("keydown", e=>{
   if(modalOpen){ if(e.key==="Escape" && $("#ov")._close) $("#ov")._close(); return; }
+  if(reportOpen){ if(e.key==="Escape") closeReport(); return; }
   const tag = e.target.tagName;
   if(tag==="SELECT" || tag==="TEXTAREA" || tag==="INPUT") return;
-  if(e.code==="Space"){ e.preventDefault(); if(!revealed) reveal(); else go(1); }
+  if(e.code==="Space"){ e.preventDefault(); if(!revealed) reveal(); else goNext(); }
   else if(e.key==="1" && revealed) grade("good");
   else if(e.key==="2" && revealed) grade("soft");
   else if(e.key==="3" && revealed) grade("hard");
-  else if(e.key==="ArrowRight") go(1);
-  else if(e.key==="ArrowLeft") go(-1);
+  else if(e.key==="ArrowRight") goNext();
+  else if(e.key==="ArrowLeft") goPrev();
   else if(e.key==="r"||e.key==="R"){ if(!revealed) reveal(); }
 });
 
