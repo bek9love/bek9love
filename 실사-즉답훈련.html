@@ -148,17 +148,30 @@
     cursor:pointer;font-size:.72rem;line-height:1;padding:3px 5px;border-radius:5px}
   .add-del:hover{color:var(--hard);background:var(--hard-tint)}
 
-  /* 편집된 정답 포인트 (추가/대체 표시) */
-  ul.points li.pt{padding-right:26px}
+  /* 편집된 정답 포인트 (추가/대체 표시) + 줄별 수정/삭제 */
+  ul.points li{padding-right:46px}
   ul.points li.p-add::before{background:var(--good)}
   ul.points li.p-edit::before{background:var(--amber)}
   .pmark{font-size:.58rem;font-weight:700;border-radius:99px;padding:1px 6px;margin-right:6px;
     vertical-align:1px;letter-spacing:.02em}
   .pm-add{background:var(--good-tint);color:var(--good)}
   .pm-edit{background:var(--amber-tint);color:var(--amber)}
-  .pt-del{position:absolute;right:0;top:2px;border:none;background:none;color:var(--ink-faint);
-    cursor:pointer;font-size:.72rem;line-height:1;padding:3px 5px;border-radius:5px}
+  .pt-tools{position:absolute;right:0;top:1px;display:inline-flex;gap:1px}
+  .pt-edit,.pt-del{border:none;background:none;color:var(--ink-faint);cursor:pointer;
+    font-size:.74rem;line-height:1;padding:3px 5px;border-radius:5px}
+  .pt-edit:hover{color:var(--accent);background:var(--accent-tint)}
   .pt-del:hover{color:var(--hard);background:var(--hard-tint)}
+  ul.points li.pt-editing{padding-right:0;padding-left:0}
+  ul.points li.pt-editing::before{display:none}
+  .pt-input{width:100%;font-family:inherit;font-size:.92rem;line-height:1.5;color:var(--ink);
+    background:var(--surface);border:1px solid var(--amber);border-radius:8px;padding:8px 10px;
+    min-height:54px;resize:vertical}
+  .pt-input:focus{outline:none}
+  .pt-erow{display:flex;gap:6px;margin-top:6px}
+  .pt-erow button{font-family:inherit;font-size:.76rem;font-weight:650;border-radius:7px;
+    padding:5px 13px;cursor:pointer;border:1px solid var(--line)}
+  .pt-save{background:#1b3a5b;color:#fff;border-color:#1b3a5b}
+  .pt-cancel{background:var(--surface-2);color:var(--ink)}
 
   /* 메모 */
   .memo{margin-top:16px;border-top:1px solid var(--line-soft);padding-top:14px}
@@ -654,6 +667,37 @@ function commitPts(card, arr){
   if(adds[card.id]) delete adds[card.id];
   savePts(); saveAdds();
 }
+// arr가 원본 정답과 완전히 동일한지(그러면 오버라이드 불필요)
+function sameAsBase(card, arr){
+  if(arr.length !== card.p.length) return false;
+  return arr.every((p,i)=> p.k==="base" && p.t===card.p[i]);
+}
+// 편집 결과 반영: 원본과 같으면 오버라이드 제거, 아니면 pts 저장
+function applyEdit(card, arr){
+  if(sameAsBase(card, arr)){
+    if(pts[card.id]) delete pts[card.id];
+    if(adds[card.id]) delete adds[card.id];
+    savePts(); saveAdds();
+  } else commitPts(card, arr);
+  editingIdx = -1;
+  renderPoints(); refreshFlag();
+}
+function deleteLine(card, i){
+  const arr = effPoints(card).map(p=>({t:p.t, k:p.k}));
+  if(i<0 || i>=arr.length) return;
+  arr.splice(i,1);
+  applyEdit(card, arr);
+}
+function saveLine(card, i){
+  const ta = document.querySelector('#points .pt-input[data-i="'+i+'"]') || document.querySelector('#points .pt-input');
+  if(!ta) return;
+  const text = ta.value.trim();
+  const arr = effPoints(card).map(p=>({t:p.t, k:p.k}));
+  if(i<0 || i>=arr.length) return;
+  if(!text){ arr.splice(i,1); }                                  // 빈 값 = 삭제
+  else if(text !== arr[i].t){ arr[i] = {t:text, k: arr[i].k==="base" ? "edit" : arr[i].k}; }
+  applyEdit(card, arr);
+}
 function esc(s){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
 let opt = { cat:"ALL", shuffle:false, timer:false };
@@ -704,20 +748,29 @@ function refreshFlag(){
   if(hasMemo)  flag += ' <span class="tag tag-memo">📝 메모</span>';
   $("#e-flag").innerHTML = flag;
 }
-// 정답 포인트 목록만 갱신(기존/추가/수정 구분, 추가·수정 항목엔 삭제 버튼)
+// 정답 포인트 목록 갱신 — 모든 줄에 ✎수정·✕삭제, 편집 중이면 인라인 에디터
+let editingIdx = -1;
 function renderPoints(){
   const card = deck[idx]; if(!card) return;
   const eff = effPoints(card);
+  if(editingIdx >= eff.length) editingIdx = -1;
   $("#points").innerHTML = eff.map((p,i)=>{
-    const cls = p.k==="add" ? " pt p-add" : (p.k==="edit" ? " pt p-edit" : "");
+    if(i===editingIdx){
+      return '<li class="pt-editing" data-i="'+i+'">'
+        + '<textarea class="pt-input" data-i="'+i+'" rows="2">'+esc(p.t)+'</textarea>'
+        + '<div class="pt-erow"><button class="pt-save" data-i="'+i+'">저장</button>'
+        + '<button class="pt-cancel">취소</button></div></li>';
+    }
+    const cls = p.k==="add" ? "p-add" : (p.k==="edit" ? "p-edit" : "");
     const mark = p.k==="add" ? '<span class="pmark pm-add">추가</span>'
                : p.k==="edit" ? '<span class="pmark pm-edit">수정</span>' : '';
-    const del = p.k==="base" ? '' : '<button class="pt-del" data-i="'+i+'" title="이 항목 삭제">✕</button>';
-    return '<li class="'+cls.trim()+'" data-i="'+i+'">'+mark+esc(p.t)+del+'</li>';
+    return '<li class="'+cls+'" data-i="'+i+'"><span class="pt-txt">'+mark+esc(p.t)+'</span>'
+      + '<span class="pt-tools">'
+      +   '<button class="pt-edit" data-i="'+i+'" title="이 줄 수정">✎</button>'
+      +   '<button class="pt-del" data-i="'+i+'" title="이 줄 삭제">✕</button></span></li>';
   }).join("");
   $("#adds").innerHTML = "";
-  const edited = eff.some(p=>p.k!=="base");
-  $("#revertPts").hidden = !edited;
+  $("#revertPts").hidden = sameAsBase(card, eff);
 }
 function render(){
   updateStats();
@@ -750,6 +803,7 @@ function render(){
   refreshFlag();
   $("#qtext").textContent = card.q;
   // 답
+  editingIdx = -1;
   renderPoints();
   if(card.s){ $("#say").hidden=false; $("#sayText").textContent = card.s; } else $("#say").hidden=true;
   if(card.w){ $("#warn").hidden=false; $("#warnText").textContent = card.w; } else $("#warn").hidden=true;
@@ -945,16 +999,24 @@ $("#memo").addEventListener("input", e=>{
 });
 // 메모 입력 중 단축키(1/2/3/Space) 오작동 방지 — 위 keydown에서 처리
 
-// 추가/수정 항목 삭제 (부분 갱신 — 공개된 답 유지)
+// 줄별 수정/삭제/저장/취소 (부분 갱신 — 공개된 답 유지)
 $("#points").addEventListener("click", e=>{
-  const b = e.target.closest(".pt-del"); if(!b) return;
   const card = deck[idx]; if(!card) return;
-  const arr = effPoints(card).slice();
-  arr.splice(+b.dataset.i, 1);
-  // 편집 흔적이 모두 사라지면 원본으로 되돌림
-  if(arr.every(p=>p.k==="base")) { delete pts[card.id]; if(adds[card.id]) delete adds[card.id]; savePts(); saveAdds(); }
-  else commitPts(card, arr);
-  renderPoints(); refreshFlag();
+  const editB = e.target.closest(".pt-edit");
+  const delB  = e.target.closest(".pt-del");
+  const saveB = e.target.closest(".pt-save");
+  const cancelB = e.target.closest(".pt-cancel");
+  if(editB){ editingIdx = +editB.dataset.i; renderPoints();
+    const ta = $("#points .pt-input"); if(ta){ ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); } return; }
+  if(delB){ deleteLine(card, +delB.dataset.i); return; }
+  if(saveB){ saveLine(card, +saveB.dataset.i); return; }
+  if(cancelB){ editingIdx = -1; renderPoints(); return; }
+});
+// 편집 textarea: Enter 저장(Shift+Enter 줄바꿈), Esc 취소
+$("#points").addEventListener("keydown", e=>{
+  if(!e.target.classList || !e.target.classList.contains("pt-input")) return;
+  if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); const card=deck[idx]; if(card) saveLine(card, +e.target.dataset.i); }
+  else if(e.key==="Escape"){ e.preventDefault(); editingIdx = -1; renderPoints(); }
 });
 
 // ---------- 커스텀 모달 / 토스트 (샌드박스 confirm/alert 대체) ----------
