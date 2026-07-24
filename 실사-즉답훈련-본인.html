@@ -1,0 +1,1335 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>현장실사 즉답 훈련 — 본인</title>
+<style>
+  :root{
+    --paper:#eef1f5; --surface:#ffffff; --surface-2:#f6f8fb;
+    --ink:#16222e; --ink-soft:#4a5b6b; --ink-faint:#7c8a99;
+    --line:#d9e0e8; --line-soft:#e7ecf1;
+    --accent:#1b3a5b; --accent-soft:#31597f; --accent-tint:#eaf1f8;
+    --amber:#b8791f; --amber-tint:#fbf1df;
+    --good:#2e8f5e; --good-tint:#e6f4ec;
+    --soft:#c1861e; --soft-tint:#fbf1dc;
+    --hard:#c34a3f; --hard-tint:#fbe9e7;
+    --shadow:0 1px 2px rgba(20,40,60,.06), 0 8px 26px rgba(20,40,60,.08);
+    --radius:14px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#0f1720; --surface:#16212e; --surface-2:#1b2836;
+      --ink:#e7edf3; --ink-soft:#a7b6c4; --ink-faint:#728496;
+      --line:#2b3a4b; --line-soft:#243342;
+      --accent:#6ea6d8; --accent-soft:#8cbce6; --accent-tint:#182a3b;
+      --amber:#d9a441; --amber-tint:#2a2313;
+      --good:#4cb583; --good-tint:#15291f;
+      --soft:#d3a24a; --soft-tint:#2a2314;
+      --hard:#e07d72; --hard-tint:#2c1a18;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"]{
+    --paper:#eef1f5; --surface:#ffffff; --surface-2:#f6f8fb;
+    --ink:#16222e; --ink-soft:#4a5b6b; --ink-faint:#7c8a99;
+    --line:#d9e0e8; --line-soft:#e7ecf1;
+    --accent:#1b3a5b; --accent-soft:#31597f; --accent-tint:#eaf1f8;
+    --amber:#b8791f; --amber-tint:#fbf1df;
+    --good:#2e8f5e; --good-tint:#e6f4ec; --soft:#c1861e; --soft-tint:#fbf1dc;
+    --hard:#c34a3f; --hard-tint:#fbe9e7;
+    --shadow:0 1px 2px rgba(20,40,60,.06), 0 8px 26px rgba(20,40,60,.08);
+  }
+  :root[data-theme="dark"]{
+    --paper:#0f1720; --surface:#16212e; --surface-2:#1b2836;
+    --ink:#e7edf3; --ink-soft:#a7b6c4; --ink-faint:#728496;
+    --line:#2b3a4b; --line-soft:#243342;
+    --accent:#6ea6d8; --accent-soft:#8cbce6; --accent-tint:#182a3b;
+    --amber:#d9a441; --amber-tint:#2a2313;
+    --good:#4cb583; --good-tint:#15291f; --soft:#d3a24a; --soft-tint:#2a2314;
+    --hard:#e07d72; --hard-tint:#2c1a18;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  [hidden]{display:none!important}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Pretendard','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',-apple-system,sans-serif;
+    background:var(--paper); color:var(--ink);
+    line-height:1.6; padding:18px 16px 40px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto}
+  .num{font-variant-numeric:tabular-nums}
+
+  /* header */
+  header{margin-bottom:14px}
+  .titlerow{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  h1{font-size:1.32rem;letter-spacing:-.02em;color:var(--ink)}
+  .sub{font-size:.76rem;color:var(--ink-faint);margin-top:2px;letter-spacing:.01em}
+  .theme{background:none;border:1px solid var(--line);color:var(--ink-soft);
+    border-radius:8px;padding:5px 10px;font-size:.72rem;cursor:pointer;font-family:inherit}
+  .theme:hover{border-color:var(--accent)}
+  .hd-btns{display:flex;gap:6px;align-items:center;flex:none}
+  .rolebtn{background:var(--accent-tint);border:1px solid var(--line);color:var(--ink);
+    border-radius:8px;padding:5px 11px;font-size:.72rem;cursor:pointer;font-family:inherit;white-space:nowrap}
+  .rolebtn b{color:var(--accent);font-weight:700}
+  .rolebtn:hover{border-color:var(--accent)}
+  /* 시작 화면(역할 선택) */
+  .start{position:fixed;inset:0;background:rgba(8,16,26,.6);display:flex;align-items:center;
+    justify-content:center;padding:20px;z-index:120}
+  .start-box{background:var(--surface);border:1px solid var(--line);border-radius:16px;
+    box-shadow:0 24px 64px rgba(0,0,0,.4);padding:26px 24px;max-width:440px;width:100%;animation:pop .18s ease}
+  .start-h{font-size:1.25rem;font-weight:700;color:var(--accent);text-align:center}
+  .start-sub{font-size:.8rem;color:var(--ink-faint);text-align:center;margin:6px 0 18px;line-height:1.55}
+  .start-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .start-card{display:flex;flex-direction:column;gap:3px;align-items:flex-start;
+    background:var(--surface-2);border:1px solid var(--line);border-radius:11px;padding:14px 15px;
+    cursor:pointer;font-family:inherit;text-align:left}
+  .start-card:hover{border-color:var(--accent);background:var(--accent-tint)}
+  .sc-name{font-size:.98rem;font-weight:700;color:var(--ink)}
+  .sc-n{font-size:.7rem;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+  @media (max-width:420px){.start-grid{grid-template-columns:1fr}}
+
+  /* progress strip */
+  .stats{display:flex;gap:10px;margin:12px 0 6px;flex-wrap:wrap}
+  .stat{flex:1;min-width:88px;background:var(--surface);border:1px solid var(--line);
+    border-radius:10px;padding:8px 11px;box-shadow:var(--shadow)}
+  .stat .k{font-size:.66rem;color:var(--ink-faint);letter-spacing:.04em;text-transform:uppercase}
+  .stat .v{font-size:1.18rem;font-weight:700;letter-spacing:-.01em;margin-top:1px}
+  .stat .v small{font-size:.72rem;font-weight:500;color:var(--ink-faint)}
+  .bar{height:5px;background:var(--line-soft);border-radius:99px;overflow:hidden;margin-top:8px}
+  .bar > i{display:block;height:100%;width:0;background:var(--accent);
+    border-radius:99px;transition:width .35s ease}
+
+  /* controls */
+  .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0 14px}
+  select,.chip,.ctl{font-family:inherit;font-size:.76rem;color:var(--ink);
+    background:var(--surface);border:1px solid var(--line);border-radius:8px;
+    padding:7px 11px;cursor:pointer}
+  select{padding-right:26px;background-image:linear-gradient(45deg,transparent 50%,var(--ink-faint) 50%),linear-gradient(135deg,var(--ink-faint) 50%,transparent 50%);
+    background-position:calc(100% - 14px) 52%,calc(100% - 9px) 52%;background-size:5px 5px,5px 5px;background-repeat:no-repeat;-webkit-appearance:none;appearance:none}
+  .chip[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip[aria-pressed="true"]{color:#0f1720}}
+  :root[data-theme="dark"] .chip[aria-pressed="true"]{color:#0f1720}
+  .chip:hover,.ctl:hover{border-color:var(--accent)}
+  .spacer{flex:1}
+  .ctl.reset{color:var(--hard);border-color:transparent;background:transparent}
+  .ctl.reset:hover{background:var(--hard-tint);border-color:transparent}
+
+  /* card */
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);overflow:hidden;position:relative}
+  .card.overtime{border-color:var(--soft)}
+  .timerbar{height:3px;background:transparent}
+  .timerbar > i{display:block;height:100%;width:100%;background:var(--amber);border-radius:0 3px 3px 0}
+  .timerbar.run > i{transition:width linear}
+  .body{padding:22px 22px 20px}
+  .eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .cat{font-size:.68rem;font-weight:700;letter-spacing:.05em;color:var(--accent);
+    background:var(--accent-tint);padding:3px 9px;border-radius:99px}
+  .qid{font-size:.68rem;color:var(--ink-faint);font-variant-numeric:tabular-nums;letter-spacing:.03em}
+  .flag{font-size:.66rem;color:var(--ink-faint);margin-left:auto}
+  .flag b{color:var(--ink-soft);font-weight:600}
+  .q{font-size:1.28rem;font-weight:650;letter-spacing:-.015em;line-height:1.42;color:var(--ink);text-wrap:balance}
+  .q .qmark{color:var(--accent);font-weight:800;margin-right:2px}
+
+  .reveal-wrap{margin-top:18px}
+  .btn-reveal{width:100%;background:var(--accent);color:#fff;border:none;border-radius:10px;
+    padding:13px;font-size:.92rem;font-weight:650;font-family:inherit;cursor:pointer;letter-spacing:.01em}
+  :root[data-theme="dark"] .btn-reveal{color:#0f1720}
+  @media (prefers-color-scheme:dark){.btn-reveal{color:#0f1720}}
+  .btn-reveal:hover{background:var(--accent-soft)}
+  .btn-reveal .hint{font-weight:400;opacity:.75;font-size:.74rem;margin-left:6px}
+  .overtime-note{text-align:center;font-size:.74rem;color:var(--soft);font-weight:600;margin-bottom:8px;display:none}
+  .card.overtime .overtime-note{display:block}
+
+  /* answer */
+  .answer{margin-top:16px;border-top:1px dashed var(--line);padding-top:16px;display:none}
+  .answer.show{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .alabel{font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px}
+  ul.points{list-style:none;display:flex;flex-direction:column;gap:7px}
+  ul.points li{position:relative;padding-left:18px;font-size:.96rem;color:var(--ink)}
+  ul.points li::before{content:"";position:absolute;left:3px;top:.62em;width:5px;height:5px;
+    border-radius:50%;background:var(--accent)}
+  .say{margin-top:14px;background:var(--amber-tint);border-left:3px solid var(--amber);
+    border-radius:0 8px 8px 0;padding:11px 14px;font-size:.9rem;color:var(--ink)}
+  .say .l{font-size:.64rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--amber);margin-bottom:4px}
+  .warn{margin-top:12px;background:var(--hard-tint);border-radius:8px;padding:10px 13px;
+    font-size:.85rem;color:var(--ink);display:flex;gap:8px}
+  .warn .i{color:var(--hard);font-weight:700;flex:none}
+
+  /* 보완 (승격된 메모) */
+  .adds{margin-top:14px}
+  .add-l{font-size:.64rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--good);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+  .add-l::before{content:"＋";font-size:.9rem}
+  ul.add-points li::before{background:var(--good)}
+  ul.add-points li{padding-right:26px}
+  .add-del{position:absolute;right:0;top:2px;border:none;background:none;color:var(--ink-faint);
+    cursor:pointer;font-size:.72rem;line-height:1;padding:3px 5px;border-radius:5px}
+  .add-del:hover{color:var(--hard);background:var(--hard-tint)}
+
+  /* 편집된 정답 포인트 (추가/대체 표시) + 줄별 수정/삭제 */
+  ul.points li{padding-right:46px}
+  ul.points li.p-add::before{background:var(--good)}
+  ul.points li.p-edit::before{background:var(--amber)}
+  .pmark{font-size:.58rem;font-weight:700;border-radius:99px;padding:1px 6px;margin-right:6px;
+    vertical-align:1px;letter-spacing:.02em}
+  .pm-add{background:var(--good-tint);color:var(--good)}
+  .pm-edit{background:var(--amber-tint);color:var(--amber)}
+  .pt-tools{position:absolute;right:0;top:1px;display:inline-flex;gap:1px}
+  .pt-edit,.pt-del{border:none;background:none;color:var(--ink-faint);cursor:pointer;
+    font-size:.74rem;line-height:1;padding:3px 5px;border-radius:5px}
+  .pt-edit:hover{color:var(--accent);background:var(--accent-tint)}
+  .pt-del:hover{color:var(--hard);background:var(--hard-tint)}
+  ul.points li.pt-editing{padding-right:0;padding-left:0}
+  ul.points li.pt-editing::before{display:none}
+  .pt-input{width:100%;font-family:inherit;font-size:.92rem;line-height:1.5;color:var(--ink);
+    background:var(--surface);border:1px solid var(--amber);border-radius:8px;padding:8px 10px;
+    min-height:54px;resize:vertical}
+  .pt-input:focus{outline:none}
+  .pt-erow{display:flex;gap:6px;margin-top:6px}
+  .pt-erow button{font-family:inherit;font-size:.76rem;font-weight:650;border-radius:7px;
+    padding:5px 13px;cursor:pointer;border:1px solid var(--line)}
+  .pt-save{background:#1b3a5b;color:#fff;border-color:#1b3a5b}
+  .pt-cancel{background:var(--surface-2);color:var(--ink)}
+
+  /* 메모 */
+  .memo{margin-top:16px;border-top:1px solid var(--line-soft);padding-top:14px}
+  .memo-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;gap:8px}
+  .memo-l{font-size:.72rem;font-weight:700;color:var(--ink-soft);letter-spacing:.01em}
+  .memo-l .sub2{font-weight:400;color:var(--ink-faint);font-size:.68rem;margin-left:4px}
+  .memo-status{font-size:.66rem;color:var(--good);font-weight:600;opacity:0;transition:opacity .3s}
+  .memo-status.on{opacity:1}
+  textarea#memo{width:100%;min-height:56px;resize:vertical;font-family:inherit;font-size:.88rem;
+    line-height:1.55;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);
+    border-radius:9px;padding:10px 12px}
+  textarea#memo:focus{outline:none;border-color:var(--amber);background:var(--surface)}
+  textarea#memo::placeholder{color:var(--ink-faint)}
+  .card.revealed .memo.hasmemo{background:var(--amber-tint);margin-left:-22px;margin-right:-22px;
+    padding:14px 22px 4px;border-top:1px solid var(--amber);border-radius:0}
+  .tag{font-size:.6rem;font-weight:700;border-radius:99px;padding:2px 7px;letter-spacing:.03em}
+  .tag-memo{background:var(--amber-tint);color:var(--amber)}
+  .tag-add{background:var(--good-tint);color:var(--good)}
+
+  /* grade */
+  .grade{margin-top:18px;display:none;gap:8px}
+  .grade.show{display:flex;animation:fade .25s ease}
+  .gbtn{flex:1;border:1px solid var(--line);background:var(--surface-2);border-radius:10px;
+    padding:11px 6px;font-family:inherit;cursor:pointer;color:var(--ink);text-align:center;line-height:1.25}
+  .gbtn b{display:block;font-size:.9rem;font-weight:700}
+  .gbtn span{font-size:.68rem;color:var(--ink-faint)}
+  .gbtn.g:hover{border-color:var(--good);background:var(--good-tint)}
+  .gbtn.s:hover{border-color:var(--soft);background:var(--soft-tint)}
+  .gbtn.h:hover{border-color:var(--hard);background:var(--hard-tint)}
+  .gbtn .kbd{display:inline-block;font-size:.6rem;color:var(--ink-faint);border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:3px;vertical-align:1px}
+
+  /* nav */
+  nav{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:10px}
+  .navbtn{background:var(--surface);border:1px solid var(--line);color:var(--ink-soft);
+    border-radius:9px;padding:9px 15px;font-size:.82rem;font-family:inherit;cursor:pointer}
+  .navbtn:hover:not(:disabled){border-color:var(--accent);color:var(--ink)}
+  .navbtn:disabled{opacity:.38;cursor:default}
+  .pos{font-size:.78rem;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+  .pos b{color:var(--ink);font-weight:700}
+  .status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-left:7px;vertical-align:0}
+  .sd-good{background:var(--good)} .sd-soft{background:var(--soft)} .sd-hard{background:var(--hard)}
+  .sd-none{background:var(--line);border:1px solid var(--ink-faint)}
+
+  .foot{margin-top:16px;font-size:.7rem;color:var(--ink-faint);text-align:center;line-height:1.7}
+  .foot kbd{border:1px solid var(--line);border-radius:4px;padding:0 5px;font-family:inherit;color:var(--ink-soft)}
+  .empty{padding:40px 20px;text-align:center;color:var(--ink-faint);font-size:.9rem;line-height:1.7}
+
+  /* 모달 / 토스트 (샌드박스에서 confirm/alert 차단 대체) */
+  .ov{position:fixed;inset:0;background:rgba(8,16,26,.58);display:flex;align-items:center;
+    justify-content:center;padding:20px;z-index:100}
+  .dlg{background:var(--surface);border:1px solid var(--line);border-radius:14px;max-width:460px;
+    width:100%;box-shadow:0 24px 64px rgba(0,0,0,.4);overflow:hidden;animation:pop .18s ease}
+  @keyframes pop{from{opacity:0;transform:scale(.96) translateY(6px)}to{opacity:1;transform:none}}
+  .dlg-t{font-size:1rem;font-weight:700;padding:17px 19px 0;color:var(--ink)}
+  .dlg-b{padding:9px 19px 4px;font-size:.9rem;color:var(--ink-soft);white-space:pre-wrap;
+    line-height:1.6;max-height:54vh;overflow:auto}
+  .dlg-a{display:flex;gap:8px;justify-content:flex-end;padding:15px 19px 17px;flex-wrap:wrap}
+  .dlg-btn{font-family:inherit;font-size:.84rem;font-weight:650;border-radius:9px;padding:9px 16px;
+    cursor:pointer;border:1px solid var(--line);background:var(--surface-2);color:var(--ink)}
+  .dlg-btn:hover{border-color:var(--ink-faint)}
+  .dlg-btn.primary{background:#1b3a5b;border-color:#1b3a5b;color:#fff}
+  .dlg-btn.good{background:#2e8f5e;border-color:#2e8f5e;color:#fff}
+  .dlg-btn.hard{background:#c34a3f;border-color:#c34a3f;color:#fff}
+  .io-ta{width:100%;min-height:130px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.74rem;
+    line-height:1.45;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);
+    border-radius:8px;padding:9px 11px;resize:vertical;word-break:break-all}
+  .io-ta:focus{outline:none;border-color:var(--accent)}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#1b3a5b;color:#fff;
+    padding:10px 20px;border-radius:99px;font-size:.84rem;font-weight:600;z-index:110;
+    box-shadow:0 10px 28px rgba(0,0,0,.35);animation:pop .18s ease}
+  @media (prefers-reduced-motion:reduce){.dlg,.toast{animation:none}}
+
+  /* 정답 원본 복원 / 완료 배너 / 결과 보고서 */
+  .revert{margin-top:12px;background:none;border:1px dashed var(--line);color:var(--ink-faint);
+    font-family:inherit;font-size:.76rem;padding:6px 12px;border-radius:8px;cursor:pointer}
+  .revert:hover{border-color:var(--amber);color:var(--amber)}
+  .donebar{background:var(--good-tint);border:1px solid var(--good);border-radius:10px;
+    padding:9px 13px;margin-bottom:12px;font-size:.85rem;color:var(--ink);text-align:center}
+  .linkb{background:none;border:none;color:var(--accent);font-family:inherit;font-size:.85rem;
+    font-weight:700;cursor:pointer;padding:2px 4px}
+  .linkb:hover{text-decoration:underline}
+  .report{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:22px}
+  .rep-h{font-size:1.15rem;font-weight:700;color:var(--accent)}
+  .rep-sub{font-size:.78rem;color:var(--ink-faint);margin-bottom:14px}
+  .rep-rate{font-size:2.6rem;font-weight:800;letter-spacing:-.02em;line-height:1}
+  .rep-rate small{font-size:.9rem;font-weight:600;color:var(--ink-faint);letter-spacing:0}
+  .rep-tiles{display:flex;gap:8px;margin:16px 0}
+  .rtile{flex:1;border-radius:10px;padding:11px;text-align:center;border:1px solid var(--line)}
+  .rtile .n{font-size:1.4rem;font-weight:700;font-variant-numeric:tabular-nums}
+  .rtile .l{font-size:.68rem;color:var(--ink-faint);margin-top:2px}
+  .rtile.g{background:var(--good-tint)} .rtile.g .n{color:var(--good)}
+  .rtile.s{background:var(--soft-tint)} .rtile.s .n{color:var(--soft)}
+  .rtile.h{background:var(--hard-tint)} .rtile.h .n{color:var(--hard)}
+  .rep-wl-t{font-size:.72rem;font-weight:700;color:var(--ink-soft);letter-spacing:.03em;margin:6px 0}
+  .wrow{display:flex;gap:8px;align-items:baseline;padding:8px 10px;border:1px solid var(--line-soft);
+    border-radius:8px;margin-bottom:5px;cursor:pointer;background:var(--surface-2);text-align:left;width:100%;font-family:inherit}
+  .wrow:hover{border-color:var(--accent)}
+  .wrow .wid{font-size:.66rem;font-weight:700;color:var(--ink-faint);flex:none;font-variant-numeric:tabular-nums}
+  .wrow .wq{font-size:.82rem;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+  .wrow .wk{font-size:.62rem;font-weight:700;padding:1px 6px;border-radius:99px;flex:none}
+  .wk.s{background:var(--soft-tint);color:var(--soft)} .wk.h{background:var(--hard-tint);color:var(--hard)}
+  .rep-perfect{background:var(--good-tint);color:var(--good);border-radius:10px;padding:12px;text-align:center;font-weight:700;margin:6px 0}
+  .rep-acts{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+  .rep-acts button{flex:1;min-width:120px;font-family:inherit;font-size:.84rem;font-weight:650;border-radius:9px;padding:11px;cursor:pointer;border:1px solid var(--line)}
+  .rep-acts .ra-all{background:#1b3a5b;color:#fff;border-color:#1b3a5b}
+  .rep-acts .ra-weak{background:#c1861e;color:#fff;border-color:#c1861e}
+  .rep-acts .ra-close{background:var(--surface-2);color:var(--ink)}
+  @media (max-width:520px){
+    .body{padding:18px 16px}
+    .q{font-size:1.14rem}
+    .gbtn b{font-size:.82rem}
+    .stat .v{font-size:1.05rem}
+    .card.revealed .memo.hasmemo{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="titlerow">
+      <div>
+        <h1>현장실사 즉답 훈련</h1>
+        <div class="sub">제12회 대한민국 공무원상 현장실사 · ’26.7.27(월) 13:00 · 인사혁신처 · <b>본인</b>용</div>
+      </div>
+      <div class="hd-btns">
+        <button class="rolebtn" id="roleBtn" style="display:none">역할: <b id="roleName">본인</b> ▾</button>
+        <button class="theme" id="theme">◐ 테마</button>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="k">즉답률</div><div class="v num" id="s-rate">—</div></div>
+      <div class="stat"><div class="k">채점한 문항</div><div class="v num" id="s-done">0<small> 문항</small></div></div>
+      <div class="stat"><div class="k">약한 카드</div><div class="v num" id="s-weak">0<small> 장</small></div></div>
+    </div>
+    <div class="bar"><i id="progbar"></i></div>
+  </header>
+
+  <div class="controls">
+    <select id="cat" aria-label="카테고리 선택"></select>
+    <button class="chip" id="shuffle" aria-pressed="false">🔀 랜덤</button>
+    <button class="chip" id="timer" aria-pressed="false">⏱ 15초</button>
+    <button class="ctl" id="btnNewset">🔁 새 세트</button>
+    <button class="ctl" id="btnReport">📊 결과</button>
+    <span class="spacer"></span>
+    <button class="ctl" id="btnBackup">💾 백업</button>
+    <button class="ctl" id="btnRestore">📥 복원</button>
+    <button class="ctl reset" id="reset">기록 초기화</button>
+  </div>
+
+  <div class="donebar" id="donebar" hidden>✓ 이 세트를 모두 풀었습니다. <button class="linkb" id="dbReport">📊 결과 보기</button> · <button class="linkb" id="dbNew">🔁 새 세트</button></div>
+
+  <div class="card" id="card">
+    <div class="timerbar" id="tbar"><i></i></div>
+    <div class="body" id="cardbody">
+      <div class="eyebrow">
+        <span class="cat" id="e-cat">—</span>
+        <span class="qid" id="e-id"></span>
+        <span class="flag" id="e-flag"></span>
+      </div>
+      <div class="q" id="q"><span class="qmark">Q.</span> <span id="qtext"></span></div>
+
+      <div class="reveal-wrap" id="revealWrap">
+        <div class="overtime-note">⏱ 시간 초과 — 실사에서는 즉답이 필요합니다</div>
+        <button class="btn-reveal" id="btnReveal">답 확인 <span class="hint">Space</span></button>
+      </div>
+
+      <div class="answer" id="answer">
+        <div class="alabel">핵심 포인트 — 뼈대만, 자기 말로</div>
+        <ul class="points" id="points"></ul>
+        <div class="adds" id="adds"></div>
+        <button class="revert" id="revertPts" hidden>↺ 이 카드 정답을 원본으로 되돌리기</button>
+        <div class="say" id="say" hidden><div class="l">말로</div><div id="sayText"></div></div>
+        <div class="warn" id="warn" hidden><span class="i">⚠</span><span id="warnText"></span></div>
+      </div>
+
+      <div class="grade" id="grade">
+        <button class="gbtn g" data-g="good"><b>✓ 즉답</b><span>바로 나옴<span class="kbd">1</span></span></button>
+        <button class="gbtn s" data-g="soft"><b>△ 애매</b><span>더듬음<span class="kbd">2</span></span></button>
+        <button class="gbtn h" data-g="hard"><b>✗ 막힘</b><span>안 떠오름<span class="kbd">3</span></span></button>
+      </div>
+
+      <div class="memo hasmemo" id="memoBox">
+        <div class="memo-head">
+          <span class="memo-l">✎ 메모<span class="sub2">— 보완할 점을 적어두면 정답 확인 때 함께 표시됩니다</span></span>
+          <span class="memo-status" id="memoStatus">저장됨</span>
+        </div>
+        <textarea id="memo" placeholder="이 질문을 보고 떠오른 답변 보완 아이디어를 적어두세요…"></textarea>
+      </div>
+    </div>
+    <div class="empty" id="empty" hidden></div>
+  </div>
+
+  <nav>
+    <button class="navbtn" id="prev">← 이전</button>
+    <div class="pos"><b id="pos-i">0</b> / <span id="pos-n">0</span><span class="status-dot sd-none" id="posdot"></span></div>
+    <button class="navbtn" id="next">다음 →</button>
+  </nav>
+
+  <div class="report" id="report" hidden></div>
+
+  <div class="foot">
+    <kbd>Space</kbd> 답 확인 / 다음(미제출) · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 자가채점 · <kbd>←</kbd><kbd>→</kbd> 이동<br>
+    ‘다음’은 아직 안 푼 문항으로 넘어갑니다. 세트를 모두 풀면 <b>결과 보고서</b>가 나옵니다.<br>
+    기록은 이 브라우저에 자동 저장됩니다. <b>실사 전 꼭 ‘💾 백업’으로 내보내 안전한 곳에 보관하세요.</b>
+  </div>
+</div>
+
+<div class="start" id="start" hidden>
+  <div class="start-box">
+    <div class="start-h">누구의 답변을 연습할까요?</div>
+    <div class="start-sub">역할을 선택하세요. 상단 <b>‘역할: … ▾’</b>로 언제든 바꿀 수 있고, 각 역할의 채점·메모·편집은 따로 저장됩니다.</div>
+    <div class="start-grid" id="startGrid"></div>
+  </div>
+</div>
+
+<div class="ov" id="ov" hidden>
+  <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dlgT">
+    <div class="dlg-t" id="dlgT"></div>
+    <div class="dlg-b" id="dlgB"></div>
+    <div class="dlg-a" id="dlgA"></div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+"use strict";
+// ---------- 질문 뱅크 (본인 — 실사-최종-본인용.md 기반) ----------
+const CATS_SELF = {
+  "1":"1. 기관 특성","2":"2. 헌신·우수성","3":"3. 가시적 성과","4":"4. 기여도",
+  "5":"5. 언론","6":"6. 미담·역경","7":"7. 인사우대",
+  "A":"A. 공적 설명","C":"C. 성과 검증","D":"D. 소송·신상","E":"E. 평판·마무리",
+  "F":"F. 추가 검증","G":"G. 과기·보완","N":"N. 수치 암기"
+};
+const DECK_SELF = [
+  {c:"1",id:"Q1-1",q:"소속 부서의 담당 업무는?",p:[
+    "낙농과 = 젖소 사양·번식·착유 등 낙농 전 분야 국가 연구부서",
+    "중심 업무 = 고령화·노동력 부족 대응 스마트낙농·자동화 기술 개발"]},
+  {c:"1",id:"Q1-2",q:"부서의 중요도·특수성은?",p:[
+    "국내 유일의 낙농 전담 연구조직",
+    "국민 필수식품(우유) 생산 기반을 연구로 뒷받침"]},
+  {c:"1",id:"Q1-3",q:"기관의 핵심 업무인가?",p:[
+    "(정직) 모든 과가 각자의 핵심 임무 — “낙농과만 핵심”은 조심",
+    "단 시급성 최고: 노동 3,661h(3배)·착유 40% / 60대↑ 56.4%·후계 32.1%",
+    "제1회 농진청 특별성과 포상 추천과·본인 수상 → 그 성과가 로봇착유기 국산화·수출"],
+    w:"“우리 과만 핵심”이라고 단정하지 말 것 — 시급성·객관 수상으로 답."},
+  {c:"2",id:"Q2-1",q:"무탈 처리였나, 헌신이었나?",p:[
+    "신념: 기술이 부족해도 로봇착유는 반드시 필요하다 판단",
+    "’14~’16 전국 외산 로봇착유기 실태조사 연구책임자",
+    "전국 순회 기술지원 컨설팅 50회+, 원내 우사 설치 전 과정 참여",
+    "Q&A 책자 3종(국·대만·러) 400부 제작·배포"],
+    s:"어느 하나도 사무실에서 할 수 있는 일이 아니었습니다."},
+  {c:"2",id:"Q2-4",q:"일상 업무 아닌가? 유사 수행자와 비교하면?",p:[
+    "세계 5번째·아시아 최초 — 자국 기술 개발·상용화국 네·스·독·미 다음",
+    "국가 연구기관 차원 국산화·보급 담당은 국내 유일",
+    "보급 17 + 수출 13(조서) → 수출 15(제출 후 +2)",
+    "대만·독일·폴란드 추가 수출 협의 중, ’26.11 독일 출장 예정"]},
+  {c:"2",id:"Q2-6",q:"국민 파급효과가 미약하다는 지적에는?",p:[
+    "우유 = 전 국민 매일 소비, 공급 기반(낙농가) 고령화로 붕괴 중",
+    "착유 자동화 = 낙농가 존속의 문제",
+    "외산 장비·데이터 종속 → 국산 전환 = 식량 산업 기반 수호",
+    "낙농가 무너지면 수입 의존↑ = 소비자 가격·식량 안보 문제"]},
+  {c:"2",id:"Q2-7",q:"과학기술 관련성·타 분야 영향은?",p:[
+    "로봇착유기 = 데이터 생산 공장(산유·유성분·사료섭취)",
+    "외산이면 해외 서버로 → 국산화로 착유 데이터 20만 건 국가 자산화",
+    "AI 3대 강국·소버린 AI를 농축산 현장에서 구현",
+    "AI 알고리즘 6종 자체 개발·제1저자 논문",
+    "후속 특허 2건(3D 유두인식·원유 분리) 제출 후 출원·발명자 참여, AX 스프린트 BCS"]},
+  {c:"2",id:"Q2-8",q:"사회·경제적 효과는? (제품화·파생·평가)",p:[
+    "보급 15농가 17대·2개국 13대 → 16농가 18대·15대",
+    "노동 두당 69.2→41.7h(약 40%↓)·구입비 40%↓ / 인건비 9.4 + 사료비 8.3백만/년",
+    "제출 후 로봇팔 자체 제작 2.4→1.8억",
+    "센서 기술이전 43건·1,553백만(=업체 매출 총액) / 사료급이 부가가치 2,296백만",
+    "’26.5.18 제1회 농진청 특별성과 포상(공개검증·외부심사)"],
+    w:"1,553백만은 센서 계열 — 로봇착유기와 묶지 말 것."},
+  {c:"2",id:"Q2-9",q:"사회적 재난 대응성은?",p:[
+    "(선제 인정) 재난 분야 공적은 아님",
+    "다만 낙농가 고령화·노동력 부족이라는 산업 위기에 대한 기술적 대응"]},
+  {c:"2",id:"Q2-10",q:"담당자로서인가, 국민 입장인가?",p:[
+    "일하는 기준 = 늘 농가·산업 전체의 입장",
+    "생산 데이터를 국가 기관 데이터센터에 수집 → 민간 개방 목적",
+    "독점보다 국가 귀속 → 후발 주자 궤도 진입 지원",
+    "기술이전 계약서에 데이터 공유 특약 — 소신을 조항으로 제도화"]},
+  {c:"3",id:"Q3-1",q:"가장 가시적인 성과 하나는?",p:[
+    "수출 — 아시아 최초 상용화 국산 로봇착유기, 대만 7 + 러 6 = 13대(제출 후 +2→15)",
+    "지금 실험축사에서 실물 가동 중 — 시연 제안 가능"]},
+  {c:"3",id:"Q3-2",q:"성과 산출 근거와 타당성은?",p:[
+    "수출: 계약서·수출신고필증·선적자료",
+    "보급: 농가별 설치 목록·장비번호 (17 + 제출 후 1 = 18)",
+    "성능: 시험성적서 / 데이터: 플랫폼 기록 — 전 수치 원자료 보유"]},
+  {c:"4",id:"Q4-1",q:"시작부터 종료까지 모두 본인이 주도했나?",p:[
+    "(인정) 혼자 다 할 수 없고, 혼자 하려 했다면 실패했을 것 — 기적의 연속",
+    "다만 매 단계에 있었음: ’11.10 임용, ’14~16 책임자·’17 책임자·’19~20 참여",
+    "상용화 = 과가 주도 / ’23.8 복직과 함께 전담",
+    "전담 후 보급 8→17, 수출 13 (전부 NTIS 확인)"]},
+  {c:"4",id:"B-2",q:"복직 후 본인이 '주도적으로' 한 일은? 팀·업체 말고.",p:[
+    "① ’24 하반기 원내 실험축사 실증 체계 — 기획·예산·운영 주도(기안 문서)",
+    "② 농가 50회+ 직접 방문, 고장 원인·운영 교육 → 보급 5→17",
+    "③ 해외 관계자 초빙 직접 시연 → 수출 13(현 15)",
+    "제작은 ㈜다운·기술 기반은 선배, 돌게·팔리게·나가게 만든 것이 내 역할"]},
+  {c:"4",id:"B-3",q:"’19년 실증 과제 참여율 5% — 이름만 올린 것 아닌가?",p:[
+    "주도하지 않은 것은 사실 — 실 대표과제 구조에서 인건비 계상 비율",
+    "’17년 분방 착유기 검증 책임자 경험으로 [담당 부분] 수행",
+    "공적 중심은 복직 이후 — 보급 5→17·수출 13(결재 문서·실적)"]},
+  {c:"4",id:"B-5",q:"복직 후 2년 10개월 만에 다 했다는 건가?",p:[
+    "기반은 과가 마련, 나는 그 위에서 확산·수출에 집중",
+    "그 기간 어디 있었는지는 컨설팅 50여 회가 증명 — 대부분 현장"]},
+  {c:"5",id:"Q5-1",q:"언론에 자주 언급되나?",p:[
+    "로봇착유기 관련 134건(대표 MBC ’25.8.7 수출 보도)",
+    "보급이 더딜 때 보도가 프로젝트의 추진력",
+    "수출 보도 → “국산” 색안경 깨짐, 국내 농가 문의·상담 급증",
+    "국산 등장 후 외산 장비 가격 인하·안정 효과"]},
+  {c:"5",id:"Q5-2",q:"공적이 중요해서인가, 기획성 홍보인가?",p:[
+    "기획 보도는 올해 1건뿐(100선 후보·홍보팀 요청)",
+    "나머지는 자연 보도, MBC도 수출식 행사 취재",
+    "핵심 지표 = 건수 아닌, 보도 → 농가 문의·도입 상담 연결"]},
+  {c:"6",id:"Q6-1",q:"조서의 미담(한계극복·현장접목·업무협력)이 사실인가?",p:[
+    "첫 문장: “모두 사실입니다.”",
+    "① 한계극복 = 과 성과 — 로봇팔 역발상·3D 유두탐지(신의 한 수)",
+    "② 현장접목 = 전부 내가 직접 — 책자 3종 400부·컨설팅 50회+",
+    "③ 업무협력 = 민간↔농진청·부처 간 조정 역할"],
+    w:"특허 분쟁은 전면 비언급 — 어느 문항에서도 먼저 꺼내지 않음."},
+  {c:"6",id:"G-1",q:"가장 힘들었던 순간은?",p:[
+    "복직 직후 농가마다 “국산은 안 된다”던 때 — 방법은 직접 가는 것",
+    "고성 청산목장: 소 적응 실패 → 함께 원인 찾고 기초부터 재교육",
+    "지금은 그 농가 권유로 옆집이 외산 계약 파기, 국산 15호 목장"],
+    w:"실제 일화만·감정 상세 금지 / 소송은 먼저 꺼내지 않음."},
+  {c:"7",id:"Q7-1",q:"우대조치 사전안내를 받았는지?",p:[
+    "“네” — 추천 절차 중 인사부서가 계획·특별승진 요건 설명 + 희망 청취"],
+    w:"면담 미실시 시: “제도 설명은 들었고, 공식 안내 면담은 예정되어 있습니다”로 사실대로."},
+  {c:"7",id:"Q7-2",q:"“약 1/3은 최종 탈락” 안내를 받으면?",p:[
+    "“네, 알고 있습니다. 결과와 무관하게 검증에 성실히 임하겠습니다.”"]},
+  {c:"A",id:"A-1",q:"공적을 직접 설명해 주시죠. (2분 30초)",p:[
+    "한 문장: 아시아 최초 상용화 국산 로봇착유기를 보급 확대·수출로 완성",
+    "상용화 = 과 3차 과제(’17~21) / 나 = ’14책임자·’17책임자·’19참여·’23.8전담",
+    "당시 8대 정체(고장·불신·A/S) → ’24 실증체계 + 농가 50회+ + 책자 3언어 + 99%·13.8%↓",
+    "국내 검증 → 수출 대만 7·러 6 = 13 → 현재 16농가 18·수출 15",
+    "의미: 데이터 20만 건 국가 자산화 + 국산 로봇착유기 수출 가능 입증"]},
+  {c:"C",id:"C-1",q:"수출 주체는 ㈜다운인데 본인 공적인가?",p:[
+    "계약 주체는 ㈜다운 맞음",
+    "바이어는 미검증 장비를 안 삼 — 그 검증이 내 역할",
+    "실험축사 직접 시연·설명, 17대 운영 데이터, 대만·러 Q&A 책자",
+    "민간이 계약하고 국가 연구기관이 기술 신뢰를 보증한 것"]},
+  {c:"C",id:"C-2",q:"보급률 5.4%로 산업 구조를 바꿨다고 할 수 있나?",p:[
+    "맞습니다, 조서 기준 5.4%",
+    "단 전담 후 8→17, 제출 후 18로 계속 증가 추세",
+    "외산 독점 시장에 40% 저렴한 국산 선택지가 생긴 것 자체가 구조 변화"]},
+  {c:"C",id:"C-5",q:"경제효과 수치의 산출 근거는?",p:[
+    "1,553백만 = 기술이전 업체들이 이전 기술로 낸 매출액 총액(센서 43건)",
+    "업체별 기술명·계약일·매출액 구분 자료 준비",
+    "부가가치유발 2,296백만 = [산출 기관·방법론]"],
+    w:"센서 계열 수치 — 로봇착유기와 묶지 말 것."},
+  {c:"C",id:"C-6",q:"일상 업무와 다른 '탁월한' 실적인 이유는?",p:[
+    "① 과의 아시아 최초·세계 5번째 상용화를 시장 성과로 완성한 완결성",
+    "② 외산 독점 시장에 국산 선택지를 만든 구조 변화",
+    "③ 착유 데이터 20만 건을 국가 자산으로 만든 데이터 자립"],
+    s:"꼬리 “5번째 기준?” → 자국 기술로 개발·상용화한 국가 기준(네·스·독·미 다음, 영·덴은 라이선스·인수라 제외)."},
+  {c:"C",id:"C-7",q:"노동시간 3,661h인데 69.2→41.7h? 단위가 안 맞지 않나?",p:[
+    "단위가 다름: 3,661 = 호당/년, 69.2→41.7 = 두당/년(전체 평균, 규모별 상이)",
+    "절감분 = 착유 자동화로 착유 작업 시간이 빠진 것",
+    "조사 농가·기간·계산식 원자료 준비 (검산 3,661÷69.2≈53두)"]},
+  {c:"C",id:"C-9",q:"'2개국 수출'인데 러시아를 유럽이라 하는 건 과장 아닌가?",p:[
+    "대만 7·러 6 등 2개국 13대 수출",
+    "러시아가 유럽·아시아에 걸쳐 그렇게 표기 — “대만과 러시아 2개국”이 정확"],
+    w:"“유럽 진출”을 스스로 강조하지 말 것 — 국가명·대수만."},
+  {c:"C",id:"C-11",q:"기술이전 43건 중 실제 판매 제품은 몇 종, 몇 농가?",p:[
+    "43건 = 계약 건수, 제품화·판매 중은 [제품 종수·명·농가 수 — 확인]",
+    "사업화 매출 1,553백만이 실제 시장 성과 지표"],
+    w:"기술이전 목록에 “제품화 여부” 열을 추가해 즉답 준비."},
+  {c:"C",id:"C-12",q:"수출 13대는 유상 판매인가, 무상지원·실증 물량인가? (반드시 나옴)",p:[
+    "[확인 필수: 유상 판매 / 실증·지원 물량 구분]",
+    "수출계약서·신고필증·인보이스·선적자료로 구분 제시",
+    "설치 완료 / 설치 예정 장비도 구분해 말할 것"],
+    w:"유상 아닌 물량 섞였으면 숨기지 말고 먼저 구분 제시."},
+  {c:"C",id:"C-13",q:"외산보다 40% 저렴하면 성능이 떨어지는 것 아닌가?",p:[
+    "목표는 가격만 아닌 안정성·성능 확보 — 실증으로 99%·13.8%↓",
+    "단 외산은 장기 내구성 경험이 더 많음(인정), 가동자료로 유지보수 보완 중",
+    "제출 후 로봇팔 자체 제작으로 2.4→1.8억 추가 인하"],
+    w:"무조건 “외산보다 우수” 금지 — 현실 인정 + 개선 중이 신뢰를 얻음."},
+  {c:"D",id:"D-1",q:"특허 소송이 언론에 보도됐던데?",p:[
+    "’18년 제소된 위체류형 센서 특허 분쟁 — 최종 승소로 ’22년 초 완전 종결",
+    "상대는 기술이전 파트너와 무관한 별개 업체 / 판결문·확정증명 준비",
+    "위체류형 센서는 현재 5개 업체 29건 기술이전 실시 중"],
+    w:"상대 동기 규정·동병상련·감정 부연 금지."},
+  {c:"D",id:"D-2",q:"휴직 사유는?",p:[
+    "육아휴직 1년 + 질병휴직 6개월",
+    "건강 완전 회복, 복직 후 성과로 증명"],
+    s:"질병 캐물으면: “소송이 길어지며 건강이 나빠져 치료받았고, 완전히 회복했습니다.” 진단명 언급 의무 없음."},
+  {c:"D",id:"D-3",q:"현재 수사·조사·징계 절차 중인 것은?",p:[
+    "없습니다 — 특허도 민사·승소로 종결",
+    "신고할 사항이 생기면 즉시 신고하겠습니다"]},
+  {c:"E",id:"E-1",q:"동료들은 뭐라고 할 것 같나?",p:[
+    "“현장에 가장 많이 나가는 사람” — 실제 듣는 평가",
+    "컨설팅 기록 50여 회가 그 증거"]},
+  {c:"E",id:"E-2",q:"후보 100명 중 왜 본인인가?",p:[
+    "가장 뛰어난 연구자라고는 못함 — 낙농 현장에 가장 가까운 연구자",
+    "13년 현장 최우선 → 조서 15농가 17대(현 16·18) 매일 가동·대만·러 수출"]},
+  {c:"E",id:"E-3",q:"마지막으로 할 말은?",p:[
+    "모든 내용 자료로 확인 가능·추가 자료 언제든 제출",
+    "실험축사에서 실제 돌아가는 로봇착유기 시연 제안"]},
+  {c:"F",id:"F-4",q:"최근 다녀온 농가 세 곳, 이름과 방문 목적은? (불시 검증)",p:[
+    "[농가 1] / [농가 2] / [농가 3] — 전체 기록은 컨설팅 대장",
+    "“확인해 보시겠습니까?”"],
+    w:"소리 내어 즉답 연습 필수 — 기록이 아니라 즉답 여부를 봄."},
+  {c:"F",id:"F-5",q:"설치 농가 중 문제 있는 곳은 없나?",p:[
+    "있습니다 — [실제 사례 1건: 상황·조치]",
+    "문제 농가가 하나도 없다면 사실이 아닐 것",
+    "중요한 건 문제 시 즉시 대응하는 체계 = 국산의 강점"],
+    w:"“없습니다” 금지."},
+  {c:"F",id:"F-7",q:"㈜다운 유착·특혜 시비는? 한 기업 팔아주는 것 아닌가?",p:[
+    "㈜다운 = 공모 절차로 선정된 협력업체",
+    "국유특허는 통상실시(비독점) — 어느 업체든 같은 조건",
+    "센서 등 43건이 여러 업체에 이전·실시 중",
+    "외산 독점 시장에 국산 선택지·경쟁을 만든 것이 우리가 한 일"]},
+  {c:"F",id:"F-9",q:"기술개발은 선배들이 했다면서, 상은 그분들이 받아야 하지 않나?",p:[
+    "그분들의 공이 큼",
+    "단 포상 계기는 상용화가 아니라 수출 — 그 단계는 내가 주도",
+    "’26.5 특별성과 포상도 이 성과로 내 수상(공개검증·외부심사, 보도자료에 내 이름)",
+    "오늘도 선배 성과를 내 것이라 말하지 않았음"]},
+  {c:"G",id:"G-2",q:"과학기술적 기여는 무엇인가?",p:[
+    "핵심기술 30여 종 국산화 → 낙농 선진국 합류(자국 기술 5번째 상용화)",
+    "착유 데이터 20만 건 국가 자산화",
+    "그 데이터로 AI 알고리즘 6종·제1저자 논문"],
+    s:"재난 물으면: 재난 분야는 아니나 낙농가 고령화 산업 위기의 기술적 대응."},
+  {c:"G",id:"G-3",q:"기존 장관표창 공적과 중복 아닌가?",p:[
+    "다른 공적",
+    "’20 장관표창 2건 = 과학기술 유공(’20.4.21)·정부혁신 유공(’20.12.31) [당시 사유 확인]",
+    "이번 = 로봇착유기 보급 확대·수출(’24~26) — 시기·내용 구분"]},
+  {c:"G",id:"G-4",q:"수상하면 특별승진 기대가 있나?",p:[
+    "우대가 있다면 감사한 일",
+    "단 목표는 따로: BCS 측정·AX 스프린트·텐덤형·수출형 신규 과제",
+    "11월 독일 출장으로 현지 사후관리 체계 / K-Farm 데모축사·하노버 K-축산",
+    "상은 그 일을 더 잘하게 해주는 힘"]},
+  // ---- N. 수치 암기 (즉답 드릴) ----
+  {c:"N",id:"N-01",q:"보급 대수는? (복직 시 / 조서 / 현재)",p:[
+    "복직 시 8대 → 조서(’26.4) 15개소 17대(보급률 5.4%)",
+    "전체 310대 = 국립축산과학원 자체 조사 ’26 기준",
+    "현재(’26.7) 16농가 18대"]},
+  {c:"N",id:"N-02",q:"수출 대수는? (조서 / 현재)",p:[
+    "조서 13대 (대만 7·러시아 6)",
+    "현재 15대 (러시아 +2 → 8)"]},
+  {c:"N",id:"N-03",q:"유두탐지 정확도 / 착유시간은?",p:[
+    "유두탐지 정확도 99%",
+    "착유시간 446초 (13.8% 단축)"]},
+  {c:"N",id:"N-04",q:"가격은? (외산 대비 / 현재)",p:[
+    "외산 대비 40%↓ (2.4억)",
+    "제출 후 자체 로봇팔로 1.8억 / K2(2026 최신) 견적도 1.8억"]},
+  {c:"N",id:"N-05",q:"세계 몇 번째 상용화, 기준은?",p:[
+    "세계 5번째·아시아 최초",
+    "자국 기술로 개발·상용화한 국가 기준 (네덜란드·스웨덴·독일·미국 다음)"]},
+  {c:"N",id:"N-06",q:"데이터·AI 수치는?",p:[
+    "착유 데이터 20만 건+ (15개소·98종)",
+    "AI 알고리즘 6종 / 제1저자 논문"]},
+  {c:"N",id:"N-07",q:"사업화 수치는?",p:[
+    "센서 기술이전 43건·1,553백만(업체 매출 총액)",
+    "사료급이 기술이전 126백만·부가가치유발 2,296백만"],
+    w:"로봇착유기와 묶지 말 것 (센서 계열)."},
+  {c:"N",id:"N-08",q:"노동시간 단위는?",p:[
+    "3,661시간 = 호당/년 (타 축종 3배·착유 40%)",
+    "69.2→41.7시간 = 두당/년 (전체 평균)"]},
+  {c:"N",id:"N-09",q:"연간 절감액은?",p:[
+    "농가당/년 인건비 9.4백만 + 사료비 8.3백만"]},
+  {c:"N",id:"N-10",q:"특별성과 포상은?",p:[
+    "’26.5.18 제1회 농진청 특별성과 포상 (조서 제출 이후)",
+    "공개검증·외부심사·운영위, 축산 유일, 포상금 700만원",
+    "보도자료: “박성민 연구사…2개국 15대 수출”"]},
+  {c:"N",id:"N-11",q:"임용·휴직 시기는?",p:[
+    "임용 ’11.10.1 낙농과",
+    "휴직 ’22.2~’23.8 (육아 1년 + 질병 6개월), 수공 13년2월은 제외 수치"]},
+  {c:"N",id:"N-12",q:"착유 연구 이력 3건은?",p:[
+    "’14.2~16.12 착유시스템 생산성 연구책임자",
+    "’17.3~12 국내 개발 분방 착유기 검증 연구책임자",
+    "’19.1~20.1 국산 착유로봇 시제품 실증 참여(5%) — 전부 NTIS"]},
+  {c:"N",id:"N-13",q:"상용화 시점·주체는?",p:[
+    "’21년, 3차 과제(’17~21)",
+    "낙농과·㈜다운 공동, TRL 9"]},
+  {c:"N",id:"N-14",q:"현장 지원(컨설팅·책자)은?",p:[
+    "컨설팅 50회 이상",
+    "Q&A 책자 3종(국문·대만어·러시아어) 400부"]},
+  {c:"N",id:"N-15",q:"언론 보도 건수는?",p:[
+    "로봇착유기 134건 (MBC ’25.8.7 등)",
+    "사료급이 49건 / 센서 126건"]},
+];
+
+// ---------- 동료/상사 뱅크 (실사-면담시트-*.md 기반) ----------
+const CATS_WIT = { "F":"핵심 사실","Q":"예상 질문","D":"소송·휴직 대응" };
+
+const DECK_COLA = [];
+
+const DECK_COLB = [];
+
+const DECK_BOSS = [];
+
+// ---------- 페르소나 ----------
+const PERSONAS = [
+  {key:"self", name:"본인 (박성민)", deck:DECK_SELF, cats:CATS_SELF},
+];
+let DECK = DECK_SELF;   // 활성 페르소나 뱅크
+let CATS = CATS_SELF;
+let persona = "self";
+
+// ---------- 상태 ----------
+const LS_KEY = "silsa-drill-v1-self";
+const LS_MEMO = "silsa-memo-v1-self";
+const LS_ADD  = "silsa-add-v1-self";
+const LS_PTS  = "silsa-pts-v1-self";
+const LS_PERSONA = "silsa-persona-v1-self";
+let store = {};    // {cardId: grade}
+let memos = {};    // {cardId: "메모 텍스트"}
+let adds  = {};    // {cardId: ["보완 항목", ...]}  ← 구버전(신규추가) 호환용
+let pts   = {};    // {cardId: [{t,k}]}  k: base|add|edit  ← 편집된 정답(신규추가/대체 반영)
+try { store = JSON.parse(localStorage.getItem(LS_KEY)  || "{}"); } catch(e){ store = {}; }
+try { memos = JSON.parse(localStorage.getItem(LS_MEMO) || "{}"); } catch(e){ memos = {}; }
+try { adds  = JSON.parse(localStorage.getItem(LS_ADD)  || "{}"); } catch(e){ adds  = {}; }
+try { pts   = JSON.parse(localStorage.getItem(LS_PTS)  || "{}"); } catch(e){ pts   = {}; }
+function save(){     try { localStorage.setItem(LS_KEY,  JSON.stringify(store)); } catch(e){} }
+function saveMemos(){try { localStorage.setItem(LS_MEMO, JSON.stringify(memos)); } catch(e){} }
+function saveAdds(){ try { localStorage.setItem(LS_ADD,  JSON.stringify(adds));  } catch(e){} }
+function savePts(){  try { localStorage.setItem(LS_PTS,  JSON.stringify(pts));   } catch(e){} }
+// 카드의 현재 정답 포인트(편집 반영). pts 오버라이드가 있으면 그것, 없으면 원본+구버전 adds
+function effPoints(card){
+  if(pts[card.id]) return pts[card.id];
+  const base = card.p.map(t=>({t, k:"base"}));
+  const extra = (adds[card.id] || []).map(t=>({t, k:"add"}));
+  return base.concat(extra);
+}
+// 편집을 pts에 확정(구버전 adds는 흡수 후 제거)
+function commitPts(card, arr){
+  pts[card.id] = arr;
+  if(adds[card.id]) delete adds[card.id];
+  savePts(); saveAdds();
+}
+// arr가 원본 정답과 완전히 동일한지(그러면 오버라이드 불필요)
+function sameAsBase(card, arr){
+  if(arr.length !== card.p.length) return false;
+  return arr.every((p,i)=> p.k==="base" && p.t===card.p[i]);
+}
+// 편집 결과 반영: 원본과 같으면 오버라이드 제거, 아니면 pts 저장
+function applyEdit(card, arr){
+  if(sameAsBase(card, arr)){
+    if(pts[card.id]) delete pts[card.id];
+    if(adds[card.id]) delete adds[card.id];
+    savePts(); saveAdds();
+  } else commitPts(card, arr);
+  editingIdx = -1;
+  renderPoints(); refreshFlag();
+}
+function deleteLine(card, i){
+  const arr = effPoints(card).map(p=>({t:p.t, k:p.k}));
+  if(i<0 || i>=arr.length) return;
+  arr.splice(i,1);
+  applyEdit(card, arr);
+}
+function saveLine(card, i){
+  const ta = document.querySelector('#points .pt-input[data-i="'+i+'"]') || document.querySelector('#points .pt-input');
+  if(!ta) return;
+  const text = ta.value.trim();
+  const arr = effPoints(card).map(p=>({t:p.t, k:p.k}));
+  if(i<0 || i>=arr.length) return;
+  if(!text){ arr.splice(i,1); }                                  // 빈 값 = 삭제
+  else if(text !== arr[i].t){ arr[i] = {t:text, k: arr[i].k==="base" ? "edit" : arr[i].k}; }
+  applyEdit(card, arr);
+}
+function esc(s){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+let opt = { cat:"ALL", shuffle:false, timer:false };
+let deck = [];      // 현재 세트(필터/정렬된 카드 배열)
+let setIds = null;  // 명시적 세트(약한 것만 다시 등). null이면 카테고리 기준
+let idx = 0;
+let revealed = false;
+let tHandle = null;
+
+const isWeak = id => store[id]==="soft" || store[id]==="hard";
+// 세트 진행 판정
+const setComplete = () => deck.length>0 && deck.every(c=>store[c.id]);
+function nextUngradedIndex(from){
+  const n = deck.length;
+  for(let s=1;s<=n;s++){ const j=(from+s)%n; if(!store[deck[j].id]) return j; }
+  return -1;
+}
+function firstUngradedIndex(){
+  for(let i=0;i<deck.length;i++){ if(!store[deck[i].id]) return i; }
+  return -1;
+}
+
+function shuffleArr(a){
+  const r = a.slice();
+  for(let i=r.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [r[i],r[j]]=[r[j],r[i]]; }
+  return r;
+}
+function buildDeck(keepId){
+  let base;
+  if(setIds){ const s=new Set(setIds); base = DECK.filter(c => s.has(c.id)); }
+  else base = DECK.filter(c => opt.cat==="ALL" ? true : c.c===opt.cat);
+  deck = opt.shuffle ? shuffleArr(base) : base;
+  if(keepId){ const k = deck.findIndex(c=>c.id===keepId); idx = k>=0?k:0; }
+  else { const fu = firstUngradedIndex(); idx = fu>=0 ? fu : 0; }  // 미제출 문항부터
+  if(idx >= deck.length) idx = 0;
+}
+
+// ---------- 렌더 ----------
+const $ = s => document.querySelector(s);
+// 상단 태그(지난채점·보완·메모)만 갱신
+function refreshFlag(){
+  const card = deck[idx]; if(!card) return;
+  const st = store[card.id];
+  const hasMemo = !!(memos[card.id] && memos[card.id].trim());
+  const modCount = effPoints(card).filter(p=>p.k!=="base").length;
+  let flag = st ? '지난 채점 <b>'+({good:"✓ 즉답",soft:"△ 애매",hard:"✗ 막힘"}[st])+'</b>' : '';
+  if(modCount) flag += ' <span class="tag tag-add">보완 '+modCount+'</span>';
+  if(hasMemo)  flag += ' <span class="tag tag-memo">📝 메모</span>';
+  $("#e-flag").innerHTML = flag;
+}
+// 정답 포인트 목록 갱신 — 모든 줄에 ✎수정·✕삭제, 편집 중이면 인라인 에디터
+let editingIdx = -1;
+function renderPoints(){
+  const card = deck[idx]; if(!card) return;
+  const eff = effPoints(card);
+  if(editingIdx >= eff.length) editingIdx = -1;
+  $("#points").innerHTML = eff.map((p,i)=>{
+    if(i===editingIdx){
+      return '<li class="pt-editing" data-i="'+i+'">'
+        + '<textarea class="pt-input" data-i="'+i+'" rows="2">'+esc(p.t)+'</textarea>'
+        + '<div class="pt-erow"><button class="pt-save" data-i="'+i+'">저장</button>'
+        + '<button class="pt-cancel">취소</button></div></li>';
+    }
+    const cls = p.k==="add" ? "p-add" : (p.k==="edit" ? "p-edit" : "");
+    const mark = p.k==="add" ? '<span class="pmark pm-add">추가</span>'
+               : p.k==="edit" ? '<span class="pmark pm-edit">수정</span>' : '';
+    return '<li class="'+cls+'" data-i="'+i+'"><span class="pt-txt">'+mark+esc(p.t)+'</span>'
+      + '<span class="pt-tools">'
+      +   '<button class="pt-edit" data-i="'+i+'" title="이 줄 수정">✎</button>'
+      +   '<button class="pt-del" data-i="'+i+'" title="이 줄 삭제">✕</button></span></li>';
+  }).join("");
+  $("#adds").innerHTML = "";
+  $("#revertPts").hidden = sameAsBase(card, eff);
+}
+function render(){
+  updateStats();
+  const card = deck[idx];
+  const cardEl = $("#card");
+  cardEl.classList.remove("overtime");
+  if(!card){
+    stopTimer();
+    $("#cardbody").style.display = "none";
+    const emptyEl = $("#empty");
+    emptyEl.hidden = false;
+    emptyEl.innerHTML = '해당 조건에 카드가 없습니다.<br>카테고리를 바꾸거나 “🔁 새 세트”를 눌러 보세요.';
+    $("#prev").disabled = $("#next").disabled = true;
+    $("#pos-i").textContent = "0"; $("#pos-n").textContent = "0";
+    $("#posdot").className = "status-dot sd-none";
+    $("#donebar").hidden = true;
+    return;
+  }
+  reportOpen = false;
+  $("#report").hidden = true;
+  $("#card").style.display = "";
+  $("#cardbody").style.display = "";
+  $("#empty").hidden = true;
+  $("#donebar").hidden = !setComplete();
+  // 필드
+  $("#e-cat").textContent = CATS[card.c];
+  $("#e-id").textContent = card.id;
+  const st = store[card.id];
+  const hasMemo = !!(memos[card.id] && memos[card.id].trim());
+  refreshFlag();
+  $("#qtext").textContent = card.q;
+  // 답
+  editingIdx = -1;
+  renderPoints();
+  if(card.s){ $("#say").hidden=false; $("#sayText").textContent = card.s; } else $("#say").hidden=true;
+  if(card.w){ $("#warn").hidden=false; $("#warnText").textContent = card.w; } else $("#warn").hidden=true;
+  // 메모
+  $("#memo").value = memos[card.id] || "";
+  $("#memoBox").classList.toggle("hasmemo", hasMemo);
+  $("#memoStatus").classList.remove("on");
+  // 리셋
+  revealed = false;
+  $("#card").classList.remove("revealed");
+  $("#answer").classList.remove("show");
+  $("#grade").classList.remove("show");
+  $("#revealWrap").style.display = "";
+  // nav — 미완료 세트에선 '다음'이 미제출 문항으로, 완료 세트에선 순차 검토
+  $("#prev").disabled = idx===0;
+  $("#next").disabled = setComplete() ? (idx===deck.length-1) : (nextUngradedIndex(idx)===-1);
+  $("#pos-i").textContent = idx+1;
+  $("#pos-n").textContent = deck.length;
+  $("#posdot").className = "status-dot " + (st?("sd-"+st):"sd-none");
+  startTimer();
+}
+function reveal(){
+  if(revealed || !deck[idx]) return;
+  revealed = true;
+  stopTimer();
+  $("#card").classList.add("revealed");
+  $("#answer").classList.add("show");
+  $("#grade").classList.add("show");
+  $("#revealWrap").style.display = "none";
+}
+function grade(g){
+  const card = deck[idx]; if(!card) return;
+  const before = setComplete();
+  store[card.id] = g; save();
+  refreshFlag(); updateStats();
+  const after = setComplete();
+  if(after && !before){ showReport(); return; }   // 방금 세트 완성 → 보고서
+  if(!after){ const ni = nextUngradedIndex(idx); if(ni!==-1){ idx=ni; render(); return; } }
+  render(); // 완료 세트에서 재채점 등: 제자리 갱신
+}
+// '다음' — 미완료면 미제출 문항으로, 완료면 순차 검토
+function goNext(){
+  if(!deck.length) return;
+  if(setComplete()){ if(idx<deck.length-1){ idx++; render(); } return; }
+  const ni = nextUngradedIndex(idx);
+  if(ni!==-1){ idx=ni; render(); }
+}
+function goPrev(){ if(idx>0){ idx--; render(); } }
+
+// ---------- 결과 보고서 / 세트 ----------
+let reportOpen = false;
+function showReport(){
+  if(!deck.length) return;
+  reportOpen = true;
+  stopTimer();
+  let good=0,soft=0,hard=0,ungraded=0; const weak=[];
+  deck.forEach(c=>{ const s=store[c.id];
+    if(s==="good")good++; else if(s==="soft"){soft++;weak.push([c,"s"]);}
+    else if(s==="hard"){hard++;weak.push([c,"h"]);} else ungraded++; });
+  const total=deck.length, done=good+soft+hard, rate=done?Math.round(good/done*100):0;
+  const setName = setIds ? "약한 것만" : (opt.cat==="ALL"?"전체":CATS[opt.cat]);
+  let html = '<div class="rep-h">세트 결과 — '+esc(setName)+'</div>'
+    + '<div class="rep-sub">'+total+'문항 중 '+done+'문항 완료'+(ungraded?(' · 미제출 '+ungraded+'문항'):'')+'</div>'
+    + '<div class="rep-rate">'+rate+'<small>% 즉답</small></div>'
+    + '<div class="rep-tiles">'
+    +   '<div class="rtile g"><div class="n">'+good+'</div><div class="l">✓ 즉답</div></div>'
+    +   '<div class="rtile s"><div class="n">'+soft+'</div><div class="l">△ 애매</div></div>'
+    +   '<div class="rtile h"><div class="n">'+hard+'</div><div class="l">✗ 막힘</div></div>'
+    + '</div>';
+  if(weak.length){
+    html += '<div class="rep-wl-t">복습할 문항 '+weak.length+' — 눌러서 이동</div>'
+      + weak.map(([c,k])=>'<button class="wrow" data-id="'+esc(c.id)+'"><span class="wid">'+esc(c.id)
+        +'</span><span class="wq">'+esc(c.q)+'</span><span class="wk '+k+'">'+(k==="s"?"애매":"막힘")+'</span></button>').join("");
+  } else {
+    html += '<div class="rep-perfect">🎉 약점 없음 — 전 문항 즉답!</div>';
+  }
+  html += '<div class="rep-acts"><button class="ra-all">🔁 전체 다시 풀기</button>'
+    + (weak.length?'<button class="ra-weak">🎯 약한 것만 다시</button>':'')
+    + '<button class="ra-close">닫고 검토</button></div>';
+  const rep = $("#report");
+  rep.innerHTML = html;
+  rep.hidden = false;
+  $("#card").style.display = "none";
+  $("#donebar").hidden = true;
+  rep.querySelectorAll(".wrow").forEach(b=> b.addEventListener("click", ()=>{
+    const k = deck.findIndex(c=>c.id===b.dataset.id);
+    if(k>=0){ idx=k; closeReport(); }
+  }));
+  rep.querySelector(".ra-all").addEventListener("click", ()=>newSet());
+  const rw = rep.querySelector(".ra-weak");
+  if(rw) rw.addEventListener("click", ()=>weakRedrill(weak.map(([c])=>c.id)));
+  rep.querySelector(".ra-close").addEventListener("click", closeReport);
+}
+function closeReport(){ reportOpen=false; $("#report").hidden=true; $("#card").style.display=""; render(); }
+// 현재 세트 다시 — 세트 문항의 채점만 초기화 후 재구성(랜덤이면 재섞기)
+function newSet(){
+  reportOpen=false; $("#report").hidden=true; $("#card").style.display="";
+  deck.forEach(c=>{ if(store[c.id]) delete store[c.id]; });
+  save();
+  buildDeck();
+  render();
+  toast("새 세트를 시작합니다");
+}
+// 약한 것만 다시 — 약한 카드 id로 세트 구성, 해당 채점 초기화 후 드릴
+function weakRedrill(ids){
+  reportOpen=false; $("#report").hidden=true; $("#card").style.display="";
+  setIds = ids.slice();
+  ids.forEach(id=>{ if(store[id]) delete store[id]; });
+  save();
+  buildDeck();
+  render();
+  toast("약한 "+ids.length+"문항으로 새 세트");
+}
+
+// ---------- 타이머 ----------
+function stopTimer(){
+  if(tHandle){ clearTimeout(tHandle); tHandle=null; }
+  const fill = $("#tbar").querySelector("i");
+  fill.style.transition = "none";   // 되감기 애니메이션 방지
+  fill.style.width = "100%";
+}
+function startTimer(){
+  stopTimer();
+  const fill = $("#tbar").querySelector("i");
+  if(!opt.timer){ fill.style.opacity="0"; return; }
+  fill.style.opacity="1";
+  fill.style.transition="none"; fill.style.width="100%";
+  void fill.offsetWidth;            // 강제 reflow 후 애니메이션 시작
+  fill.style.transition = "width 15s linear";
+  fill.style.width = "0%";
+  tHandle = setTimeout(()=>{ $("#card").classList.add("overtime"); }, 15000);
+}
+
+// ---------- 통계 ----------
+function updateStats(){
+  const set = deck.length ? deck : DECK;
+  let good=0, done=0, weak=0;
+  set.forEach(c=>{
+    const s = store[c.id];
+    if(s){ done++; if(s==="good") good++; if(s==="soft"||s==="hard") weak++; }
+  });
+  $("#s-rate").textContent = done ? Math.round(good/done*100)+"%" : "—";
+  $("#s-done").innerHTML = done + '<small> / '+set.length+'</small>';
+  $("#s-weak").innerHTML = weak + '<small> 장</small>';
+  $("#progbar").style.width = (set.length? done/set.length*100:0)+"%";
+}
+
+// ---------- 컨트롤 ----------
+function initCat(){
+  const sel = $("#cat");
+  const counts = {};
+  DECK.forEach(c=> counts[c.c]=(counts[c.c]||0)+1);
+  let html = '<option value="ALL">전체 ('+DECK.length+')</option>';
+  Object.keys(CATS).forEach(k=>{
+    if(counts[k]) html += '<option value="'+k+'">'+CATS[k]+' ('+counts[k]+')</option>';
+  });
+  sel.innerHTML = html;
+  sel.value = opt.cat;
+}
+function toggle(btn, key){
+  opt[key] = !opt[key];
+  btn.setAttribute("aria-pressed", opt[key]);
+  const keep = deck[idx] && deck[idx].id;
+  buildDeck(key==="weak"?null:keep);
+  render();
+}
+
+// ---------- 페르소나(역할) 전환 ----------
+function renderStartGrid(){
+  const g=$("#startGrid");
+  g.innerHTML = PERSONAS.map(p=>
+    '<button class="start-card" data-key="'+p.key+'"><span class="sc-name">'+esc(p.name)+'</span>'
+    +'<span class="sc-n">'+p.deck.length+'문항</span></button>').join("");
+  g.querySelectorAll(".start-card").forEach(b=> b.addEventListener("click", ()=> setPersona(b.dataset.key, true)));
+}
+function showStart(){ $("#start").hidden=false; }
+function setPersona(key, doSave){
+  const p = PERSONAS.find(x=>x.key===key) || PERSONAS[0];
+  persona = p.key; DECK = p.deck; CATS = p.cats;
+  if(doSave){ try{ localStorage.setItem(LS_PERSONA, p.key); }catch(e){} }
+  $("#roleName").textContent = p.name;
+  opt.cat="ALL"; setIds=null; editingIdx=-1; reportOpen=false;
+  $("#report").hidden=true; $("#card").style.display="";
+  initCat(); buildDeck(); $("#start").hidden=true; render();
+}
+
+// events
+$("#cat").addEventListener("change", e=>{ opt.cat=e.target.value; setIds=null; buildDeck(); render(); });
+$("#shuffle").addEventListener("click", e=>toggle(e.currentTarget,"shuffle"));
+$("#btnNewset").addEventListener("click", ()=>newSet());
+$("#btnReport").addEventListener("click", askMemoThenReport);
+$("#dbReport").addEventListener("click", askMemoThenReport);
+$("#dbNew").addEventListener("click", ()=>newSet());
+$("#timer").addEventListener("click", e=>{
+  // 타이머는 덱/공개상태를 건드리지 않고 독립 처리
+  opt.timer = !opt.timer;
+  e.currentTarget.setAttribute("aria-pressed", opt.timer);
+  if(opt.timer && !revealed) startTimer(); else stopTimer();
+});
+$("#reset").addEventListener("click", resetFlow);
+$("#btnBackup").addEventListener("click", showBackup);
+$("#btnRestore").addEventListener("click", showRestore);
+$("#roleBtn").addEventListener("click", showStart);
+$("#btnReveal").addEventListener("click", reveal);
+
+// 메모: 입력 즉시 저장
+let memoTimer = null;
+$("#memo").addEventListener("input", e=>{
+  const card = deck[idx]; if(!card) return;
+  const v = e.target.value;
+  if(v.trim()) memos[card.id] = v; else delete memos[card.id];
+  saveMemos();
+  const s = $("#memoStatus"); s.classList.add("on");
+  clearTimeout(memoTimer); memoTimer = setTimeout(()=>s.classList.remove("on"), 1200);
+});
+// 메모 입력 중 단축키(1/2/3/Space) 오작동 방지 — 위 keydown에서 처리
+
+// 줄별 수정/삭제/저장/취소 (부분 갱신 — 공개된 답 유지)
+$("#points").addEventListener("click", e=>{
+  const card = deck[idx]; if(!card) return;
+  const editB = e.target.closest(".pt-edit");
+  const delB  = e.target.closest(".pt-del");
+  const saveB = e.target.closest(".pt-save");
+  const cancelB = e.target.closest(".pt-cancel");
+  if(editB){ editingIdx = +editB.dataset.i; renderPoints();
+    const ta = $("#points .pt-input"); if(ta){ ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); } return; }
+  if(delB){ deleteLine(card, +delB.dataset.i); return; }
+  if(saveB){ saveLine(card, +saveB.dataset.i); return; }
+  if(cancelB){ editingIdx = -1; renderPoints(); return; }
+});
+// 편집 textarea: Enter 저장(Shift+Enter 줄바꿈), Esc 취소
+$("#points").addEventListener("keydown", e=>{
+  if(!e.target.classList || !e.target.classList.contains("pt-input")) return;
+  if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); const card=deck[idx]; if(card) saveLine(card, +e.target.dataset.i); }
+  else if(e.key==="Escape"){ e.preventDefault(); editingIdx = -1; renderPoints(); }
+});
+
+// ---------- 커스텀 모달 / 토스트 (샌드박스 confirm/alert 대체) ----------
+let modalOpen = false;
+function modal({title, body, actions}){
+  return new Promise(resolve=>{
+    modalOpen = true;
+    const ov = $("#ov"), aWrap = $("#dlgA");
+    $("#dlgT").textContent = title || "";
+    $("#dlgB").textContent = body || "";
+    aWrap.innerHTML = "";
+    const close = val => { ov.hidden = true; modalOpen = false; resolve(val); };
+    actions.forEach(ac=>{
+      const b = document.createElement("button");
+      b.className = "dlg-btn" + (ac.kind ? " "+ac.kind : "");
+      b.textContent = ac.label;
+      b.addEventListener("click", ()=>close(ac.value));
+      aWrap.appendChild(b);
+    });
+    ov._close = () => close(actions[actions.length-1].value); // ESC/배경 = 마지막(취소성) 값
+    ov.hidden = false;
+    const f = aWrap.querySelector(".dlg-btn"); if(f) f.focus();
+  });
+}
+function toast(msg){
+  const t = $("#toast");
+  t.textContent = msg; t.hidden = false;
+  clearTimeout(t._h); t._h = setTimeout(()=>{ t.hidden = true; }, 1900);
+}
+// 배경 클릭·ESC로 모달 닫기(취소 처리)
+$("#ov").addEventListener("click", e=>{ if(e.target.id==="ov" && $("#ov")._close) $("#ov")._close(); });
+
+// ---------- 백업 / 복원 ----------
+function collectData(){
+  return JSON.stringify({ app:"silsa-drill", v:1, savedAt:new Date().toISOString(), store, memos, adds, pts }, null, 0);
+}
+function mkbtn(label, kind, fn){
+  const b=document.createElement("button");
+  b.className="dlg-btn"+(kind?" "+kind:""); b.textContent=label;
+  b.addEventListener("click", fn); return b;
+}
+function closeOv(){ const ov=$("#ov"); ov.hidden=true; modalOpen=false; ov._close=null; }
+function tryDownload(name, text){
+  try{
+    const blob=new Blob([text],{type:"application/json"});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement("a"); a.href=url; a.download=name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 1500);
+    return true;
+  }catch(e){ return false; }
+}
+function copyText(ta){
+  let done=false;
+  try{ ta.focus(); ta.select(); ta.setSelectionRange(0, ta.value.length); done=document.execCommand("copy"); }catch(e){}
+  try{ if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(ta.value).then(()=>{},()=>{}); }catch(e){}
+  toast(done ? "복사했습니다 — 안전한 곳에 붙여넣어 보관하세요" : "텍스트가 선택됐습니다. 길게 눌러 복사하세요");
+}
+function showBackup(){
+  const json=collectData();
+  modalOpen=true; const ov=$("#ov");
+  $("#dlgT").textContent="💾 백업 — 편집 내용 내보내기";
+  const b=$("#dlgB"); b.innerHTML="";
+  const info=document.createElement("div");
+  info.style.cssText="margin-bottom:9px;font-size:.86rem;line-height:1.55";
+  info.textContent="아래 내용 전체를 복사해 안전한 곳(나에게 메일 보내기·메모 앱)에 붙여 보관하세요. 다른 기기·브라우저에서도 ‘📥 복원’으로 그대로 되살릴 수 있습니다.";
+  const ta=document.createElement("textarea"); ta.className="io-ta"; ta.readOnly=true; ta.value=json;
+  b.appendChild(info); b.appendChild(ta);
+  const a=$("#dlgA"); a.innerHTML="";
+  a.appendChild(mkbtn("복사","good",()=>copyText(ta)));
+  a.appendChild(mkbtn("파일로 저장","primary",()=>{ if(!tryDownload("silsa-backup.json", json)) toast("이 브라우저에선 ‘복사’를 이용하세요"); }));
+  a.appendChild(mkbtn("닫기","",closeOv));
+  ov._close=closeOv; ov.hidden=false;
+  ta.focus(); ta.select();
+}
+function showRestore(){
+  modalOpen=true; const ov=$("#ov");
+  $("#dlgT").textContent="📥 복원 — 백업 내용 붙여넣기";
+  const b=$("#dlgB"); b.innerHTML="";
+  const info=document.createElement("div");
+  info.style.cssText="margin-bottom:9px;font-size:.86rem;line-height:1.55";
+  info.textContent="백업해 둔 내용을 아래에 붙여넣고 ‘복원’을 누르세요. 현재 편집 내용을 백업 내용으로 덮어씁니다.";
+  const ta=document.createElement("textarea"); ta.className="io-ta"; ta.placeholder="여기에 백업 텍스트를 붙여넣으세요…";
+  b.appendChild(info); b.appendChild(ta);
+  const a=$("#dlgA"); a.innerHTML="";
+  a.appendChild(mkbtn("복원","primary",()=>{
+    let d; try{ d=JSON.parse(ta.value.trim()); }catch(e){ toast("형식이 올바르지 않습니다 — 백업 전체를 붙여넣었는지 확인하세요"); return; }
+    if(!d || typeof d!=="object"){ toast("형식이 올바르지 않습니다"); return; }
+    if(d.store && typeof d.store==="object"){ store=d.store; save(); }
+    if(d.memos && typeof d.memos==="object"){ memos=d.memos; saveMemos(); }
+    if(d.adds  && typeof d.adds ==="object"){ adds =d.adds;  saveAdds(); }
+    if(d.pts   && typeof d.pts  ==="object"){ pts  =d.pts;   savePts(); }
+    closeOv(); setIds=null; buildDeck(); render();
+    toast("백업을 복원했습니다 ✓");
+  }));
+  a.appendChild(mkbtn("취소","",closeOv));
+  ov._close=closeOv; ov.hidden=false;
+  ta.focus();
+}
+
+// 초기화: 메모를 정답에 반영할지 물은 뒤 점수 초기화
+// 메모를 정답에 반영하는 공통 루프(각 메모: 추가/대체 선택, 현재 정답 표시)
+async function reflectMemos(memoIds){
+  let promoted = 0;
+  for(const id of memoIds){
+    const card = DECK.find(c=>c.id===id);
+    const memoText = memos[id].trim();
+    const eff = effPoints(card);
+    const listBody = eff.map((p,i)=>(i+1)+". "+p.t).join("\n");
+    // ① 신규 추가 / 기존 대체 / 반영 안 함 — 현재 정답을 함께 보여줌
+    const mode = await modal({
+      title:"["+card.id+"] 메모 반영 방식",
+      body:card.q+"\n\n── 현재 정답 ──\n"+listBody+"\n\n── 내 메모 ──\n"+memoText+"\n\n어떻게 반영할까요?",
+      actions:[
+        {label:"신규 추가", value:"add", kind:"good"},
+        {label:"기존 답변 대체", value:"replace", kind:"primary"},
+        {label:"반영 안 함", value:"skip"}
+      ]
+    });
+    if(mode==="skip" || !mode) continue;
+    if(mode==="add"){
+      const acts = [{label:"맨 위", value:0}];
+      eff.forEach((p,i)=> acts.push({label:(i+1)+"번 뒤", value:i+1}));
+      acts.push({label:"취소", value:-1});
+      const pos = await modal({
+        title:"["+card.id+"] 어디에 추가?",
+        body:"현재 정답 항목:\n"+listBody+"\n\n＋ 추가할 내용:\n"+memoText+"\n\n추가할 위치를 고르세요.",
+        actions:acts
+      });
+      if(pos===-1 || pos===undefined) continue;
+      const arr = eff.slice();
+      arr.splice(pos, 0, {t:memoText, k:"add"});
+      commitPts(card, arr);
+      delete memos[id]; promoted++;
+    } else if(mode==="replace"){
+      const acts = eff.map((p,i)=>({label:(i+1)+"번", value:i}));
+      acts.push({label:"취소", value:-1});
+      const ti = await modal({
+        title:"["+card.id+"] 어느 것을 대체?",
+        body:"현재 정답 항목:\n"+listBody+"\n\n→ 대체할 내용:\n"+memoText+"\n\n대체할 항목 번호를 고르세요.",
+        actions:acts
+      });
+      if(ti===-1 || ti===undefined) continue;
+      const arr = eff.slice();
+      arr[ti] = {t:memoText, k:"edit"};
+      commitPts(card, arr);
+      delete memos[id]; promoted++;
+    }
+  }
+  saveMemos();
+  if(promoted) toast(promoted+"건을 정답에 반영했습니다");
+  return promoted;
+}
+// 메모가 있으면 반영을 물은 뒤 결과 보고서 표시(세트 중간에도 결과 버튼으로 호출)
+async function askMemoThenReport(){
+  if(modalOpen || !deck.length) return;
+  const memoIds = Object.keys(memos).filter(id => memos[id] && memos[id].trim() && DECK.some(c=>c.id===id));
+  if(memoIds.length){
+    const go = await modal({
+      title:"메모를 정답에 반영할까요?",
+      body:"작성한 메모가 "+memoIds.length+"건 있습니다.\n결과를 보기 전에 정답에 반영할지 하나씩 확인할 수 있습니다.",
+      actions:[{label:"하나씩 검토",value:true,kind:"primary"},{label:"나중에",value:false}]
+    });
+    if(go) await reflectMemos(memoIds);
+  }
+  showReport();
+}
+async function resetFlow(){
+  if(modalOpen) return;
+  const memoIds = Object.keys(memos).filter(id => memos[id] && memos[id].trim() && DECK.some(c=>c.id===id));
+  if(memoIds.length){
+    const review = await modal({
+      title:"메모를 정답에 반영할까요?",
+      body:"작성한 메모가 "+memoIds.length+"건 있습니다.\n\n각 메모를 정답에 반영할지 하나씩 확인할 수 있습니다. 반영된 메모는 다음 테스트의 정답에 함께 표시됩니다.",
+      actions:[{label:"하나씩 검토",value:true,kind:"primary"},{label:"건너뛰기",value:false}]
+    });
+    if(review) await reflectMemos(memoIds);
+  }
+  const clr = await modal({
+    title:"자가채점 점수 초기화",
+    body:"모든 즉답/애매/막힘 채점 기록을 지울까요?\n(메모·보완 항목은 유지됩니다)",
+    actions:[{label:"초기화",value:true,kind:"hard"},{label:"취소",value:false}]
+  });
+  if(clr){ store = {}; save(); toast("점수를 초기화했습니다"); }
+  // 정답 편집(메모 반영)도 전체 원점 복원할지
+  if(Object.keys(pts).length || Object.keys(adds).length){
+    const rev = await modal({
+      title:"정답 편집 초기화",
+      body:"메모로 추가·대체한 정답을 모두 원본으로 되돌릴까요?\n(개별 카드는 답 확인 화면의 ‘↺ 원본으로’ 버튼으로도 되돌릴 수 있습니다)",
+      actions:[{label:"모두 원본으로",value:true,kind:"hard"},{label:"편집 유지",value:false}]
+    });
+    if(rev){ pts={}; adds={}; savePts(); saveAdds(); toast("정답을 원본으로 되돌렸습니다"); }
+  }
+  setIds = null;
+  buildDeck(); render();
+}
+$("#grade").addEventListener("click", e=>{ const b=e.target.closest(".gbtn"); if(b) grade(b.dataset.g); });
+$("#prev").addEventListener("click", goPrev);
+$("#next").addEventListener("click", goNext);
+
+// 정답 원본 복원(이 카드)
+$("#revertPts").addEventListener("click", ()=>{
+  const card = deck[idx]; if(!card) return;
+  if(pts[card.id]) delete pts[card.id];
+  if(adds[card.id]) delete adds[card.id];
+  savePts(); saveAdds();
+  renderPoints(); refreshFlag();
+  toast("원본 정답으로 되돌렸습니다");
+});
+
+// theme toggle
+const root = document.documentElement;
+$("#theme").addEventListener("click", ()=>{
+  const cur = root.getAttribute("data-theme");
+  const sysDark = window.matchMedia("(prefers-color-scheme:dark)").matches;
+  const now = cur ? cur : (sysDark?"dark":"light");
+  root.setAttribute("data-theme", now==="dark"?"light":"dark");
+});
+
+// keyboard
+document.addEventListener("keydown", e=>{
+  if(!$("#start").hidden) return;               // 역할 선택 화면에선 단축키 무시
+  if(modalOpen){ if(e.key==="Escape" && $("#ov")._close) $("#ov")._close(); return; }
+  if(reportOpen){ if(e.key==="Escape") closeReport(); return; }
+  const tag = e.target.tagName;
+  if(tag==="SELECT" || tag==="TEXTAREA" || tag==="INPUT") return;
+  if(e.code==="Space"){ e.preventDefault(); if(!revealed) reveal(); else goNext(); }
+  else if(e.key==="1" && revealed) grade("good");
+  else if(e.key==="2" && revealed) grade("soft");
+  else if(e.key==="3" && revealed) grade("hard");
+  else if(e.key==="ArrowRight") goNext();
+  else if(e.key==="ArrowLeft") goPrev();
+  else if(e.key==="r"||e.key==="R"){ if(!revealed) reveal(); }
+});
+
+// init — 이 파일은 단일 역할 전용
+setPersona("self", false);
+</script>
