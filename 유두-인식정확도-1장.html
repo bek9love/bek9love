@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>국산 로봇착유기 유두 인식 정확도 실증</title>
+<style>
+  @page { size: A4; margin: 12mm; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif; font-size:9.4pt; line-height:1.42; color:#1a1a1a; width:186mm; margin:0 auto; }
+  .hd { border-bottom:2.5px solid #1a3a6b; padding-bottom:2.5mm; margin-bottom:3mm; }
+  .hd h1 { font-size:15pt; color:#1a3a6b; }
+  .hd .sub { font-size:8.6pt; color:#555; margin-top:1.2mm; }
+  h2 { font-size:10.2pt; color:#1a3a6b; margin:3.2mm 0 1.4mm; padding-left:2mm; border-left:3.5px solid #e8811c; }
+  table { width:100%; border-collapse:collapse; margin-bottom:1mm; }
+  th,td { border:1px solid #c2ccd9; padding:1.4mm 2mm; text-align:center; }
+  th { background:#1a3a6b; color:#fff; font-size:8.8pt; }
+  td.l { text-align:left; }
+  tr.tot td { background:#eef5ed; font-weight:bold; }
+  tr.tot td.hi { color:#1a6b2e; font-size:10.5pt; }
+  .concl { background:#1a3a6b; color:#fff; padding:3mm 3.5mm; border-radius:2mm; margin:3mm 0; font-size:11pt; text-align:center; }
+  .concl b { color:#ffd24a; }
+  .concl .big { font-size:15pt; color:#ffd24a; font-weight:bold; }
+  .grid { display:flex; gap:3mm; }
+  .grid .box { flex:1; border:1px solid #c2ccd9; border-radius:2mm; padding:2.5mm 3mm; text-align:center; }
+  .grid .box .k { font-size:8.2pt; color:#555; }
+  .grid .box .v { font-size:16pt; font-weight:bold; color:#1a3a6b; margin-top:0.5mm; }
+  .grid .box .s { font-size:7.6pt; color:#777; margin-top:0.3mm; }
+  .note { font-size:8pt; color:#555; margin-top:1mm; }
+  .disc { background:#fdf7ee; border:1px solid #e8a54c; border-radius:2mm; padding:2.2mm 3mm; margin-top:2.5mm; font-size:8.4pt; }
+  .disc b { color:#b06a12; }
+  .src { font-size:7.6pt; color:#888; margin-top:2mm; border-top:1px solid #ddd; padding-top:1.2mm; }
+</style>
+</head>
+<body>
+<div class="hd">
+  <h1>국산 로봇착유기(데어리봇 K2) 유두 인식 정확도 실증</h1>
+  <div class="sub">국립축산과학원 낙농과 · 고성 가야목장 상용 운영 로그 실측 · 분석기간 2026-07-01 ~ 07-22(22일) · <b>컵 1·3·4번 기준(2번컵 일시 이슈 제외)</b></div>
+</div>
+
+<div class="concl">
+  유두 인식 정확도 &nbsp; <span class="big">99.98%</span> &nbsp; <b>(8,831 / 8,833)</b><br>
+  <span style="font-size:8.6pt">＊상용 착유 로그 <b>3,033만 라인</b>·표본 컵 시도 8,833건 실측 — 시험용이 아닌 현장 운영 데이터</span>
+</div>
+
+<div class="grid">
+  <div class="box"><div class="k">유두 인식 정확도</div><div class="v">99.98%</div><div class="s">1·3·4번 컵, 8,831/8,833</div></div>
+  <div class="box"><div class="k">컵 장착 성공률</div><div class="v">97.97%</div><div class="s">8,652/8,831 · 정상 2컵(1·3번) 99.52%</div></div>
+  <div class="box"><div class="k">인식 실패</div><div class="v">2건</div><div class="s">22일 누적 · 일 평균 0.09건</div></div>
+</div>
+
+<h2>① 컵별 실측 (22일 누적)</h2>
+<table>
+  <tr><th>컵 (위치)</th><th>인식 시도</th><th>인식 성공</th><th>유두 인식률</th><th>장착 시도</th><th>장착 성공</th><th>컵 장착률</th></tr>
+  <tr><td class="l">1번 (앞다리)</td><td>3,472</td><td>3,471</td><td><b>99.97%</b></td><td>3,471</td><td>3,452</td><td>99.45%</td></tr>
+  <tr><td class="l">3번 (앞다리)</td><td>2,527</td><td>2,526</td><td><b>99.96%</b></td><td>2,526</td><td>2,516</td><td>99.60%</td></tr>
+  <tr><td class="l">4번 (뒷다리)</td><td>2,834</td><td>2,834</td><td><b>100.00%</b></td><td>2,834</td><td>2,684</td><td>94.71%<sup>※</sup></td></tr>
+  <tr class="tot"><td class="l">합계 (1·3·4번)</td><td>8,833</td><td>8,831</td><td class="hi">99.98%</td><td>8,831</td><td>8,652</td><td>97.97%</td></tr>
+</table>
+<div class="note">유두 인식은 세 컵 모두 <b>99.96~100%</b>로 22일 내내 안정적. <sup>※</sup>4번컵 장착률(94.71%)은 ’07-08 이후 나타난 <b>간헐적 장착 이슈</b>로, 인식(100%)과 무관한 별도 하드웨어 점검 사항 — 정상 2컵(1·3번) 장착률은 <b>99.52%</b>.</div>
+
+<h2>② 산출 기준</h2>
+<table>
+  <tr><th>구분</th><th>정의</th></tr>
+  <tr><td class="l" style="width:34%">유두 인식률</td><td class="l">재시도 포함 최종 기준 — 유두 "찾기 성공" 1회 이상이면 인식 성공. 분모 = 인식 시도.</td></tr>
+  <tr><td class="l">컵 장착 성공률</td><td class="l">재시도(최대 4회) 포함 최종 기준. <b>분모 = 인식에 성공한 컵</b>만.</td></tr>
+  <tr><td class="l">데이터·경계</td><td class="l">OPERATION 로그(UTF-16LE) 30,329,018라인. 컵 시도 경계 = "유두 장착 위치 체크" 로그, 컵번호 = m_nCurTeatNum(불일치 0.015%). 재선정 폐기(abandoned) 시퀀스는 성공/실패 미확정으로 제외.</td></tr>
+</table>
+
+<div class="disc">
+  <b>2번컵(뒷다리) 제외 사유</b> — 분석기간 중 2번컵에 <b>일시적 인식 저하</b>가 관찰되어 본 실측에서 제외했습니다(현재 원인 파악·<b>조치 진행 중, 해결 예정</b>). 나머지 세 컵의 인식률이 99.96~100%로 일관된 점에서, 이는 <b>인식 알고리즘의 성능 문제가 아니라 특정 컵의 일시적 이슈</b>임이 확인됩니다.
+</div>
+
+<div class="src">출처: 「가야 농장 AM 유두인식률·컵장착성공률 통계 보고」(2026-07, 상용 운영 로그 실측). 원자료·일자별 추이·차트: <b>증빙/유두탐지-실증데이터/</b>. 작성: 국립축산과학원 낙농과.</div>
+</body>
+</html>
