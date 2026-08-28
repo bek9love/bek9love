@@ -1,0 +1,1099 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>현장실사 즉답 훈련 — 동료 A</title>
+<style>
+  :root{
+    --paper:#eef1f5; --surface:#ffffff; --surface-2:#f6f8fb;
+    --ink:#16222e; --ink-soft:#4a5b6b; --ink-faint:#7c8a99;
+    --line:#d9e0e8; --line-soft:#e7ecf1;
+    --accent:#1b3a5b; --accent-soft:#31597f; --accent-tint:#eaf1f8;
+    --amber:#b8791f; --amber-tint:#fbf1df;
+    --good:#2e8f5e; --good-tint:#e6f4ec;
+    --soft:#c1861e; --soft-tint:#fbf1dc;
+    --hard:#c34a3f; --hard-tint:#fbe9e7;
+    --shadow:0 1px 2px rgba(20,40,60,.06), 0 8px 26px rgba(20,40,60,.08);
+    --radius:14px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#0f1720; --surface:#16212e; --surface-2:#1b2836;
+      --ink:#e7edf3; --ink-soft:#a7b6c4; --ink-faint:#728496;
+      --line:#2b3a4b; --line-soft:#243342;
+      --accent:#6ea6d8; --accent-soft:#8cbce6; --accent-tint:#182a3b;
+      --amber:#d9a441; --amber-tint:#2a2313;
+      --good:#4cb583; --good-tint:#15291f;
+      --soft:#d3a24a; --soft-tint:#2a2314;
+      --hard:#e07d72; --hard-tint:#2c1a18;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"]{
+    --paper:#eef1f5; --surface:#ffffff; --surface-2:#f6f8fb;
+    --ink:#16222e; --ink-soft:#4a5b6b; --ink-faint:#7c8a99;
+    --line:#d9e0e8; --line-soft:#e7ecf1;
+    --accent:#1b3a5b; --accent-soft:#31597f; --accent-tint:#eaf1f8;
+    --amber:#b8791f; --amber-tint:#fbf1df;
+    --good:#2e8f5e; --good-tint:#e6f4ec; --soft:#c1861e; --soft-tint:#fbf1dc;
+    --hard:#c34a3f; --hard-tint:#fbe9e7;
+    --shadow:0 1px 2px rgba(20,40,60,.06), 0 8px 26px rgba(20,40,60,.08);
+  }
+  :root[data-theme="dark"]{
+    --paper:#0f1720; --surface:#16212e; --surface-2:#1b2836;
+    --ink:#e7edf3; --ink-soft:#a7b6c4; --ink-faint:#728496;
+    --line:#2b3a4b; --line-soft:#243342;
+    --accent:#6ea6d8; --accent-soft:#8cbce6; --accent-tint:#182a3b;
+    --amber:#d9a441; --amber-tint:#2a2313;
+    --good:#4cb583; --good-tint:#15291f; --soft:#d3a24a; --soft-tint:#2a2314;
+    --hard:#e07d72; --hard-tint:#2c1a18;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  [hidden]{display:none!important}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Pretendard','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',-apple-system,sans-serif;
+    background:var(--paper); color:var(--ink);
+    line-height:1.6; padding:18px 16px 40px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto}
+  .num{font-variant-numeric:tabular-nums}
+
+  /* header */
+  header{margin-bottom:14px}
+  .titlerow{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  h1{font-size:1.32rem;letter-spacing:-.02em;color:var(--ink)}
+  .sub{font-size:.76rem;color:var(--ink-faint);margin-top:2px;letter-spacing:.01em}
+  .theme{background:none;border:1px solid var(--line);color:var(--ink-soft);
+    border-radius:8px;padding:5px 10px;font-size:.72rem;cursor:pointer;font-family:inherit}
+  .theme:hover{border-color:var(--accent)}
+  .hd-btns{display:flex;gap:6px;align-items:center;flex:none}
+  .rolebtn{background:var(--accent-tint);border:1px solid var(--line);color:var(--ink);
+    border-radius:8px;padding:5px 11px;font-size:.72rem;cursor:pointer;font-family:inherit;white-space:nowrap}
+  .rolebtn b{color:var(--accent);font-weight:700}
+  .rolebtn:hover{border-color:var(--accent)}
+  /* 시작 화면(역할 선택) */
+  .start{position:fixed;inset:0;background:rgba(8,16,26,.6);display:flex;align-items:center;
+    justify-content:center;padding:20px;z-index:120}
+  .start-box{background:var(--surface);border:1px solid var(--line);border-radius:16px;
+    box-shadow:0 24px 64px rgba(0,0,0,.4);padding:26px 24px;max-width:440px;width:100%;animation:pop .18s ease}
+  .start-h{font-size:1.25rem;font-weight:700;color:var(--accent);text-align:center}
+  .start-sub{font-size:.8rem;color:var(--ink-faint);text-align:center;margin:6px 0 18px;line-height:1.55}
+  .start-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .start-card{display:flex;flex-direction:column;gap:3px;align-items:flex-start;
+    background:var(--surface-2);border:1px solid var(--line);border-radius:11px;padding:14px 15px;
+    cursor:pointer;font-family:inherit;text-align:left}
+  .start-card:hover{border-color:var(--accent);background:var(--accent-tint)}
+  .sc-name{font-size:.98rem;font-weight:700;color:var(--ink)}
+  .sc-n{font-size:.7rem;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+  @media (max-width:420px){.start-grid{grid-template-columns:1fr}}
+
+  /* progress strip */
+  .stats{display:flex;gap:10px;margin:12px 0 6px;flex-wrap:wrap}
+  .stat{flex:1;min-width:88px;background:var(--surface);border:1px solid var(--line);
+    border-radius:10px;padding:8px 11px;box-shadow:var(--shadow)}
+  .stat .k{font-size:.66rem;color:var(--ink-faint);letter-spacing:.04em;text-transform:uppercase}
+  .stat .v{font-size:1.18rem;font-weight:700;letter-spacing:-.01em;margin-top:1px}
+  .stat .v small{font-size:.72rem;font-weight:500;color:var(--ink-faint)}
+  .bar{height:5px;background:var(--line-soft);border-radius:99px;overflow:hidden;margin-top:8px}
+  .bar > i{display:block;height:100%;width:0;background:var(--accent);
+    border-radius:99px;transition:width .35s ease}
+
+  /* controls */
+  .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0 14px}
+  select,.chip,.ctl{font-family:inherit;font-size:.76rem;color:var(--ink);
+    background:var(--surface);border:1px solid var(--line);border-radius:8px;
+    padding:7px 11px;cursor:pointer}
+  select{padding-right:26px;background-image:linear-gradient(45deg,transparent 50%,var(--ink-faint) 50%),linear-gradient(135deg,var(--ink-faint) 50%,transparent 50%);
+    background-position:calc(100% - 14px) 52%,calc(100% - 9px) 52%;background-size:5px 5px,5px 5px;background-repeat:no-repeat;-webkit-appearance:none;appearance:none}
+  .chip[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip[aria-pressed="true"]{color:#0f1720}}
+  :root[data-theme="dark"] .chip[aria-pressed="true"]{color:#0f1720}
+  .chip:hover,.ctl:hover{border-color:var(--accent)}
+  .spacer{flex:1}
+  .ctl.reset{color:var(--hard);border-color:transparent;background:transparent}
+  .ctl.reset:hover{background:var(--hard-tint);border-color:transparent}
+
+  /* card */
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);overflow:hidden;position:relative}
+  .card.overtime{border-color:var(--soft)}
+  .timerbar{height:3px;background:transparent}
+  .timerbar > i{display:block;height:100%;width:100%;background:var(--amber);border-radius:0 3px 3px 0}
+  .timerbar.run > i{transition:width linear}
+  .body{padding:22px 22px 20px}
+  .eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .cat{font-size:.68rem;font-weight:700;letter-spacing:.05em;color:var(--accent);
+    background:var(--accent-tint);padding:3px 9px;border-radius:99px}
+  .qid{font-size:.68rem;color:var(--ink-faint);font-variant-numeric:tabular-nums;letter-spacing:.03em}
+  .flag{font-size:.66rem;color:var(--ink-faint);margin-left:auto}
+  .flag b{color:var(--ink-soft);font-weight:600}
+  .q{font-size:1.28rem;font-weight:650;letter-spacing:-.015em;line-height:1.42;color:var(--ink);text-wrap:balance}
+  .q .qmark{color:var(--accent);font-weight:800;margin-right:2px}
+
+  .reveal-wrap{margin-top:18px}
+  .btn-reveal{width:100%;background:var(--accent);color:#fff;border:none;border-radius:10px;
+    padding:13px;font-size:.92rem;font-weight:650;font-family:inherit;cursor:pointer;letter-spacing:.01em}
+  :root[data-theme="dark"] .btn-reveal{color:#0f1720}
+  @media (prefers-color-scheme:dark){.btn-reveal{color:#0f1720}}
+  .btn-reveal:hover{background:var(--accent-soft)}
+  .btn-reveal .hint{font-weight:400;opacity:.75;font-size:.74rem;margin-left:6px}
+  .overtime-note{text-align:center;font-size:.74rem;color:var(--soft);font-weight:600;margin-bottom:8px;display:none}
+  .card.overtime .overtime-note{display:block}
+
+  /* answer */
+  .answer{margin-top:16px;border-top:1px dashed var(--line);padding-top:16px;display:none}
+  .answer.show{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .alabel{font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px}
+  ul.points{list-style:none;display:flex;flex-direction:column;gap:7px}
+  ul.points li{position:relative;padding-left:18px;font-size:.96rem;color:var(--ink)}
+  ul.points li::before{content:"";position:absolute;left:3px;top:.62em;width:5px;height:5px;
+    border-radius:50%;background:var(--accent)}
+  .say{margin-top:14px;background:var(--amber-tint);border-left:3px solid var(--amber);
+    border-radius:0 8px 8px 0;padding:11px 14px;font-size:.9rem;color:var(--ink)}
+  .say .l{font-size:.64rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--amber);margin-bottom:4px}
+  .warn{margin-top:12px;background:var(--hard-tint);border-radius:8px;padding:10px 13px;
+    font-size:.85rem;color:var(--ink);display:flex;gap:8px}
+  .warn .i{color:var(--hard);font-weight:700;flex:none}
+
+  /* 보완 (승격된 메모) */
+  .adds{margin-top:14px}
+  .add-l{font-size:.64rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--good);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+  .add-l::before{content:"＋";font-size:.9rem}
+  ul.add-points li::before{background:var(--good)}
+  ul.add-points li{padding-right:26px}
+  .add-del{position:absolute;right:0;top:2px;border:none;background:none;color:var(--ink-faint);
+    cursor:pointer;font-size:.72rem;line-height:1;padding:3px 5px;border-radius:5px}
+  .add-del:hover{color:var(--hard);background:var(--hard-tint)}
+
+  /* 편집된 정답 포인트 (추가/대체 표시) + 줄별 수정/삭제 */
+  ul.points li{padding-right:46px}
+  ul.points li.p-add::before{background:var(--good)}
+  ul.points li.p-edit::before{background:var(--amber)}
+  .pmark{font-size:.58rem;font-weight:700;border-radius:99px;padding:1px 6px;margin-right:6px;
+    vertical-align:1px;letter-spacing:.02em}
+  .pm-add{background:var(--good-tint);color:var(--good)}
+  .pm-edit{background:var(--amber-tint);color:var(--amber)}
+  .pt-tools{position:absolute;right:0;top:1px;display:inline-flex;gap:1px}
+  .pt-edit,.pt-del{border:none;background:none;color:var(--ink-faint);cursor:pointer;
+    font-size:.74rem;line-height:1;padding:3px 5px;border-radius:5px}
+  .pt-edit:hover{color:var(--accent);background:var(--accent-tint)}
+  .pt-del:hover{color:var(--hard);background:var(--hard-tint)}
+  ul.points li.pt-editing{padding-right:0;padding-left:0}
+  ul.points li.pt-editing::before{display:none}
+  .pt-input{width:100%;font-family:inherit;font-size:.92rem;line-height:1.5;color:var(--ink);
+    background:var(--surface);border:1px solid var(--amber);border-radius:8px;padding:8px 10px;
+    min-height:54px;resize:vertical}
+  .pt-input:focus{outline:none}
+  .pt-erow{display:flex;gap:6px;margin-top:6px}
+  .pt-erow button{font-family:inherit;font-size:.76rem;font-weight:650;border-radius:7px;
+    padding:5px 13px;cursor:pointer;border:1px solid var(--line)}
+  .pt-save{background:#1b3a5b;color:#fff;border-color:#1b3a5b}
+  .pt-cancel{background:var(--surface-2);color:var(--ink)}
+
+  /* 메모 */
+  .memo{margin-top:16px;border-top:1px solid var(--line-soft);padding-top:14px}
+  .memo-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;gap:8px}
+  .memo-l{font-size:.72rem;font-weight:700;color:var(--ink-soft);letter-spacing:.01em}
+  .memo-l .sub2{font-weight:400;color:var(--ink-faint);font-size:.68rem;margin-left:4px}
+  .memo-status{font-size:.66rem;color:var(--good);font-weight:600;opacity:0;transition:opacity .3s}
+  .memo-status.on{opacity:1}
+  textarea#memo{width:100%;min-height:56px;resize:vertical;font-family:inherit;font-size:.88rem;
+    line-height:1.55;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);
+    border-radius:9px;padding:10px 12px}
+  textarea#memo:focus{outline:none;border-color:var(--amber);background:var(--surface)}
+  textarea#memo::placeholder{color:var(--ink-faint)}
+  .card.revealed .memo.hasmemo{background:var(--amber-tint);margin-left:-22px;margin-right:-22px;
+    padding:14px 22px 4px;border-top:1px solid var(--amber);border-radius:0}
+  .tag{font-size:.6rem;font-weight:700;border-radius:99px;padding:2px 7px;letter-spacing:.03em}
+  .tag-memo{background:var(--amber-tint);color:var(--amber)}
+  .tag-add{background:var(--good-tint);color:var(--good)}
+
+  /* grade */
+  .grade{margin-top:18px;display:none;gap:8px}
+  .grade.show{display:flex;animation:fade .25s ease}
+  .gbtn{flex:1;border:1px solid var(--line);background:var(--surface-2);border-radius:10px;
+    padding:11px 6px;font-family:inherit;cursor:pointer;color:var(--ink);text-align:center;line-height:1.25}
+  .gbtn b{display:block;font-size:.9rem;font-weight:700}
+  .gbtn span{font-size:.68rem;color:var(--ink-faint)}
+  .gbtn.g:hover{border-color:var(--good);background:var(--good-tint)}
+  .gbtn.s:hover{border-color:var(--soft);background:var(--soft-tint)}
+  .gbtn.h:hover{border-color:var(--hard);background:var(--hard-tint)}
+  .gbtn .kbd{display:inline-block;font-size:.6rem;color:var(--ink-faint);border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:3px;vertical-align:1px}
+
+  /* nav */
+  nav{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:10px}
+  .navbtn{background:var(--surface);border:1px solid var(--line);color:var(--ink-soft);
+    border-radius:9px;padding:9px 15px;font-size:.82rem;font-family:inherit;cursor:pointer}
+  .navbtn:hover:not(:disabled){border-color:var(--accent);color:var(--ink)}
+  .navbtn:disabled{opacity:.38;cursor:default}
+  .pos{font-size:.78rem;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+  .pos b{color:var(--ink);font-weight:700}
+  .status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-left:7px;vertical-align:0}
+  .sd-good{background:var(--good)} .sd-soft{background:var(--soft)} .sd-hard{background:var(--hard)}
+  .sd-none{background:var(--line);border:1px solid var(--ink-faint)}
+
+  .foot{margin-top:16px;font-size:.7rem;color:var(--ink-faint);text-align:center;line-height:1.7}
+  .foot kbd{border:1px solid var(--line);border-radius:4px;padding:0 5px;font-family:inherit;color:var(--ink-soft)}
+  .empty{padding:40px 20px;text-align:center;color:var(--ink-faint);font-size:.9rem;line-height:1.7}
+  .ver{margin-top:9px;font-size:.66rem;color:var(--ink-faint);opacity:.85;letter-spacing:.02em}
+
+  /* 모달 / 토스트 (샌드박스에서 confirm/alert 차단 대체) */
+  .ov{position:fixed;inset:0;background:rgba(8,16,26,.58);display:flex;align-items:center;
+    justify-content:center;padding:20px;z-index:100}
+  .dlg{background:var(--surface);border:1px solid var(--line);border-radius:14px;max-width:460px;
+    width:100%;box-shadow:0 24px 64px rgba(0,0,0,.4);overflow:hidden;animation:pop .18s ease}
+  @keyframes pop{from{opacity:0;transform:scale(.96) translateY(6px)}to{opacity:1;transform:none}}
+  .dlg-t{font-size:1rem;font-weight:700;padding:17px 19px 0;color:var(--ink)}
+  .dlg-b{padding:9px 19px 4px;font-size:.9rem;color:var(--ink-soft);white-space:pre-wrap;
+    line-height:1.6;max-height:54vh;overflow:auto}
+  .dlg-a{display:flex;gap:8px;justify-content:flex-end;padding:15px 19px 17px;flex-wrap:wrap}
+  .dlg-btn{font-family:inherit;font-size:.84rem;font-weight:650;border-radius:9px;padding:9px 16px;
+    cursor:pointer;border:1px solid var(--line);background:var(--surface-2);color:var(--ink)}
+  .dlg-btn:hover{border-color:var(--ink-faint)}
+  .dlg-btn.primary{background:#1b3a5b;border-color:#1b3a5b;color:#fff}
+  .dlg-btn.good{background:#2e8f5e;border-color:#2e8f5e;color:#fff}
+  .dlg-btn.hard{background:#c34a3f;border-color:#c34a3f;color:#fff}
+  .io-ta{width:100%;min-height:130px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.74rem;
+    line-height:1.45;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);
+    border-radius:8px;padding:9px 11px;resize:vertical;word-break:break-all}
+  .io-ta:focus{outline:none;border-color:var(--accent)}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#1b3a5b;color:#fff;
+    padding:10px 20px;border-radius:99px;font-size:.84rem;font-weight:600;z-index:110;
+    box-shadow:0 10px 28px rgba(0,0,0,.35);animation:pop .18s ease}
+  @media (prefers-reduced-motion:reduce){.dlg,.toast{animation:none}}
+
+  /* 정답 원본 복원 / 완료 배너 / 결과 보고서 */
+  .revert{margin-top:12px;background:none;border:1px dashed var(--line);color:var(--ink-faint);
+    font-family:inherit;font-size:.76rem;padding:6px 12px;border-radius:8px;cursor:pointer}
+  .revert:hover{border-color:var(--amber);color:var(--amber)}
+  .donebar{background:var(--good-tint);border:1px solid var(--good);border-radius:10px;
+    padding:9px 13px;margin-bottom:12px;font-size:.85rem;color:var(--ink);text-align:center}
+  .linkb{background:none;border:none;color:var(--accent);font-family:inherit;font-size:.85rem;
+    font-weight:700;cursor:pointer;padding:2px 4px}
+  .linkb:hover{text-decoration:underline}
+  .report{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:22px}
+  .rep-h{font-size:1.15rem;font-weight:700;color:var(--accent)}
+  .rep-sub{font-size:.78rem;color:var(--ink-faint);margin-bottom:14px}
+  .rep-rate{font-size:2.6rem;font-weight:800;letter-spacing:-.02em;line-height:1}
+  .rep-rate small{font-size:.9rem;font-weight:600;color:var(--ink-faint);letter-spacing:0}
+  .rep-tiles{display:flex;gap:8px;margin:16px 0}
+  .rtile{flex:1;border-radius:10px;padding:11px;text-align:center;border:1px solid var(--line)}
+  .rtile .n{font-size:1.4rem;font-weight:700;font-variant-numeric:tabular-nums}
+  .rtile .l{font-size:.68rem;color:var(--ink-faint);margin-top:2px}
+  .rtile.g{background:var(--good-tint)} .rtile.g .n{color:var(--good)}
+  .rtile.s{background:var(--soft-tint)} .rtile.s .n{color:var(--soft)}
+  .rtile.h{background:var(--hard-tint)} .rtile.h .n{color:var(--hard)}
+  .rep-wl-t{font-size:.72rem;font-weight:700;color:var(--ink-soft);letter-spacing:.03em;margin:6px 0}
+  .wrow{display:flex;gap:8px;align-items:baseline;padding:8px 10px;border:1px solid var(--line-soft);
+    border-radius:8px;margin-bottom:5px;cursor:pointer;background:var(--surface-2);text-align:left;width:100%;font-family:inherit}
+  .wrow:hover{border-color:var(--accent)}
+  .wrow .wid{font-size:.66rem;font-weight:700;color:var(--ink-faint);flex:none;font-variant-numeric:tabular-nums}
+  .wrow .wq{font-size:.82rem;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+  .wrow .wk{font-size:.62rem;font-weight:700;padding:1px 6px;border-radius:99px;flex:none}
+  .wk.s{background:var(--soft-tint);color:var(--soft)} .wk.h{background:var(--hard-tint);color:var(--hard)}
+  .rep-perfect{background:var(--good-tint);color:var(--good);border-radius:10px;padding:12px;text-align:center;font-weight:700;margin:6px 0}
+  .rep-acts{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+  .rep-acts button{flex:1;min-width:120px;font-family:inherit;font-size:.84rem;font-weight:650;border-radius:9px;padding:11px;cursor:pointer;border:1px solid var(--line)}
+  .rep-acts .ra-all{background:#1b3a5b;color:#fff;border-color:#1b3a5b}
+  .rep-acts .ra-weak{background:#c1861e;color:#fff;border-color:#c1861e}
+  .rep-acts .ra-close{background:var(--surface-2);color:var(--ink)}
+  @media (max-width:520px){
+    .body{padding:18px 16px}
+    .q{font-size:1.14rem}
+    .gbtn b{font-size:.82rem}
+    .stat .v{font-size:1.05rem}
+    .card.revealed .memo.hasmemo{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="titlerow">
+      <div>
+        <h1>현장실사 즉답 훈련</h1>
+        <div class="sub">제12회 대한민국 공무원상 현장실사 · ’26.7.27(월) 13:00 · 인사혁신처 · <b>동료 A</b>용</div>
+      </div>
+      <div class="hd-btns">
+        <button class="rolebtn" id="roleBtn" style="display:none">역할: <b id="roleName">본인</b> ▾</button>
+        <button class="theme" id="theme">◐ 테마</button>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="k">즉답률</div><div class="v num" id="s-rate">—</div></div>
+      <div class="stat"><div class="k">채점한 문항</div><div class="v num" id="s-done">0<small> 문항</small></div></div>
+      <div class="stat"><div class="k">약한 카드</div><div class="v num" id="s-weak">0<small> 장</small></div></div>
+    </div>
+    <div class="bar"><i id="progbar"></i></div>
+  </header>
+
+  <div class="controls">
+    <select id="cat" aria-label="카테고리 선택"></select>
+    <button class="chip" id="shuffle" aria-pressed="false">🔀 랜덤</button>
+    <button class="chip" id="timer" aria-pressed="false">⏱ 15초</button>
+    <button class="ctl" id="btnNewset">🔁 새 세트</button>
+    <button class="ctl" id="btnReport">📊 결과</button>
+    <span class="spacer"></span>
+    <button class="ctl" id="btnBackup">💾 백업</button>
+    <button class="ctl" id="btnRestore">📥 복원</button>
+    <button class="ctl reset" id="reset">기록 초기화</button>
+  </div>
+
+  <div class="donebar" id="donebar" hidden>✓ 이 세트를 모두 풀었습니다. <button class="linkb" id="dbReport">📊 결과 보기</button> · <button class="linkb" id="dbNew">🔁 새 세트</button></div>
+
+  <div class="card" id="card">
+    <div class="timerbar" id="tbar"><i></i></div>
+    <div class="body" id="cardbody">
+      <div class="eyebrow">
+        <span class="cat" id="e-cat">—</span>
+        <span class="qid" id="e-id"></span>
+        <span class="flag" id="e-flag"></span>
+      </div>
+      <div class="q" id="q"><span class="qmark">Q.</span> <span id="qtext"></span></div>
+
+      <div class="reveal-wrap" id="revealWrap">
+        <div class="overtime-note">⏱ 시간 초과 — 실사에서는 즉답이 필요합니다</div>
+        <button class="btn-reveal" id="btnReveal">답 확인 <span class="hint">Space</span></button>
+      </div>
+
+      <div class="answer" id="answer">
+        <div class="alabel">핵심 포인트 — 뼈대만, 자기 말로</div>
+        <ul class="points" id="points"></ul>
+        <div class="adds" id="adds"></div>
+        <button class="revert" id="revertPts" hidden>↺ 이 카드 정답을 원본으로 되돌리기</button>
+        <div class="say" id="say" hidden><div class="l">말로</div><div id="sayText"></div></div>
+        <div class="warn" id="warn" hidden><span class="i">⚠</span><span id="warnText"></span></div>
+      </div>
+
+      <div class="grade" id="grade">
+        <button class="gbtn g" data-g="good"><b>✓ 즉답</b><span>바로 나옴<span class="kbd">1</span></span></button>
+        <button class="gbtn s" data-g="soft"><b>△ 애매</b><span>더듬음<span class="kbd">2</span></span></button>
+        <button class="gbtn h" data-g="hard"><b>✗ 막힘</b><span>안 떠오름<span class="kbd">3</span></span></button>
+      </div>
+
+      <div class="memo hasmemo" id="memoBox">
+        <div class="memo-head">
+          <span class="memo-l">✎ 메모<span class="sub2">— 보완할 점을 적어두면 정답 확인 때 함께 표시됩니다</span></span>
+          <span class="memo-status" id="memoStatus">저장됨</span>
+        </div>
+        <textarea id="memo" placeholder="이 질문을 보고 떠오른 답변 보완 아이디어를 적어두세요…"></textarea>
+      </div>
+    </div>
+    <div class="empty" id="empty" hidden></div>
+  </div>
+
+  <nav>
+    <button class="navbtn" id="prev">← 이전</button>
+    <div class="pos"><b id="pos-i">0</b> / <span id="pos-n">0</span><span class="status-dot sd-none" id="posdot"></span></div>
+    <button class="navbtn" id="next">다음 →</button>
+  </nav>
+
+  <div class="report" id="report" hidden></div>
+
+  <div class="foot">
+    <kbd>Space</kbd> 답 확인 / 다음(미제출) · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 자가채점 · <kbd>←</kbd><kbd>→</kbd> 이동<br>
+    ‘다음’은 아직 안 푼 문항으로 넘어갑니다. 세트를 모두 풀면 <b>결과 보고서</b>가 나옵니다.<br>
+    기록은 이 브라우저에 자동 저장됩니다. <b>실사 전 꼭 ‘💾 백업’으로 내보내 안전한 곳에 보관하세요.</b>
+    <div class="ver">버전 v3.5 · 2026-07-24 · Q2-1 완성도 아이러니(헌신) 반영</div>
+  </div>
+</div>
+
+<div class="start" id="start" hidden>
+  <div class="start-box">
+    <div class="start-h">누구의 답변을 연습할까요?</div>
+    <div class="start-sub">역할을 선택하세요. 상단 <b>‘역할: … ▾’</b>로 언제든 바꿀 수 있고, 각 역할의 채점·메모·편집은 따로 저장됩니다.</div>
+    <div class="start-grid" id="startGrid"></div>
+  </div>
+</div>
+
+<div class="ov" id="ov" hidden>
+  <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dlgT">
+    <div class="dlg-t" id="dlgT"></div>
+    <div class="dlg-b" id="dlgB"></div>
+    <div class="dlg-a" id="dlgA"></div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+"use strict";
+// ---------- 질문 뱅크 (본인 — 실사-최종-본인용.md 기반) ----------
+const CATS_SELF = {
+  "1":"1. 기관 특성","2":"2. 헌신·우수성","3":"3. 가시적 성과","4":"4. 기여도",
+  "5":"5. 언론","6":"6. 미담·역경","7":"7. 인사우대"
+};
+const DECK_SELF = [];
+
+// ---------- 동료/상사 뱅크 (실사-면담시트-*.md 기반) ----------
+const CATS_WIT = { "Q":"공식 질문" };
+
+const DECK_COLA = [
+  {"c":"Q","id":"A-Q1","q":"수상 시 특별승진·성과상여금 최고등급 등 인사상 혜택이 부여되는데, 어떻게 생각하는지?","p":["진심으로 축하할 일","옆에서 고생을 봐서 아깝다는 생각 전혀 없음"],"s":"진심으로 축하할 일이라고 생각합니다. 옆에서 고생하는 걸 봤기 때문에 아깝다는 생각은 전혀 없습니다."},
+  {"c":"Q","id":"A-Q2","q":"특별승진을 부여하는 것이 원칙인데, 받을 만한 자격이 있다고 생각하는지?","p":["당연히 자격 있음","현장에서 고비 넘기는 걸 옆에서 지켜봄 — 며칠씩 전국 농가 순회","그 고생 끝에 수출까지 — 최고 보상(특별승진)에 어울리는 성과"],"s":"네, 당연히 자격이 있다고 생각합니다. 농가 현장을 다니며 크고 작은 고비를 넘기는 걸 옆에서 지켜봐 왔습니다. 기술지원을 간다더니 며칠씩 전국을 돌더라고요. 그 고생 끝에 수출까지 해냈습니다. 공무원 최고 보상이 특별승진일 텐데 이 성과가 그에 어울린다고 생각합니다."},
+  {"c":"Q","id":"A-Q3","q":"어느 정도의 인사상 혜택이 적정하다고 생각하는지?","p":["적정 등급을 내가 말할 위치는 아님","동료로선 규정상 예우를 다 받아도 아깝지 않은 성과"],"s":"어느 등급이 적정한지 제가 말씀드릴 위치는 아닌 것 같습니다. 다만 동료로서는 규정에서 정한 예우를 다 받아도 아깝지 않은 성과라고 생각합니다."},
+  {"c":"Q","id":"A-Q4","q":"후보자로 인한 민원 발생 사례나 좋지 않은 평판은 없는지?","p":["개인 민원은 아는 한 없음","고성 청산목장 — 초기 소 적응 문제를 직접 여러 번 내려가 처음부터 다시 잡음","옆집이 외산 파기하고 국산 15호(청산목장 권유가 컸다 — 들은 이야기)"],"s":"개인 민원은 제가 아는 한 없습니다. 업무로는 고성 청산목장에서 도입 초기 소들이 적응을 어려워했는데, 몇 번씩 직접 내려가 익숙해질 때까지 운영을 처음부터 다시 잡아줬습니다. 나중에 들으니 작년 말 국산 15호가 그 옆집인데, 외산 계약까지 파기하고 도입했고 청산목장 권유가 컸다고 합니다.","w":"함정 질문 — ‘없습니다’로만 답하지 말고 반드시 사례로."},
+  {"c":"Q","id":"A-Q5","q":"후보자에 대한 미담사례(역경극복사례)를 알고 있는지?","p":["실험축사 — ‘농가에서 쓰기 전 우리가 먼저 검증’하며 원내 도입","검증이 철저 → 사료급이·정리로봇까지 통합한 K-Farm 데모축사로 확장"],"s":"실험축사 이야기를 하고 싶습니다. ‘농가에서 쓰기 전에 우리가 먼저 철저히 검증해야 한다’며 원내 실험축사에 국산 로봇착유기를 직접 도입했습니다. 그 과정을 옆에서 봤는데 정말 철저했고, 지금은 사료급이·사료정리로봇까지 통합한 K-Farm 데모축사로 확장하고 있습니다."},
+  {"c":"Q","id":"A-Q6","q":"(후속) 이런 사례는 담당자라면 종종 있는 일 아닌지? 특별하다고 볼 수 있는지?","p":["흔한 일 아님 — 검증은 보통 실증 과제 수준에서 끝남","‘농가보다 우리가 먼저 겪어야’ 원내 검증 + 컨설팅 50회+"],"s":"흔한 일은 아닙니다. 검증도 보통 실증 과제 수준에서 끝나는데, 업체와 함께 원내 실험축사에 장비를 들여와 검증했습니다. 거기에 농가 컨설팅만 50회가 넘습니다. 이렇게까지 하는 경우는 제가 알기로 없습니다."},
+  {"c":"Q","id":"A-Q7","q":"기관을 대표하는 인재라고 할 만큼 업무능력·열정·인품 면에서 귀감이 되는지?","p":["능력 = 현장감(원에서 현장에 가장 가까운 연구자)","인품 = 전화로 안 풀고 직접 찾아가 푸는 사람"],"s":"능력을 하나 꼽으라면 현장감입니다. 저희 원에서 현장에 가장 가까운 연구자일 겁니다. 인품도 — 농가에 문제가 생기면 전화가 아니라 직접 찾아가서 푸는 사람입니다."},
+  {"c":"Q","id":"A-Q8","q":"같은 부서에서 근무할 때 어떤 동료였는지?","p":["고마운 동료","현장 데이터·노하우를 아끼지 않고 공유 — 내 연구에도 실제 도움"],"s":"저한테는 고마운 동료입니다. 현장에서 쌓은 데이터와 노하우를 아끼지 않고 공유해 줘서 제 연구에도 실제로 도움을 받았습니다."},
+  {"c":"Q","id":"A-Q9","q":"다음에도 같이 일하고 싶은 동료인지?","p":["네","현장 문제·데이터가 필요하면 가장 먼저 연락하게 되는 사람"],"s":"네. 현장에서 문제가 생기거나 데이터가 필요하면 가장 먼저 연락하게 되는 사람입니다."},
+  {"c":"Q","id":"A-Q10","q":"능력보다 자리·담당업무 때문에 추천된 것은 아닌지?","p":["자리 덕으로 보기 어려움 — 주어진 자리가 아니라 본인이 만들어온 자리","’14년 외산 실태조사부터 기반 기술 검증·실증에 계속 참여 → 지금의 보급·수출 자리"],"s":"자리 덕이라고 보기는 어렵습니다. 어느 날 주어진 자리가 아니라 박 연구사가 만들어온 자리입니다. ’14년부터 외산 실태조사를 책임지고 시작했고 과의 기반 기술 검증·실증에 계속 참여해 왔으니, 지금의 보급·수출 자리는 본인이 만들어온 자리라는 표현이 맞습니다.","w":"핵심 견제 질문 — 자리 덕이 아니라 ‘만들어온 자리’로 반박."},
+  {"c":"Q","id":"A-Q11","q":"추천 소식을 들었을 때 적합한 인물이라고 생각했는지?","p":["놀랍지 않았음","가능성이던 수출이 현실이 되고 지상파 보도까지 → 곧 좋은 일 있겠다 생각"],"s":"놀랍지는 않았습니다. 가능성 수준이던 수출이 현실이 되고 지상파에도 보도되면서, 자연스럽게 곧 좋은 일이 있겠다는 생각이 들었으니까요."}
+];
+
+const DECK_COLB = [];
+
+const DECK_BOSS = [];
+
+// ---------- 페르소나 ----------
+const PERSONAS = [
+  {key:"colA", name:"동료 A", deck:DECK_COLA, cats:CATS_WIT},
+];
+let DECK = DECK_COLA;   // 활성 페르소나 뱅크
+let CATS = CATS_SELF;
+let persona = "colA";
+
+// ---------- 상태 ----------
+const LS_KEY = "silsa-drill-v1-colA";
+const LS_MEMO = "silsa-memo-v1-colA";
+const LS_ADD  = "silsa-add-v1-colA";
+const LS_PTS  = "silsa-pts-v1-colA";
+const LS_PERSONA = "silsa-persona-v1-colA";
+let store = {};    // {cardId: grade}
+let memos = {};    // {cardId: "메모 텍스트"}
+let adds  = {};    // {cardId: ["보완 항목", ...]}  ← 구버전(신규추가) 호환용
+let pts   = {};    // {cardId: [{t,k}]}  k: base|add|edit  ← 편집된 정답(신규추가/대체 반영)
+try { store = JSON.parse(localStorage.getItem(LS_KEY)  || "{}"); } catch(e){ store = {}; }
+try { memos = JSON.parse(localStorage.getItem(LS_MEMO) || "{}"); } catch(e){ memos = {}; }
+try { adds  = JSON.parse(localStorage.getItem(LS_ADD)  || "{}"); } catch(e){ adds  = {}; }
+try { pts   = JSON.parse(localStorage.getItem(LS_PTS)  || "{}"); } catch(e){ pts   = {}; }
+function save(){     try { localStorage.setItem(LS_KEY,  JSON.stringify(store)); } catch(e){} }
+function saveMemos(){try { localStorage.setItem(LS_MEMO, JSON.stringify(memos)); } catch(e){} }
+function saveAdds(){ try { localStorage.setItem(LS_ADD,  JSON.stringify(adds));  } catch(e){} }
+function savePts(){  try { localStorage.setItem(LS_PTS,  JSON.stringify(pts));   } catch(e){} }
+// 카드의 현재 정답 포인트(편집 반영). pts 오버라이드가 있으면 그것, 없으면 원본+구버전 adds
+function effPoints(card){
+  if(pts[card.id]) return pts[card.id];
+  const base = card.p.map(t=>({t, k:"base"}));
+  const extra = (adds[card.id] || []).map(t=>({t, k:"add"}));
+  return base.concat(extra);
+}
+// 편집을 pts에 확정(구버전 adds는 흡수 후 제거)
+function commitPts(card, arr){
+  pts[card.id] = arr;
+  if(adds[card.id]) delete adds[card.id];
+  savePts(); saveAdds();
+}
+// arr가 원본 정답과 완전히 동일한지(그러면 오버라이드 불필요)
+function sameAsBase(card, arr){
+  if(arr.length !== card.p.length) return false;
+  return arr.every((p,i)=> p.k==="base" && p.t===card.p[i]);
+}
+// 편집 결과 반영: 원본과 같으면 오버라이드 제거, 아니면 pts 저장
+function applyEdit(card, arr){
+  if(sameAsBase(card, arr)){
+    if(pts[card.id]) delete pts[card.id];
+    if(adds[card.id]) delete adds[card.id];
+    savePts(); saveAdds();
+  } else commitPts(card, arr);
+  editingIdx = -1;
+  renderPoints(); refreshFlag();
+}
+function deleteLine(card, i){
+  const arr = effPoints(card).map(p=>({t:p.t, k:p.k}));
+  if(i<0 || i>=arr.length) return;
+  arr.splice(i,1);
+  applyEdit(card, arr);
+}
+function saveLine(card, i){
+  const ta = document.querySelector('#points .pt-input[data-i="'+i+'"]') || document.querySelector('#points .pt-input');
+  if(!ta) return;
+  const text = ta.value.trim();
+  const arr = effPoints(card).map(p=>({t:p.t, k:p.k}));
+  if(i<0 || i>=arr.length) return;
+  if(!text){ arr.splice(i,1); }                                  // 빈 값 = 삭제
+  else if(text !== arr[i].t){ arr[i] = {t:text, k: arr[i].k==="base" ? "edit" : arr[i].k}; }
+  applyEdit(card, arr);
+}
+function esc(s){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+let opt = { cat:"ALL", shuffle:false, timer:false };
+let deck = [];      // 현재 세트(필터/정렬된 카드 배열)
+let setIds = null;  // 명시적 세트(약한 것만 다시 등). null이면 카테고리 기준
+let idx = 0;
+let revealed = false;
+let tHandle = null;
+
+const isWeak = id => store[id]==="soft" || store[id]==="hard";
+// 세트 진행 판정
+const setComplete = () => deck.length>0 && deck.every(c=>store[c.id]);
+function nextUngradedIndex(from){
+  const n = deck.length;
+  for(let s=1;s<=n;s++){ const j=(from+s)%n; if(!store[deck[j].id]) return j; }
+  return -1;
+}
+function firstUngradedIndex(){
+  for(let i=0;i<deck.length;i++){ if(!store[deck[i].id]) return i; }
+  return -1;
+}
+
+function shuffleArr(a){
+  const r = a.slice();
+  for(let i=r.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [r[i],r[j]]=[r[j],r[i]]; }
+  return r;
+}
+function buildDeck(keepId){
+  let base;
+  if(setIds){ const s=new Set(setIds); base = DECK.filter(c => s.has(c.id)); }
+  else base = DECK.filter(c => opt.cat==="ALL" ? true : c.c===opt.cat);
+  deck = opt.shuffle ? shuffleArr(base) : base;
+  if(keepId){ const k = deck.findIndex(c=>c.id===keepId); idx = k>=0?k:0; }
+  else { const fu = firstUngradedIndex(); idx = fu>=0 ? fu : 0; }  // 미제출 문항부터
+  if(idx >= deck.length) idx = 0;
+}
+
+// ---------- 렌더 ----------
+const $ = s => document.querySelector(s);
+// 상단 태그(지난채점·보완·메모)만 갱신
+function refreshFlag(){
+  const card = deck[idx]; if(!card) return;
+  const st = store[card.id];
+  const hasMemo = !!(memos[card.id] && memos[card.id].trim());
+  const modCount = effPoints(card).filter(p=>p.k!=="base").length;
+  let flag = st ? '지난 채점 <b>'+({good:"✓ 즉답",soft:"△ 애매",hard:"✗ 막힘"}[st])+'</b>' : '';
+  if(modCount) flag += ' <span class="tag tag-add">보완 '+modCount+'</span>';
+  if(hasMemo)  flag += ' <span class="tag tag-memo">📝 메모</span>';
+  $("#e-flag").innerHTML = flag;
+}
+// 정답 포인트 목록 갱신 — 모든 줄에 ✎수정·✕삭제, 편집 중이면 인라인 에디터
+let editingIdx = -1;
+function renderPoints(){
+  const card = deck[idx]; if(!card) return;
+  const eff = effPoints(card);
+  if(editingIdx >= eff.length) editingIdx = -1;
+  $("#points").innerHTML = eff.map((p,i)=>{
+    if(i===editingIdx){
+      return '<li class="pt-editing" data-i="'+i+'">'
+        + '<textarea class="pt-input" data-i="'+i+'" rows="2">'+esc(p.t)+'</textarea>'
+        + '<div class="pt-erow"><button class="pt-save" data-i="'+i+'">저장</button>'
+        + '<button class="pt-cancel">취소</button></div></li>';
+    }
+    const cls = p.k==="add" ? "p-add" : (p.k==="edit" ? "p-edit" : "");
+    const mark = p.k==="add" ? '<span class="pmark pm-add">추가</span>'
+               : p.k==="edit" ? '<span class="pmark pm-edit">수정</span>' : '';
+    return '<li class="'+cls+'" data-i="'+i+'"><span class="pt-txt">'+mark+esc(p.t)+'</span>'
+      + '<span class="pt-tools">'
+      +   '<button class="pt-edit" data-i="'+i+'" title="이 줄 수정">✎</button>'
+      +   '<button class="pt-del" data-i="'+i+'" title="이 줄 삭제">✕</button></span></li>';
+  }).join("");
+  $("#adds").innerHTML = "";
+  $("#revertPts").hidden = sameAsBase(card, eff);
+}
+function render(){
+  updateStats();
+  const card = deck[idx];
+  const cardEl = $("#card");
+  cardEl.classList.remove("overtime");
+  if(!card){
+    stopTimer();
+    $("#cardbody").style.display = "none";
+    const emptyEl = $("#empty");
+    emptyEl.hidden = false;
+    emptyEl.innerHTML = '해당 조건에 카드가 없습니다.<br>카테고리를 바꾸거나 “🔁 새 세트”를 눌러 보세요.';
+    $("#prev").disabled = $("#next").disabled = true;
+    $("#pos-i").textContent = "0"; $("#pos-n").textContent = "0";
+    $("#posdot").className = "status-dot sd-none";
+    $("#donebar").hidden = true;
+    return;
+  }
+  reportOpen = false;
+  $("#report").hidden = true;
+  $("#card").style.display = "";
+  $("#cardbody").style.display = "";
+  $("#empty").hidden = true;
+  $("#donebar").hidden = !setComplete();
+  // 필드
+  $("#e-cat").textContent = CATS[card.c];
+  $("#e-id").textContent = card.id;
+  const st = store[card.id];
+  const hasMemo = !!(memos[card.id] && memos[card.id].trim());
+  refreshFlag();
+  $("#qtext").textContent = card.q;
+  // 답
+  editingIdx = -1;
+  renderPoints();
+  if(card.s){ $("#say").hidden=false; $("#sayText").textContent = card.s; } else $("#say").hidden=true;
+  if(card.w){ $("#warn").hidden=false; $("#warnText").textContent = card.w; } else $("#warn").hidden=true;
+  // 메모
+  $("#memo").value = memos[card.id] || "";
+  $("#memoBox").classList.toggle("hasmemo", hasMemo);
+  $("#memoStatus").classList.remove("on");
+  // 리셋
+  revealed = false;
+  $("#card").classList.remove("revealed");
+  $("#answer").classList.remove("show");
+  $("#grade").classList.remove("show");
+  $("#revealWrap").style.display = "";
+  // nav — 미완료 세트에선 '다음'이 미제출 문항으로, 완료 세트에선 순차 검토
+  $("#prev").disabled = idx===0;
+  $("#next").disabled = setComplete() ? (idx===deck.length-1) : (nextUngradedIndex(idx)===-1);
+  $("#pos-i").textContent = idx+1;
+  $("#pos-n").textContent = deck.length;
+  $("#posdot").className = "status-dot " + (st?("sd-"+st):"sd-none");
+  startTimer();
+}
+function reveal(){
+  if(revealed || !deck[idx]) return;
+  revealed = true;
+  stopTimer();
+  $("#card").classList.add("revealed");
+  $("#answer").classList.add("show");
+  $("#grade").classList.add("show");
+  $("#revealWrap").style.display = "none";
+}
+function grade(g){
+  const card = deck[idx]; if(!card) return;
+  const before = setComplete();
+  store[card.id] = g; save();
+  refreshFlag(); updateStats();
+  const after = setComplete();
+  if(after && !before){ showReport(); return; }   // 방금 세트 완성 → 보고서
+  if(!after){ const ni = nextUngradedIndex(idx); if(ni!==-1){ idx=ni; render(); return; } }
+  render(); // 완료 세트에서 재채점 등: 제자리 갱신
+}
+// '다음' — 미완료면 미제출 문항으로, 완료면 순차 검토
+function goNext(){
+  if(!deck.length) return;
+  if(setComplete()){ if(idx<deck.length-1){ idx++; render(); } return; }
+  const ni = nextUngradedIndex(idx);
+  if(ni!==-1){ idx=ni; render(); }
+}
+function goPrev(){ if(idx>0){ idx--; render(); } }
+
+// ---------- 결과 보고서 / 세트 ----------
+let reportOpen = false;
+function showReport(){
+  if(!deck.length) return;
+  reportOpen = true;
+  stopTimer();
+  let good=0,soft=0,hard=0,ungraded=0; const weak=[];
+  deck.forEach(c=>{ const s=store[c.id];
+    if(s==="good")good++; else if(s==="soft"){soft++;weak.push([c,"s"]);}
+    else if(s==="hard"){hard++;weak.push([c,"h"]);} else ungraded++; });
+  const total=deck.length, done=good+soft+hard, rate=done?Math.round(good/done*100):0;
+  const setName = setIds ? "약한 것만" : (opt.cat==="ALL"?"전체":CATS[opt.cat]);
+  let html = '<div class="rep-h">세트 결과 — '+esc(setName)+'</div>'
+    + '<div class="rep-sub">'+total+'문항 중 '+done+'문항 완료'+(ungraded?(' · 미제출 '+ungraded+'문항'):'')+'</div>'
+    + '<div class="rep-rate">'+rate+'<small>% 즉답</small></div>'
+    + '<div class="rep-tiles">'
+    +   '<div class="rtile g"><div class="n">'+good+'</div><div class="l">✓ 즉답</div></div>'
+    +   '<div class="rtile s"><div class="n">'+soft+'</div><div class="l">△ 애매</div></div>'
+    +   '<div class="rtile h"><div class="n">'+hard+'</div><div class="l">✗ 막힘</div></div>'
+    + '</div>';
+  if(weak.length){
+    html += '<div class="rep-wl-t">복습할 문항 '+weak.length+' — 눌러서 이동</div>'
+      + weak.map(([c,k])=>'<button class="wrow" data-id="'+esc(c.id)+'"><span class="wid">'+esc(c.id)
+        +'</span><span class="wq">'+esc(c.q)+'</span><span class="wk '+k+'">'+(k==="s"?"애매":"막힘")+'</span></button>').join("");
+  } else {
+    html += '<div class="rep-perfect">🎉 약점 없음 — 전 문항 즉답!</div>';
+  }
+  html += '<div class="rep-acts"><button class="ra-all">🔁 전체 다시 풀기</button>'
+    + (weak.length?'<button class="ra-weak">🎯 약한 것만 다시</button>':'')
+    + '<button class="ra-close">닫고 검토</button></div>';
+  const rep = $("#report");
+  rep.innerHTML = html;
+  rep.hidden = false;
+  $("#card").style.display = "none";
+  $("#donebar").hidden = true;
+  rep.querySelectorAll(".wrow").forEach(b=> b.addEventListener("click", ()=>{
+    const k = deck.findIndex(c=>c.id===b.dataset.id);
+    if(k>=0){ idx=k; closeReport(); }
+  }));
+  rep.querySelector(".ra-all").addEventListener("click", ()=>newSet());
+  const rw = rep.querySelector(".ra-weak");
+  if(rw) rw.addEventListener("click", ()=>weakRedrill(weak.map(([c])=>c.id)));
+  rep.querySelector(".ra-close").addEventListener("click", closeReport);
+}
+function closeReport(){ reportOpen=false; $("#report").hidden=true; $("#card").style.display=""; render(); }
+// 현재 세트 다시 — 세트 문항의 채점만 초기화 후 재구성(랜덤이면 재섞기)
+function newSet(){
+  reportOpen=false; $("#report").hidden=true; $("#card").style.display="";
+  deck.forEach(c=>{ if(store[c.id]) delete store[c.id]; });
+  save();
+  buildDeck();
+  render();
+  toast("새 세트를 시작합니다");
+}
+// 약한 것만 다시 — 약한 카드 id로 세트 구성, 해당 채점 초기화 후 드릴
+function weakRedrill(ids){
+  reportOpen=false; $("#report").hidden=true; $("#card").style.display="";
+  setIds = ids.slice();
+  ids.forEach(id=>{ if(store[id]) delete store[id]; });
+  save();
+  buildDeck();
+  render();
+  toast("약한 "+ids.length+"문항으로 새 세트");
+}
+
+// ---------- 타이머 ----------
+function stopTimer(){
+  if(tHandle){ clearTimeout(tHandle); tHandle=null; }
+  const fill = $("#tbar").querySelector("i");
+  fill.style.transition = "none";   // 되감기 애니메이션 방지
+  fill.style.width = "100%";
+}
+function startTimer(){
+  stopTimer();
+  const fill = $("#tbar").querySelector("i");
+  if(!opt.timer){ fill.style.opacity="0"; return; }
+  fill.style.opacity="1";
+  fill.style.transition="none"; fill.style.width="100%";
+  void fill.offsetWidth;            // 강제 reflow 후 애니메이션 시작
+  fill.style.transition = "width 15s linear";
+  fill.style.width = "0%";
+  tHandle = setTimeout(()=>{ $("#card").classList.add("overtime"); }, 15000);
+}
+
+// ---------- 통계 ----------
+function updateStats(){
+  const set = deck.length ? deck : DECK;
+  let good=0, done=0, weak=0;
+  set.forEach(c=>{
+    const s = store[c.id];
+    if(s){ done++; if(s==="good") good++; if(s==="soft"||s==="hard") weak++; }
+  });
+  $("#s-rate").textContent = done ? Math.round(good/done*100)+"%" : "—";
+  $("#s-done").innerHTML = done + '<small> / '+set.length+'</small>';
+  $("#s-weak").innerHTML = weak + '<small> 장</small>';
+  $("#progbar").style.width = (set.length? done/set.length*100:0)+"%";
+}
+
+// ---------- 컨트롤 ----------
+function initCat(){
+  const sel = $("#cat");
+  const counts = {};
+  DECK.forEach(c=> counts[c.c]=(counts[c.c]||0)+1);
+  let html = '<option value="ALL">전체 ('+DECK.length+')</option>';
+  Object.keys(CATS).forEach(k=>{
+    if(counts[k]) html += '<option value="'+k+'">'+CATS[k]+' ('+counts[k]+')</option>';
+  });
+  sel.innerHTML = html;
+  sel.value = opt.cat;
+}
+function toggle(btn, key){
+  opt[key] = !opt[key];
+  btn.setAttribute("aria-pressed", opt[key]);
+  const keep = deck[idx] && deck[idx].id;
+  buildDeck(key==="weak"?null:keep);
+  render();
+}
+
+// ---------- 페르소나(역할) 전환 ----------
+function renderStartGrid(){
+  const g=$("#startGrid");
+  g.innerHTML = PERSONAS.map(p=>
+    '<button class="start-card" data-key="'+p.key+'"><span class="sc-name">'+esc(p.name)+'</span>'
+    +'<span class="sc-n">'+p.deck.length+'문항</span></button>').join("");
+  g.querySelectorAll(".start-card").forEach(b=> b.addEventListener("click", ()=> setPersona(b.dataset.key, true)));
+}
+function showStart(){ $("#start").hidden=false; }
+function setPersona(key, doSave){
+  const p = PERSONAS.find(x=>x.key===key) || PERSONAS[0];
+  persona = p.key; DECK = p.deck; CATS = p.cats;
+  if(doSave){ try{ localStorage.setItem(LS_PERSONA, p.key); }catch(e){} }
+  $("#roleName").textContent = p.name;
+  opt.cat="ALL"; setIds=null; editingIdx=-1; reportOpen=false;
+  $("#report").hidden=true; $("#card").style.display="";
+  initCat(); buildDeck(); $("#start").hidden=true; render();
+}
+
+// events
+$("#cat").addEventListener("change", e=>{ opt.cat=e.target.value; setIds=null; buildDeck(); render(); });
+$("#shuffle").addEventListener("click", e=>toggle(e.currentTarget,"shuffle"));
+$("#btnNewset").addEventListener("click", ()=>newSet());
+$("#btnReport").addEventListener("click", askMemoThenReport);
+$("#dbReport").addEventListener("click", askMemoThenReport);
+$("#dbNew").addEventListener("click", ()=>newSet());
+$("#timer").addEventListener("click", e=>{
+  // 타이머는 덱/공개상태를 건드리지 않고 독립 처리
+  opt.timer = !opt.timer;
+  e.currentTarget.setAttribute("aria-pressed", opt.timer);
+  if(opt.timer && !revealed) startTimer(); else stopTimer();
+});
+$("#reset").addEventListener("click", resetFlow);
+$("#btnBackup").addEventListener("click", showBackup);
+$("#btnRestore").addEventListener("click", showRestore);
+$("#roleBtn").addEventListener("click", showStart);
+$("#btnReveal").addEventListener("click", reveal);
+
+// 메모: 입력 즉시 저장
+let memoTimer = null;
+$("#memo").addEventListener("input", e=>{
+  const card = deck[idx]; if(!card) return;
+  const v = e.target.value;
+  if(v.trim()) memos[card.id] = v; else delete memos[card.id];
+  saveMemos();
+  const s = $("#memoStatus"); s.classList.add("on");
+  clearTimeout(memoTimer); memoTimer = setTimeout(()=>s.classList.remove("on"), 1200);
+});
+// 메모 입력 중 단축키(1/2/3/Space) 오작동 방지 — 위 keydown에서 처리
+
+// 줄별 수정/삭제/저장/취소 (부분 갱신 — 공개된 답 유지)
+$("#points").addEventListener("click", e=>{
+  const card = deck[idx]; if(!card) return;
+  const editB = e.target.closest(".pt-edit");
+  const delB  = e.target.closest(".pt-del");
+  const saveB = e.target.closest(".pt-save");
+  const cancelB = e.target.closest(".pt-cancel");
+  if(editB){ editingIdx = +editB.dataset.i; renderPoints();
+    const ta = $("#points .pt-input"); if(ta){ ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); } return; }
+  if(delB){ deleteLine(card, +delB.dataset.i); return; }
+  if(saveB){ saveLine(card, +saveB.dataset.i); return; }
+  if(cancelB){ editingIdx = -1; renderPoints(); return; }
+});
+// 편집 textarea: Enter 저장(Shift+Enter 줄바꿈), Esc 취소
+$("#points").addEventListener("keydown", e=>{
+  if(!e.target.classList || !e.target.classList.contains("pt-input")) return;
+  if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); const card=deck[idx]; if(card) saveLine(card, +e.target.dataset.i); }
+  else if(e.key==="Escape"){ e.preventDefault(); editingIdx = -1; renderPoints(); }
+});
+
+// ---------- 커스텀 모달 / 토스트 (샌드박스 confirm/alert 대체) ----------
+let modalOpen = false;
+function modal({title, body, actions}){
+  return new Promise(resolve=>{
+    modalOpen = true;
+    const ov = $("#ov"), aWrap = $("#dlgA");
+    $("#dlgT").textContent = title || "";
+    $("#dlgB").textContent = body || "";
+    aWrap.innerHTML = "";
+    const close = val => { ov.hidden = true; modalOpen = false; resolve(val); };
+    actions.forEach(ac=>{
+      const b = document.createElement("button");
+      b.className = "dlg-btn" + (ac.kind ? " "+ac.kind : "");
+      b.textContent = ac.label;
+      b.addEventListener("click", ()=>close(ac.value));
+      aWrap.appendChild(b);
+    });
+    ov._close = () => close(actions[actions.length-1].value); // ESC/배경 = 마지막(취소성) 값
+    ov.hidden = false;
+    const f = aWrap.querySelector(".dlg-btn"); if(f) f.focus();
+  });
+}
+function toast(msg){
+  const t = $("#toast");
+  t.textContent = msg; t.hidden = false;
+  clearTimeout(t._h); t._h = setTimeout(()=>{ t.hidden = true; }, 1900);
+}
+// 배경 클릭·ESC로 모달 닫기(취소 처리)
+$("#ov").addEventListener("click", e=>{ if(e.target.id==="ov" && $("#ov")._close) $("#ov")._close(); });
+
+// ---------- 백업 / 복원 ----------
+function collectData(){
+  return JSON.stringify({ app:"silsa-drill", v:1, savedAt:new Date().toISOString(), store, memos, adds, pts }, null, 0);
+}
+function mkbtn(label, kind, fn){
+  const b=document.createElement("button");
+  b.className="dlg-btn"+(kind?" "+kind:""); b.textContent=label;
+  b.addEventListener("click", fn); return b;
+}
+function closeOv(){ const ov=$("#ov"); ov.hidden=true; modalOpen=false; ov._close=null; }
+function tryDownload(name, text){
+  try{
+    const blob=new Blob([text],{type:"application/json"});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement("a"); a.href=url; a.download=name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 1500);
+    return true;
+  }catch(e){ return false; }
+}
+function copyText(ta){
+  let done=false;
+  try{ ta.focus(); ta.select(); ta.setSelectionRange(0, ta.value.length); done=document.execCommand("copy"); }catch(e){}
+  try{ if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(ta.value).then(()=>{},()=>{}); }catch(e){}
+  toast(done ? "복사했습니다 — 안전한 곳에 붙여넣어 보관하세요" : "텍스트가 선택됐습니다. 길게 눌러 복사하세요");
+}
+function showBackup(){
+  const json=collectData();
+  modalOpen=true; const ov=$("#ov");
+  $("#dlgT").textContent="💾 백업 — 편집 내용 내보내기";
+  const b=$("#dlgB"); b.innerHTML="";
+  const info=document.createElement("div");
+  info.style.cssText="margin-bottom:9px;font-size:.86rem;line-height:1.55";
+  info.textContent="아래 내용 전체를 복사해 안전한 곳(나에게 메일 보내기·메모 앱)에 붙여 보관하세요. 다른 기기·브라우저에서도 ‘📥 복원’으로 그대로 되살릴 수 있습니다.";
+  const ta=document.createElement("textarea"); ta.className="io-ta"; ta.readOnly=true; ta.value=json;
+  b.appendChild(info); b.appendChild(ta);
+  const a=$("#dlgA"); a.innerHTML="";
+  a.appendChild(mkbtn("복사","good",()=>copyText(ta)));
+  a.appendChild(mkbtn("파일로 저장","primary",()=>{ if(!tryDownload("silsa-backup.json", json)) toast("이 브라우저에선 ‘복사’를 이용하세요"); }));
+  a.appendChild(mkbtn("닫기","",closeOv));
+  ov._close=closeOv; ov.hidden=false;
+  ta.focus(); ta.select();
+}
+function showRestore(){
+  modalOpen=true; const ov=$("#ov");
+  $("#dlgT").textContent="📥 복원 — 백업 내용 붙여넣기";
+  const b=$("#dlgB"); b.innerHTML="";
+  const info=document.createElement("div");
+  info.style.cssText="margin-bottom:9px;font-size:.86rem;line-height:1.55";
+  info.textContent="백업해 둔 내용을 아래에 붙여넣고 ‘복원’을 누르세요. 현재 편집 내용을 백업 내용으로 덮어씁니다.";
+  const ta=document.createElement("textarea"); ta.className="io-ta"; ta.placeholder="여기에 백업 텍스트를 붙여넣으세요…";
+  b.appendChild(info); b.appendChild(ta);
+  const a=$("#dlgA"); a.innerHTML="";
+  a.appendChild(mkbtn("복원","primary",()=>{
+    let d; try{ d=JSON.parse(ta.value.trim()); }catch(e){ toast("형식이 올바르지 않습니다 — 백업 전체를 붙여넣었는지 확인하세요"); return; }
+    if(!d || typeof d!=="object"){ toast("형식이 올바르지 않습니다"); return; }
+    if(d.store && typeof d.store==="object"){ store=d.store; save(); }
+    if(d.memos && typeof d.memos==="object"){ memos=d.memos; saveMemos(); }
+    if(d.adds  && typeof d.adds ==="object"){ adds =d.adds;  saveAdds(); }
+    if(d.pts   && typeof d.pts  ==="object"){ pts  =d.pts;   savePts(); }
+    closeOv(); setIds=null; buildDeck(); render();
+    toast("백업을 복원했습니다 ✓");
+  }));
+  a.appendChild(mkbtn("취소","",closeOv));
+  ov._close=closeOv; ov.hidden=false;
+  ta.focus();
+}
+
+// 초기화: 메모를 정답에 반영할지 물은 뒤 점수 초기화
+// 메모를 정답에 반영하는 공통 루프(각 메모: 추가/대체 선택, 현재 정답 표시)
+async function reflectMemos(memoIds){
+  let promoted = 0;
+  for(const id of memoIds){
+    const card = DECK.find(c=>c.id===id);
+    const memoText = memos[id].trim();
+    const eff = effPoints(card);
+    const listBody = eff.map((p,i)=>(i+1)+". "+p.t).join("\n");
+    // ① 신규 추가 / 기존 대체 / 반영 안 함 — 현재 정답을 함께 보여줌
+    const mode = await modal({
+      title:"["+card.id+"] 메모 반영 방식",
+      body:card.q+"\n\n── 현재 정답 ──\n"+listBody+"\n\n── 내 메모 ──\n"+memoText+"\n\n어떻게 반영할까요?",
+      actions:[
+        {label:"신규 추가", value:"add", kind:"good"},
+        {label:"기존 답변 대체", value:"replace", kind:"primary"},
+        {label:"반영 안 함", value:"skip"}
+      ]
+    });
+    if(mode==="skip" || !mode) continue;
+    if(mode==="add"){
+      const acts = [{label:"맨 위", value:0}];
+      eff.forEach((p,i)=> acts.push({label:(i+1)+"번 뒤", value:i+1}));
+      acts.push({label:"취소", value:-1});
+      const pos = await modal({
+        title:"["+card.id+"] 어디에 추가?",
+        body:"현재 정답 항목:\n"+listBody+"\n\n＋ 추가할 내용:\n"+memoText+"\n\n추가할 위치를 고르세요.",
+        actions:acts
+      });
+      if(pos===-1 || pos===undefined) continue;
+      const arr = eff.slice();
+      arr.splice(pos, 0, {t:memoText, k:"add"});
+      commitPts(card, arr);
+      delete memos[id]; promoted++;
+    } else if(mode==="replace"){
+      const acts = eff.map((p,i)=>({label:(i+1)+"번", value:i}));
+      acts.push({label:"취소", value:-1});
+      const ti = await modal({
+        title:"["+card.id+"] 어느 것을 대체?",
+        body:"현재 정답 항목:\n"+listBody+"\n\n→ 대체할 내용:\n"+memoText+"\n\n대체할 항목 번호를 고르세요.",
+        actions:acts
+      });
+      if(ti===-1 || ti===undefined) continue;
+      const arr = eff.slice();
+      arr[ti] = {t:memoText, k:"edit"};
+      commitPts(card, arr);
+      delete memos[id]; promoted++;
+    }
+  }
+  saveMemos();
+  if(promoted) toast(promoted+"건을 정답에 반영했습니다");
+  return promoted;
+}
+// 메모가 있으면 반영을 물은 뒤 결과 보고서 표시(세트 중간에도 결과 버튼으로 호출)
+async function askMemoThenReport(){
+  if(modalOpen || !deck.length) return;
+  const memoIds = Object.keys(memos).filter(id => memos[id] && memos[id].trim() && DECK.some(c=>c.id===id));
+  if(memoIds.length){
+    const go = await modal({
+      title:"메모를 정답에 반영할까요?",
+      body:"작성한 메모가 "+memoIds.length+"건 있습니다.\n결과를 보기 전에 정답에 반영할지 하나씩 확인할 수 있습니다.",
+      actions:[{label:"하나씩 검토",value:true,kind:"primary"},{label:"나중에",value:false}]
+    });
+    if(go) await reflectMemos(memoIds);
+  }
+  showReport();
+}
+async function resetFlow(){
+  if(modalOpen) return;
+  const memoIds = Object.keys(memos).filter(id => memos[id] && memos[id].trim() && DECK.some(c=>c.id===id));
+  if(memoIds.length){
+    const review = await modal({
+      title:"메모를 정답에 반영할까요?",
+      body:"작성한 메모가 "+memoIds.length+"건 있습니다.\n\n각 메모를 정답에 반영할지 하나씩 확인할 수 있습니다. 반영된 메모는 다음 테스트의 정답에 함께 표시됩니다.",
+      actions:[{label:"하나씩 검토",value:true,kind:"primary"},{label:"건너뛰기",value:false}]
+    });
+    if(review) await reflectMemos(memoIds);
+  }
+  const clr = await modal({
+    title:"자가채점 점수 초기화",
+    body:"모든 즉답/애매/막힘 채점 기록을 지울까요?\n(메모·보완 항목은 유지됩니다)",
+    actions:[{label:"초기화",value:true,kind:"hard"},{label:"취소",value:false}]
+  });
+  if(clr){ store = {}; save(); toast("점수를 초기화했습니다"); }
+  // 정답 편집(메모 반영)도 전체 원점 복원할지
+  if(Object.keys(pts).length || Object.keys(adds).length){
+    const rev = await modal({
+      title:"정답 편집 초기화",
+      body:"메모로 추가·대체한 정답을 모두 원본으로 되돌릴까요?\n(개별 카드는 답 확인 화면의 ‘↺ 원본으로’ 버튼으로도 되돌릴 수 있습니다)",
+      actions:[{label:"모두 원본으로",value:true,kind:"hard"},{label:"편집 유지",value:false}]
+    });
+    if(rev){ pts={}; adds={}; savePts(); saveAdds(); toast("정답을 원본으로 되돌렸습니다"); }
+  }
+  setIds = null;
+  buildDeck(); render();
+}
+$("#grade").addEventListener("click", e=>{ const b=e.target.closest(".gbtn"); if(b) grade(b.dataset.g); });
+$("#prev").addEventListener("click", goPrev);
+$("#next").addEventListener("click", goNext);
+
+// 정답 원본 복원(이 카드)
+$("#revertPts").addEventListener("click", ()=>{
+  const card = deck[idx]; if(!card) return;
+  if(pts[card.id]) delete pts[card.id];
+  if(adds[card.id]) delete adds[card.id];
+  savePts(); saveAdds();
+  renderPoints(); refreshFlag();
+  toast("원본 정답으로 되돌렸습니다");
+});
+
+// theme toggle
+const root = document.documentElement;
+$("#theme").addEventListener("click", ()=>{
+  const cur = root.getAttribute("data-theme");
+  const sysDark = window.matchMedia("(prefers-color-scheme:dark)").matches;
+  const now = cur ? cur : (sysDark?"dark":"light");
+  root.setAttribute("data-theme", now==="dark"?"light":"dark");
+});
+
+// keyboard
+document.addEventListener("keydown", e=>{
+  if(!$("#start").hidden) return;               // 역할 선택 화면에선 단축키 무시
+  if(modalOpen){ if(e.key==="Escape" && $("#ov")._close) $("#ov")._close(); return; }
+  if(reportOpen){ if(e.key==="Escape") closeReport(); return; }
+  const tag = e.target.tagName;
+  if(tag==="SELECT" || tag==="TEXTAREA" || tag==="INPUT") return;
+  if(e.code==="Space"){ e.preventDefault(); if(!revealed) reveal(); else goNext(); }
+  else if(e.key==="1" && revealed) grade("good");
+  else if(e.key==="2" && revealed) grade("soft");
+  else if(e.key==="3" && revealed) grade("hard");
+  else if(e.key==="ArrowRight") goNext();
+  else if(e.key==="ArrowLeft") goPrev();
+  else if(e.key==="r"||e.key==="R"){ if(!revealed) reveal(); }
+});
+
+// init — 이 파일은 단일 역할 전용
+setPersona("colA", false);
+</script>

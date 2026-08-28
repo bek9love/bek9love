@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>현장실사 증빙자료 — 양식 템플릿</title>
+<style>
+  /* ── 낙농과 공식 문서 양식 복제 (251117 확대간부회의 보고서 v7 기준) ───────── */
+  @page { size: A4; margin: 12.7mm 20mm; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'HY신명조','한양신명조','HYSinMyeongJo','Batang','바탕',serif;
+    font-size:15pt; line-height:1.12; color:#000;
+    width:170mm; margin:0 auto;
+    word-break:keep-all; line-break:strict;
+  }
+  .gothic { font-family:'HY견고딕','HYGungSo','HeadlineA','Malgun Gothic',sans-serif; }
+  .head   { font-family:'HY헤드라인M','HeadlineA','Malgun Gothic',sans-serif; }
+
+  /* ── 표지 ───────────────────────────────────────── */
+  .cover { height:262mm; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; page-break-after:always; }
+  .cover .t1 { font-size:26pt; line-height:1.35; margin-bottom:4mm; }
+  .cover .t2 { font-size:34pt; line-height:1.3; margin-bottom:18mm; }
+  .cover .dept { font-size:25pt; letter-spacing:2px; margin-bottom:26mm; }
+  .cover .date { font-size:25pt; margin-bottom:22mm; }
+  .cover .org  { font-size:22pt; letter-spacing:6px; }
+
+  /* ── 목차 ───────────────────────────────────────── */
+  .toc-title { font-size:25pt; text-align:center; letter-spacing:14px; margin:10mm 0 12mm; }
+  .toc-l1 { font-size:19pt; margin:7mm 0 3mm; }
+  .toc-l2 { font-size:16pt; font-family:'Malgun Gothic',sans-serif; margin:2.2mm 0 2.2mm 10mm; display:flex; }
+  .toc-l2 .dot { flex:1; border-bottom:1.2px dotted #000; margin:0 2mm 1.5mm; }
+
+  /* ── 간지 ───────────────────────────────────────── */
+  .divider { height:250mm; display:flex; justify-content:center; align-items:center;
+             font-size:28pt; letter-spacing:12px; page-break-before:always; page-break-after:always; }
+
+  /* ── 장·절 제목 ─────────────────────────────────── */
+  .chapter { font-family:'휴먼명조','HYSinMyeongJo','Batang',serif; font-size:20pt; font-weight:bold;
+             line-height:1.5; text-align:center; border:1.4px solid #000; padding:4mm 0; margin:0 0 8mm; page-break-before:always; }
+  .section { font-size:17pt; line-height:2.1; margin:8mm 0 3mm; display:flex; align-items:center; }
+  .section .no { display:inline-block; width:9mm; height:9mm; line-height:9mm; text-align:center;
+                 background:#000; color:#fff; margin-right:3mm; font-size:15pt; }
+
+  /* ── 요약 박스 ──────────────────────────────────── */
+  .boxtitle { font-size:16pt; text-align:center; margin:5mm 0 2mm; }
+  .summary { border:1.2px solid #000; padding:3mm 4mm; margin-bottom:5mm; }
+  .summary .d { font-size:13pt; font-weight:bold; text-indent:-4.6mm; padding-left:4.6mm; margin-bottom:1mm; }
+  .summary .dd { font-size:13pt; text-indent:-3.4mm; padding-left:8mm; margin-bottom:0.6mm; }
+
+  /* ── 본문 계층 ──────────────────────────────────── */
+  .l1 { font-size:16pt; font-weight:bold; text-indent:-6mm; padding-left:6mm; margin-top:5mm; margin-bottom:1.2mm; }
+  .l2 { font-size:15pt; font-weight:bold; text-indent:-5mm; padding-left:9.5mm; margin-top:2.6mm; margin-bottom:1mm; }
+  .l3 { font-size:15pt; text-indent:-4.6mm; padding-left:14mm; margin-top:1mm; margin-bottom:0.8mm; }
+  .l4 { font-size:13pt; text-indent:-4mm; padding-left:18mm; margin-top:0.6mm; }
+  .sub { font-size:11pt; font-weight:normal; }   /* 협업부서·부기 병기 */
+
+  /* ── 표 ─────────────────────────────────────────── */
+  .unit { font-size:9pt; text-align:right; margin:2mm 0 0.6mm; }
+  table { width:100%; border-collapse:collapse; table-layout:fixed; margin-bottom:2mm; }
+  th,td { border:0.9px solid #000; padding:1.2mm 1.4mm; font-size:13pt; text-align:center; vertical-align:middle; line-height:1.1; }
+  th { background:#e8e8e8; font-weight:bold; }
+  td.l { text-align:left; }
+  td.nw, th.nw { white-space:nowrap; }
+  tr.sum td { background:#f4f4f4; font-weight:bold; }
+  .fn { font-size:9pt; margin-top:1mm; }
+
+  .pb { page-break-before:always; }
+</style>
+</head>
+<body>
+
+<!-- ══════════ 표지 ══════════ -->
+<div class="cover">
+  <div class="gothic t1">제12회 대한민국 공무원상</div>
+  <div class="gothic t2">현장실사 증빙자료</div>
+  <div class="head dept">【 낙농과 】</div>
+  <div class="gothic date">2026. 7.</div>
+  <div class="gothic org">국립축산과학원</div>
+</div>
+
+<!-- ══════════ 목차 ══════════ -->
+<div class="gothic toc-title">목   차</div>
+
+<div class="head toc-l1">Ⅰ. 성과 대장</div>
+<div class="toc-l2"><span>1. 특허 대장</span><span class="dot"></span><span>1</span></div>
+<div class="toc-l2"><span>2. 기술이전 대장</span><span class="dot"></span><span>24</span></div>
+<div class="toc-l2"><span>3. 사업화 실적 대장</span><span class="dot"></span><span>59</span></div>
+<div class="toc-l2"><span>4. 보급 실적 대장</span><span class="dot"></span><span>61</span></div>
+<div class="toc-l2"><span>5. 홍보 실적 대장</span><span class="dot"></span><span>67</span></div>
+<div class="toc-l2"><span>6. 현장 기술지원(컨설팅) 대장</span><span class="dot"></span><span>71</span></div>
+
+<div class="head toc-l1">Ⅱ. 기술 증빙</div>
+<div class="toc-l2"><span>1. 유두탐지 정확도 실증 결과(시험성적서)</span><span class="dot"></span><span>108</span></div>
+<div class="toc-l2"><span>2. 국산·외국산 가격 비교표</span><span class="dot"></span><span>109</span></div>
+<div class="toc-l2"><span>3. 데어리봇 K2 홍보 화판 자료</span><span class="dot"></span><span>110</span></div>
+
+<div class="head toc-l1">Ⅲ. 거래 증빙</div>
+<div class="toc-l2"><span>1. 수출 견적서·계약서·선적서류</span><span class="dot"></span><span>112</span></div>
+<div class="toc-l2"><span>2. 판매관리대장·전자세금계산서</span><span class="dot"></span><span>118</span></div>
+
+<!-- ══════════ 간지 ══════════ -->
+<div class="gothic divider">Ⅰ. 성 과 대 장</div>
+
+<!-- ══════════ 본문 서식 견본 ══════════ -->
+<div class="chapter">Ⅰ. 성과 대장</div>
+
+<div class="section"><span class="no head">1</span><span class="head">특허 대장</span></div>
+
+<div class="head boxtitle">&lt; 산업재산권 확보 현황 &gt;</div>
+<div class="summary">
+  <div class="d">◇ 공적조서 3대 성과 관련 산업재산권 확보 : 총 22건</div>
+  <div class="dd">◦ 등록 12건 · 출원 10건, 주관(대표발명자) 15건</div>
+  <div class="dd">◦ 분야별 : 로봇착유기 6건 · 무인 사료급이 3건 · ICT 생체정보센서 13건</div>
+</div>
+
+<div class="l1">□ (권리확보) 국산 로봇착유기 핵심 기술의 권리화</div>
+<div class="l2">○ (유두인식) 3차원 깊이 이미지 기반 인공지능 유두 인식 시스템<span class="sub"> 2026년 출원</span></div>
+<div class="l3">- 출원번호 10-2026-0076680 — 유두탐지 정확도 99 % 이상의 알고리즘 권리화</div>
+<div class="l2">○ (착유장치) 원유 분리 기능을 갖는 착유장치</div>
+<div class="l3">- 이상유 자동 분리 — 유질 관리 자동화의 근거 기술</div>
+
+<div class="l1">□ (사업화 연계) 기술실시계약을 통한 산업체 이전</div>
+<div class="l2">○ (계약) 6개 업체 35건 · 기술료 291,778,440원</div>
+
+<div class="unit">(단위 : 건, 백만원)</div>
+<table>
+  <colgroup><col style="width:26%"><col style="width:14%"><col style="width:18%"><col style="width:42%"></colgroup>
+  <tr><th>구　분</th><th>건수</th><th>실적</th><th>비　고</th></tr>
+  <tr><td>가. 로봇착유기</td><td>6</td><td>—</td><td class="l">업체 직접 판매 — 보급 실적 대장 참조</td></tr>
+  <tr><td>나. 무인 사료급이</td><td>4</td><td>236.00</td><td class="l">사료 배합 장치 — ㈜다운</td></tr>
+  <tr><td>다. ICT 생체정보센서</td><td>18</td><td>2,440.85</td><td class="l">센서 3종 — 한국IoT㈜ 등 4개사</td></tr>
+  <tr class="sum"><td>합　계</td><td>28</td><td>2,676.85</td><td class="l">약 26.8억원</td></tr>
+</table>
+<div class="fn">＊본 쪽은 <b>양식 견본</b>이며, 통합본 편집 시 각 대장의 실제 내용으로 대체함.</div>
+
+</body>
+</html>
