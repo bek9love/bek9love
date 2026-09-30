@@ -1,0 +1,11 @@
+{
+  "attachmentFolderPath": "산출물",
+  "newLinkFormat": "shortest",
+  "useMarkdownLinks": false,
+  "alwaysUpdateLinks": true,
+  "showLineNumber": false,
+  "readableLineLength": true,
+  "strictLineBreaks": false,
+  "defaultViewMode": "preview",
+  "promptDelete": true
+}
