@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><title>현장실사 증빙자료</title>
+<style>
+  @page { size: A4; margin: 12.7mm 20mm; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'HY신명조','한양신명조','Batang','바탕',serif; font-size:15pt; line-height:1.12;
+         color:#000; width:170mm; margin:0 auto; word-break:keep-all; line-break:strict; }
+  .gothic { font-family:'HY견고딕','HeadlineA','Malgun Gothic',sans-serif; }
+  .headf  { font-family:'HY헤드라인M','HeadlineA','Malgun Gothic',sans-serif; }
+
+  .cover { height:262mm; display:flex; flex-direction:column; justify-content:center; align-items:center;
+           text-align:center; page-break-after:always; }
+  .cover .t1{font-size:26pt;line-height:1.35;margin-bottom:4mm}
+  .cover .t2{font-size:34pt;line-height:1.3;margin-bottom:18mm}
+  .cover .dept{font-size:25pt;letter-spacing:2px;margin-bottom:26mm}
+  .cover .date{font-size:25pt;margin-bottom:22mm}
+  .cover .org{font-size:22pt;letter-spacing:6px}
+
+  .toc-title{font-size:25pt;text-align:center;letter-spacing:14px;margin:6mm 0 10mm}
+  .toc-l1{font-size:19pt;margin:6mm 0 2.5mm}
+  .toc-l2{font-size:15pt;margin:2mm 0 2mm 9mm;display:flex}
+  .toc-l2 .dot{flex:1;border-bottom:1.1px dotted #000;margin:0 2mm 1.4mm}
+
+  .divider{height:250mm;display:flex;justify-content:center;align-items:center;
+           font-size:28pt;letter-spacing:12px;page-break-before:always;page-break-after:always}
+
+  .chapter{font-family:'휴먼명조','Batang',serif;font-size:20pt;font-weight:bold;line-height:1.5;
+           text-align:center;border:1.4px solid #000;padding:4mm 0;margin:0 0 7mm;page-break-before:always}
+  .section{font-size:17pt;line-height:1.6;margin:7mm 0 3mm;display:flex;align-items:center;page-break-before:always}
+  .section.first{page-break-before:avoid}
+  .section .no{display:inline-block;width:8.5mm;height:8.5mm;line-height:8.5mm;text-align:center;
+               background:#000;color:#fff;margin-right:3mm;font-size:14pt}
+
+  /* ── 각 대장 본문 공통 클래스(양식 규격으로 재정의) ── */
+  .h { font-size:16pt; font-weight:bold; margin:5mm 0 1.2mm; text-indent:-6mm; padding-left:6mm; }
+  .o { font-size:15pt; font-weight:bold; margin:2.2mm 0 0.8mm; text-indent:-5mm; padding-left:9.5mm; }
+  table { width:100%; border-collapse:collapse; table-layout:fixed; margin:1.6mm 0 1.4mm; }
+  th,td { border:0.9px solid #000; padding:0.9mm 1.1mm; font-size:9.4pt; text-align:center;
+          vertical-align:middle; line-height:1.15; }
+  th { background:#e8e8e8; font-weight:bold; }
+  td.l { text-align:left; }
+  td.nw, th.nw { white-space:nowrap; }
+  tr.sum td { background:#f4f4f4; font-weight:bold; }
+  tr.grp td { background:#eaeaea; font-weight:bold; text-align:left; }
+  .note { font-size:9pt; line-height:1.3; margin-top:1.2mm; }
+  .pb { page-break-before:always; }
+</style></head>
+<body>
+<div class="cover">
+  <div class="gothic t1">제12회 대한민국 공무원상</div>
+  <div class="gothic t2">현장실사 증빙자료</div>
+  <div class="headf dept">【 낙농과 】</div>
+  <div class="gothic date">2026. 7.</div>
+  <div class="gothic org">국립축산과학원</div>
+</div>
+<div class="gothic toc-title">목   차</div>
+<div class="headf toc-l1">Ⅰ. 성과 대장</div>
+<div class="toc-l2"><span>1. 특허 대장</span><span class="dot"></span><span>1</span></div>
+<div class="toc-l2"><span>2. 기술이전 대장</span><span class="dot"></span><span>3</span></div>
+<div class="toc-l2"><span>3. 사업화 실적 대장</span><span class="dot"></span><span>5</span></div>
+<div class="toc-l2"><span>4. 보급 실적 대장</span><span class="dot"></span><span>9</span></div>
+<div class="toc-l2"><span>5. 홍보 실적 대장</span><span class="dot"></span><span>11</span></div>
+<div class="toc-l2"><span>6. 현장 기술지원(컨설팅) 대장</span><span class="dot"></span><span>15</span></div>
+<div class="headf toc-l1">Ⅱ. 기술 증빙</div>
+<div class="toc-l2"><span>1. 유두탐지 정확도 실증 결과</span><span class="dot"></span><span>17</span></div>
+<div class="toc-l2"><span>2. 국산·외국산 로봇착유기 가격 비교</span><span class="dot"></span><span>18</span></div>
+<div class="toc-l2"><span>3. 데어리봇 K2 홍보 화판 자료</span><span class="dot"></span><span>19</span></div>
+<div class="headf toc-l1">붙　임  〈별책〉</div>
+<div class="toc-l2"><span>붙임 1. 특허 등록원부·특허증·출원서</span><span class="dot"></span><span>1</span></div>
+<div class="toc-l2"><span>붙임 2. 기술실시계약서</span><span class="dot"></span><span>24</span></div>
+<div class="toc-l2"><span>붙임 3. 현장 기술지원 결과보고(결재본)</span><span class="dot"></span><span>59</span></div>
+<div class="toc-l2"><span>붙임 4. 보급 실적 증빙 요약</span><span class="dot"></span><span>95</span></div>
+<div class="chapter">Ⅰ. 성과 대장</div>
+<div class="section first"><span class="no headf">1</span><span class="headf">특허 대장</span></div>
+
+<div class="h">□ 개  요</div>
+<div class="o">○ 목적 : 공적조서 3대 성과 분야 산업재산권 실적 정리</div>
+<div class="o">○ 기간 : 2012. 7. ~ 2026. 4.</div>
+<div class="o">○ 대상 : 국립축산과학원 낙농과 박성민 농업연구사 <b>참여 산업재산권</b></div>
+<div class="o">○ 실적 : 총 <b>22건</b> (출원 10 · 등록 12) ／ 주관(대표발명자) <b>15건</b></div>
+<div class="o">○ 자료 : 국가 R&amp;D 성과등록(산업재산권) 기준, 출원번호통지서·등록원부 등 원본 첨부</div>
+<div class="h">□ 기술분야별 집계 <span style="font-size:8.4pt;font-weight:normal">(공적조서 성과 구분)</span></div>
+<table class="half">
+  <colgroup><col style="width:44%"><col style="width:14%"><col style="width:14%"><col style="width:14%"><col style="width:14%"></colgroup>
+  <tr><th>기술분야</th><th>출원</th><th>등록</th><th>계</th><th>주관</th></tr>
+    <tr><td class="l">가.로봇착유기</td><td>4</td><td>2</td><td>6</td><td>5</td></tr>
+    <tr><td class="l">나.무인사료급이</td><td>1</td><td>2</td><td>3</td><td>2</td></tr>
+    <tr><td class="l">다.생체정보센서·ICT</td><td>5</td><td>8</td><td>13</td><td>8</td></tr>
+  <tr class="sum"><td class="l">합　계</td><td>10</td><td>12</td><td>22</td><td>15</td></tr>
+</table>
+<div class="h">□ 산업재산권 내역</div>
+<table>
+  <colgroup><col style="width:4.5%"><col style="width:8%"><col style="width:6%"><col style="width:44%"><col style="width:16%"><col style="width:7%"><col style="width:11%"></colgroup>
+  <tr><th>연번</th><th class="nw">연월</th><th>구분</th><th>발명(고안·상표)의 명칭</th><th>출원·등록번호</th><th>역할</th><th class="nw">비고</th></tr>
+    <tr class="grp"><td colspan="7">가.로봇착유기</td></tr>
+    <tr><td>1</td><td class="nw">2022. 4.</td><td>등록</td><td class="l">착유량 측정장치</td><td class="nw" style="font-size:7.4pt">10-2386751</td><td>공동</td><td class="nw">붙임 1<br>(p.2)</td></tr>
+    <tr><td>2</td><td class="nw">2022. 5.</td><td>등록</td><td class="l">가축의 젖 생산량 산출시스템</td><td class="nw" style="font-size:7.4pt">10-2404339</td><td>주관</td><td class="nw">붙임 2<br>(p.3)</td></tr>
+    <tr><td>3</td><td class="nw">2025. 12.</td><td>출원</td><td class="l">실시간 (우)유질 및 혈유 검출기</td><td class="nw" style="font-size:7.4pt">10-2025-0200465</td><td>주관</td><td class="nw">붙임 3<br>(p.4)</td></tr>
+    <tr><td>4</td><td class="nw">2025. 12.</td><td>출원</td><td class="l">실시간 우유 체세포 분석기</td><td class="nw" style="font-size:7.4pt">10-2025-0200466</td><td>주관</td><td class="nw">붙임 4<br>(p.5)</td></tr>
+    <tr><td>5</td><td class="nw">2026. 4.</td><td>출원</td><td class="l">3차원 깊이 이미지를 이용한 인공지능 기반 젖소 유두 인식 시스템 및 방법</td><td class="nw" style="font-size:7.4pt">10-2026-0076680</td><td>주관</td><td class="nw">붙임 5<br>(p.6)</td></tr>
+    <tr><td>6</td><td class="nw">2026. 4.</td><td>출원</td><td class="l">원유 분리 기능을 갖는 착유장치</td><td class="nw" style="font-size:7.4pt">10-2026-0076667</td><td>주관</td><td class="nw">붙임 6<br>(p.7)</td></tr>
+    <tr class="grp"><td colspan="7">나.무인사료급이</td></tr>
+    <tr><td>7</td><td class="nw">2017. 11.</td><td>등록</td><td class="l">휴대용 사일리지 절단기</td><td class="nw" style="font-size:7.4pt">20-0485032</td><td>공동</td><td class="nw">붙임 7<br>(p.8)</td></tr>
+    <tr><td>8</td><td class="nw">2018. 12.</td><td>등록</td><td class="l">사료 배합 장치</td><td class="nw" style="font-size:7.4pt">10-1931615</td><td>주관</td><td class="nw">붙임 8<br>(p.9)</td></tr>
+    <tr><td>9</td><td class="nw">2026. 4.</td><td>출원</td><td class="l">사료 자동정리 로봇</td><td class="nw" style="font-size:7.4pt">10-2026-0076675</td><td>주관</td><td class="nw">붙임 9<br>(p.10)</td></tr>
+    <tr class="grp"><td colspan="7">다.생체정보센서·ICT</td></tr>
+    <tr><td>10</td><td class="nw">2014. 1.</td><td>등록</td><td class="l">젖먹이 송아지의 개체별 통합 정밀 영양 상태 관리 시스템</td><td class="nw" style="font-size:7.4pt">10-1349008</td><td>공동</td><td class="nw">붙임 10<br>(p.11)</td></tr>
+    <tr><td>11</td><td class="nw">2014. 7.</td><td>등록</td><td class="l">축우용 통합 정밀 영양 상태 관리 시스템</td><td class="nw" style="font-size:7.4pt">10-1413106</td><td>공동</td><td class="nw">붙임 11<br>(p.12)</td></tr>
+    <tr><td>12</td><td class="nw">2016. 11.</td><td>출원</td><td class="l">가축의 체중 및 체위 측정장치</td><td class="nw" style="font-size:7.4pt">10-2016-0151864</td><td>공동</td><td class="nw">붙임 12<br>(p.13)</td></tr>
+    <tr><td>13</td><td class="nw">2019. 5.</td><td>등록</td><td class="l">가축의 반추위를 모니터링하는 방법</td><td class="nw" style="font-size:7.4pt">10-1976519</td><td>주관</td><td class="nw">붙임 13<br>(p.14)</td></tr>
+    <tr><td>14</td><td class="nw">2019. 10.</td><td>등록</td><td class="l">가축의 행동과 위치를 모니터링하는 장치 및 방법</td><td class="nw" style="font-size:7.4pt">10-2035672</td><td>주관</td><td class="nw">붙임 14<br>(p.15)</td></tr>
+    <tr><td>15</td><td class="nw">2020. 8.</td><td>출원</td><td class="l">(상표)SmartALYac(스마트알약)</td><td class="nw" style="font-size:7.4pt">40-2020-0152457</td><td>주관</td><td class="nw">붙임 15<br>(p.16)</td></tr>
+    <tr><td>16</td><td class="nw">2020. 8.</td><td>출원</td><td class="l">(상표)스마트알약</td><td class="nw" style="font-size:7.4pt">40-2020-0152445</td><td>주관</td><td class="nw">붙임 16<br>(p.17)</td></tr>
+    <tr><td>17</td><td class="nw">2020. 12.</td><td>출원</td><td class="l">가축의 체중을 측정하는 장치 및 방법</td><td class="nw" style="font-size:7.4pt">10-2020-0178793</td><td>주관</td><td class="nw">붙임 17<br>(p.18)</td></tr>
+    <tr><td>18</td><td class="nw">2021. 2.</td><td>등록</td><td class="l">온도 및 활동량 센서를 탑재한 가축의 생체내 삽입모듈 및 이를 이용한 가축의 분만 이상징후 관찰 시스템</td><td class="nw" style="font-size:7.4pt">10-2219300</td><td>공동</td><td class="nw">붙임 18<br>(p.19)</td></tr>
+    <tr><td>19</td><td class="nw">2022. 7.</td><td>등록</td><td class="l">가축의 반추위를 모니터링하는 장치 및 방법</td><td class="nw" style="font-size:7.4pt">10-2418883</td><td>주관</td><td class="nw">붙임 19<br>(p.20)</td></tr>
+    <tr><td>20</td><td class="nw">2022. 7.</td><td>등록</td><td class="l">가축의 분만을 예측하는 방법</td><td class="nw" style="font-size:7.4pt">10-2425101</td><td>주관</td><td class="nw">붙임 20<br>(p.21)</td></tr>
+    <tr><td>21</td><td class="nw">2022. 8.</td><td>등록</td><td class="l">가축의 위 운동을 분석하는 방법</td><td class="nw" style="font-size:7.4pt">10-2429934</td><td>주관</td><td class="nw">붙임 21<br>(p.22)</td></tr>
+    <tr><td>22</td><td class="nw">2024. 12.</td><td>출원</td><td class="l">3D 데이터를 이용한 BCS 예측 장치 및 방법</td><td class="nw" style="font-size:7.4pt">10-2024-0194337</td><td>공동</td><td class="nw">붙임 22<br>(p.23)</td></tr>
+  <tr class="sum"><td colspan="5">합　계</td><td>22건</td><td>—</td></tr>
+</table>
+
+
+<div class="section"><span class="no headf">2</span><span class="headf">기술이전 대장</span></div>
+
+<div class="h">□ 개  요</div>
+<div class="o">○ 목적 : 공적조서 3대 성과 분야 기술이전(기술실시) 실적 정리</div>
+<div class="o">○ 기간 : 2023. 3. ~ 2026. 4.</div>
+<div class="o">○ 대상 : 국립축산과학원 낙농과 박성민 농업연구사 참여 기술이전</div>
+<div class="o">○ 실적 : 계약 <b>35건</b> · 기술료 <b>291,778,440원</b> · 이전 업체 <b>6개사</b></div>
+<div class="o">○ 자료 : 국가 R&amp;D 성과등록(기술이전) 기준, 기술실시계약서 원본 첨부</div>
+<div class="h">□ 기술분야별 집계</div>
+<table class="half">
+  <colgroup><col style="width:46%"><col style="width:18%"><col style="width:36%"></colgroup>
+  <tr><th>기술분야</th><th>계약(건)</th><th>기술료(원)</th></tr>
+    <tr><td class="l">가.로봇착유기</td><td>2</td><td>1,536,000</td></tr>
+    <tr><td class="l">나.무인사료급이</td><td>1</td><td>13,650,000</td></tr>
+    <tr><td class="l">다.생체정보센서·ICT</td><td>32</td><td>276,592,440</td></tr>
+  <tr class="sum"><td class="l">합　계</td><td>35</td><td>291,778,440</td></tr>
+</table>
+<div class="h">□ 기술이전 내역</div>
+<table>
+  <colgroup><col style="width:4.5%"><col style="width:8%"><col style="width:13%"><col style="width:40%"><col style="width:14%"><col style="width:7%"><col style="width:11%"></colgroup>
+  <tr><th>연번</th><th class="nw">연월</th><th>이전 업체</th><th>기술(발명)의 명칭</th><th>특허번호</th><th>역할</th><th class="nw">비고</th></tr>
+    <tr class="grp"><td colspan="7">가.로봇착유기</td></tr>
+    <tr><td>1</td><td class="nw">2026. 3.</td><td class="l">다운</td><td class="l">실시간 (우)유질 및 혈유 검출기</td><td class="nw" style="font-size:7.2pt">10-2025-0200465</td><td>주관</td><td class="nw">붙임 1<br>(p.2)</td></tr>
+    <tr><td>2</td><td class="nw">2026. 3.</td><td class="l">다운</td><td class="l">실시간 우유 체세포 분석기</td><td class="nw" style="font-size:7.2pt">10-2025-0200466</td><td>주관</td><td class="nw">붙임 2<br>(p.3)</td></tr>
+    <tr class="grp"><td colspan="7">나.무인사료급이</td></tr>
+    <tr><td>3</td><td class="nw">2026. 3.</td><td class="l">다운</td><td class="l">사료 배합 장치</td><td class="nw" style="font-size:7.2pt">10-1931615</td><td>주관</td><td class="nw">붙임 3<br>(p.4)</td></tr>
+    <tr class="grp"><td colspan="7">다.생체정보센서·ICT</td></tr>
+    <tr><td>4</td><td class="nw">2023. 3.</td><td class="l">인프로</td><td class="l">가축의 반추위를 모니터링하는 장치 및 방법</td><td class="nw" style="font-size:7.2pt">10-1976519</td><td>주관</td><td class="nw">붙임 4<br>(p.5)</td></tr>
+    <tr><td>5</td><td class="nw">2023. 3.</td><td class="l">딕스비전</td><td class="l">가축의 분만을 예측하는 방법</td><td class="nw" style="font-size:7.2pt">10-2425101</td><td>주관</td><td class="nw">붙임 5<br>(p.6)</td></tr>
+    <tr><td>6</td><td class="nw">2023. 3.</td><td class="l">에이앤지컴퍼니</td><td class="l">가축의 분만을 예측하는 방법</td><td class="nw" style="font-size:7.2pt">10-2425101</td><td>주관</td><td class="nw">붙임 6<br>(p.7)</td></tr>
+    <tr><td>7</td><td class="nw">2023. 6.</td><td class="l">웰케어스</td><td class="l">가축의 반추위를 모니터링하는 장치 및 방법</td><td class="nw" style="font-size:7.2pt">10-1976519</td><td>공동</td><td class="nw">붙임 7<br>(p.8)</td></tr>
+    <tr><td>8</td><td class="nw">2023. 6.</td><td class="l">웰케어스</td><td class="l">가축의 반추위를 모니터링하는 장치 및 방법</td><td class="nw" style="font-size:7.2pt">10-1976519</td><td>주관</td><td class="nw">붙임 8<br>(p.9)</td></tr>
+    <tr><td>9</td><td class="nw">2023. 6.</td><td class="l">웰케어스</td><td class="l">가축의 위 운동을 분석하는 방법</td><td class="nw" style="font-size:7.2pt">10-2429934</td><td>주관</td><td class="nw">붙임 9<br>(p.10)</td></tr>
+    <tr><td>10</td><td class="nw">2023. 9.</td><td class="l">한국IoT</td><td class="l">가축의 반추위를 모니터링하는 장치 및 방법</td><td class="nw" style="font-size:7.2pt">10-1976519</td><td>주관</td><td class="nw">붙임 10<br>(p.11)</td></tr>
+    <tr><td>11</td><td class="nw">2023. 12.</td><td class="l">한국IoT</td><td class="l">가축의 위 운동을 분석하는 방법</td><td class="nw" style="font-size:7.2pt">10-2429934</td><td>주관</td><td class="nw">붙임 11<br>(p.12)</td></tr>
+    <tr><td>12</td><td class="nw">2023. 12.</td><td class="l">한국IoT</td><td class="l">가축의 행동과 위치를 모니터링하는 장치 및 방법</td><td class="nw" style="font-size:7.2pt">10-2035672</td><td>주관</td><td class="nw">붙임 12<br>(p.13)</td></tr>
+    <tr><td>13</td><td class="nw">2024. 1.</td><td class="l">인프로</td><td class="l">가축의 분만을 예측하는 방법</td><td class="nw" style="font-size:7.2pt">10-2425101</td><td>주관</td><td class="nw">붙임 13<br>(p.14)</td></tr>
+    <tr><td>14</td><td class="nw">2024. 1.</td><td class="l">인프로</td><td class="l">가축의 위 운동을 분석하는 방법</td><td class="nw" style="font-size:7.2pt">10-2429934</td><td>주관</td><td class="nw">붙임 14<br>(p.15)</td></tr>
+    <tr><td>15</td><td class="nw">2024. 2.</td><td class="l">다운</td><td class="l">가축의 반추위를 모니터링하는 장치 및 방법</td><td class="nw" style="font-size:7.2pt">10-2418883</td><td>주관</td><td class="nw">붙임 15<br>(p.16)</td></tr>
+    <tr><td>16</td><td class="nw">2024. 2.</td><td class="l">인프로</td><td class="l">가축의 반추위를 모니터링하는 장치 및 방법</td><td class="nw" style="font-size:7.2pt">10-1976519</td><td>주관</td><td class="nw">붙임 16<br>(p.17)</td></tr>
+    <tr><td>17</td><td class="nw">2024. 4.</td><td class="l">딕스비전</td><td class="l">가축의 분만을 예측하는 방법</td><td class="nw" style="font-size:7.2pt">10-2425101</td><td>주관</td><td class="nw">붙임 17<br>(p.18)</td></tr>
+    <tr><td>18</td><td class="nw">2024. 7.</td><td class="l">웰케어스</td><td class="l">가축의 반추위를 모니터링하는 장치 및 방법</td><td class="nw" style="font-size:7.2pt">10-1976519</td><td>주관</td><td class="nw">붙임 18<br>(p.19)</td></tr>
+    <tr><td>19</td><td class="nw">2024. 7.</td><td class="l">웰케어스</td><td class="l">가축의 위 운동을 분석하는 방법</td><td class="nw" style="font-size:7.2pt">10-2429934</td><td>주관</td><td class="nw">붙임 19<br>(p.20)</td></tr>
+    <tr><td>20</td><td class="nw">2025. 1.</td><td class="l">한국IoT</td><td class="l">가축의 반추위를 모니터링하는 방법</td><td class="nw" style="font-size:7.2pt">10-1976519</td><td>주관</td><td class="nw">붙임 20<br>(p.21)</td></tr>
+    <tr><td>21</td><td class="nw">2025. 1.</td><td class="l">인프로</td><td class="l">가축의 분만을 예측하는 방법</td><td class="nw" style="font-size:7.2pt">10-2425101</td><td>주관</td><td class="nw">붙임 21<br>(p.22)</td></tr>
+    <tr><td>22</td><td class="nw">2025. 1.</td><td class="l">인프로</td><td class="l">가축의 위 운동을 분석하는 방법</td><td class="nw" style="font-size:7.2pt">10-2429934</td><td>주관</td><td class="nw">붙임 22<br>(p.23)</td></tr>
+    <tr><td>23</td><td class="nw">2025. 1.</td><td class="l">한국IoT</td><td class="l">가축의 위 운동을 분석하는 방법</td><td class="nw" style="font-size:7.2pt">10-2429934</td><td>주관</td><td class="nw">붙임 23<br>(p.24)</td></tr>
+    <tr><td>24</td><td class="nw">2025. 1.</td><td class="l">한국IoT</td><td class="l">가축의 행동과 위치를 모니터링하는 장치 및 방법</td><td class="nw" style="font-size:7.2pt">10-2035672</td><td>주관</td><td class="nw">붙임 24<br>(p.25)</td></tr>
+    <tr><td>25</td><td class="nw">2025. 4.</td><td class="l">인프로</td><td class="l">가축의 반추위를 모니터링하는 방법</td><td class="nw" style="font-size:7.2pt">10-1976519</td><td>주관</td><td class="nw">붙임 25<br>(p.26)</td></tr>
+    <tr><td>26</td><td class="nw">2025. 4.</td><td class="l">딕스비전</td><td class="l">가축의 분만을 예측하는 방법</td><td class="nw" style="font-size:7.2pt">10-2425101</td><td>주관</td><td class="nw">붙임 26<br>(p.27)</td></tr>
+    <tr><td>27</td><td class="nw">2025. 7.</td><td class="l">웰케어스</td><td class="l">가축의 반추위를 모니터링하는 장치 및 방법</td><td class="nw" style="font-size:7.2pt">10-1976519</td><td>주관</td><td class="nw">붙임 27<br>(p.28)</td></tr>
+    <tr><td>28</td><td class="nw">2025. 7.</td><td class="l">웰케어스</td><td class="l">가축의 위 운동을 분석하는 방법</td><td class="nw" style="font-size:7.2pt">10-2429934</td><td>주관</td><td class="nw">붙임 28<br>(p.29)</td></tr>
+    <tr><td>29</td><td class="nw">2025. 10.</td><td class="l">한국IoT</td><td class="l">가축의 반추위를 모니터링하는 장치 및 방법</td><td class="nw" style="font-size:7.2pt">10-1976519</td><td>주관</td><td class="nw">붙임 29<br>(p.30)</td></tr>
+    <tr><td>30</td><td class="nw">2026. 1.</td><td class="l">인프로</td><td class="l">가축의 분만을 예측하는 방법</td><td class="nw" style="font-size:7.2pt">10-2425101</td><td>주관</td><td class="nw">붙임 30<br>(p.31)</td></tr>
+    <tr><td>31</td><td class="nw">2026. 1.</td><td class="l">인프로</td><td class="l">가축의 위 운동을 분석하는 방법</td><td class="nw" style="font-size:7.2pt">10-2429934</td><td>주관</td><td class="nw">붙임 31<br>(p.32)</td></tr>
+    <tr><td>32</td><td class="nw">2026. 3.</td><td class="l">다운</td><td class="l">가축의 행동과 위치를 모니터링하는 장치 및 방법</td><td class="nw" style="font-size:7.2pt">10-2035672</td><td>주관</td><td class="nw">—</td></tr>
+    <tr><td>33</td><td class="nw">2026. 4.</td><td class="l">인프로</td><td class="l">가축의 반추위를 모니터링하는 장치 및 방법</td><td class="nw" style="font-size:7.2pt">10-1976519</td><td>주관</td><td class="nw">붙임 33<br>(p.33)</td></tr>
+    <tr><td>34</td><td class="nw">2026. 4.</td><td class="l">한국IoT</td><td class="l">가축의 위 운동을 분석하는 방법</td><td class="nw" style="font-size:7.2pt">10-2429934</td><td>주관</td><td class="nw">붙임 34<br>(p.34)</td></tr>
+    <tr><td>35</td><td class="nw">2026. 4.</td><td class="l">한국IoT</td><td class="l">가축의 행동과 위치를 모니터링하는 장치 및 방법</td><td class="nw" style="font-size:7.2pt">10-2035672</td><td>주관</td><td class="nw">붙임 35<br>(p.35)</td></tr>
+  <tr class="sum"><td colspan="6">합　계</td><td>35건</td></tr>
+</table>
+
+
+<div class="section"><span class="no headf">3</span><span class="headf">사업화 실적 대장</span></div>
+
+
+<div class="h">□ 개  요</div>
+<div class="o">○ 목적 : 공적조서 3대 성과 기술의 산업체 사업화(기술실시 매출) 실적 정리</div>
+<div class="o">○ 기간 : 2018. 10. ~ 2025. 12. <span style="font-size:8.4pt">(성과 적용 년월 기준)</span></div>
+<div class="o">○ 자료 : 농촌진흥청 국가 R&amp;D 성과등록 「사업화 실적」(지표ID KP00000207) — 승인·검증 완료분</div>
+<div class="o">○ 단위 : 백만원 <span style="font-size:8.4pt">(＊실적값 = 기술을 이전받은 업체가 해당 기술로 발생시킨 매출액)</span></div>
+
+<div class="h">□ 총괄</div>
+<table>
+  <colgroup><col style="width:26%"><col style="width:12%"><col style="width:18%"><col style="width:44%"></colgroup>
+  <tr><th>구분</th><th>건수</th><th>실적(백만원)</th><th>비고</th></tr>
+  <tr class="sum"><td class="l">합　계</td><td>22</td><td>2,676.85</td><td class="l">약 26.8억원</td></tr>
+  <tr><td class="l">나. 무인 사료급이</td><td>4</td><td>236</td><td class="l">사료 배합 장치 — ㈜다운</td></tr>
+  <tr><td class="l">다. ICT 생체정보센서</td><td>18</td><td><b>2,440.85</b></td><td class="l">센서 3종(위체류형·목걸이형) — 한국IoT㈜ 등 4개사</td></tr>
+</table>
+<div class="note">＊전건 성과등록상 <b>주참여자(대표연구자) = 본인</b>. ＊<b>가. 로봇착유기</b>는 업체 직접 판매(㈜다운) 방식으로, 기술실시 매출 형태의 사업화 실적 등록 대상이 아님 → 별도 「보급 실적 대장」의 판매관리대장·세금계산서로 증빙(국내 약 32.4억원·수출 15대).</div>
+
+<div class="h">□ 연도별 현황 <span style="font-size:8.4pt">(단위 : 건, 백만원)</span></div>
+<table>
+  <colgroup><col style="width:10%"><col style="width:10%"><col style="width:18%"><col style="width:10%"><col style="width:16%"><col style="width:10%"><col style="width:26%"></colgroup>
+  <tr><th rowspan="2">연도</th><th colspan="2">합계</th><th colspan="2">나. 사료급이</th><th colspan="2">다. 생체정보센서</th></tr>
+  <tr><th>건수</th><th>실적</th><th>건수</th><th>실적</th><th>건수</th><th>실적</th></tr>
+<tr><td>2019</td><td>1</td><td><b>50</b></td><td>1</td><td>50</td><td>0</td><td>0</td></tr>
+<tr><td>2020</td><td>3</td><td><b>403.82</b></td><td>1</td><td>60</td><td>2</td><td>343.82</td></tr>
+<tr><td>2021</td><td>4</td><td><b>574.07</b></td><td>1</td><td>86</td><td>3</td><td>488.07</td></tr>
+<tr><td>2022</td><td>6</td><td><b>1,084.56</b></td><td>1</td><td>40</td><td>5</td><td>1,044.56</td></tr>
+<tr><td>2023</td><td>2</td><td><b>149</b></td><td>0</td><td>0</td><td>2</td><td>149</td></tr>
+<tr><td>2024</td><td>3</td><td><b>221.9</b></td><td>0</td><td>0</td><td>3</td><td>221.9</td></tr>
+<tr><td>2025</td><td>3</td><td><b>193.5</b></td><td>0</td><td>0</td><td>3</td><td>193.5</td></tr>
+  <tr class="sum"><td>합계</td><td>22</td><td>2,676.85</td><td>4</td><td>236</td><td>18</td><td>2,440.85</td></tr>
+</table>
+<div class="note">＊성과지표년도 기준. 2022년이 최대 실적(1,084.56백만원)이며, 센서 3종의 사업화가 본격화된 시기임.</div>
+
+<div class="h">□ 기술별 현황</div>
+<table>
+  <colgroup><col style="width:17%"><col style="width:42%"><col style="width:9%"><col style="width:16%"><col style="width:16%"></colgroup>
+  <tr><th>분야</th><th>기술명</th><th>건수</th><th>실적(백만원)</th><th>기간</th></tr>
+<tr><td>나. 무인 사료급이</td><td class='l'>사료 배합 장치</td><td>4</td><td class='nw'>236</td><td>2018~2022</td></tr>
+<tr><td>다. ICT 생체정보센서</td><td class='l'>가축의 반추위를 모니터링하는 장치 및 방법</td><td>9</td><td class='nw'>1,321.72</td><td>2020~2025</td></tr>
+<tr><td>다. ICT 생체정보센서</td><td class='l'>가축의 행동과 위치를 모니터링하는 장치 및 방법</td><td>6</td><td class='nw'>687.94</td><td>2021~2025</td></tr>
+<tr><td>다. ICT 생체정보센서</td><td class='l'>가축의 위 운동을 분석하는 방법</td><td>3</td><td class='nw'>431.19</td><td>2021~2025</td></tr>
+  <tr class="sum"><td colspan="2">합　계</td><td>22</td><td>2,676.85</td><td>2018~2025</td></tr>
+</table>
+
+<div class="h">□ 실시업체별 현황</div>
+<table>
+  <colgroup><col style="width:26%"><col style="width:12%"><col style="width:12%"><col style="width:22%"><col style="width:28%"></colgroup>
+  <tr><th>업체</th><th>분야</th><th>건수</th><th>실적(백만원)</th><th>기간</th></tr>
+<tr><td class='l'>한국IoT㈜</td><td>다</td><td>14</td><td class='nw'>1,783.4</td><td>2020~2025</td></tr>
+<tr><td class='l'>동방에스앤디㈜</td><td>다</td><td>3</td><td class='nw'>657.08</td><td>2020~2024</td></tr>
+<tr><td class='l'>㈜다운</td><td>나</td><td>4</td><td class='nw'>236</td><td>2018~2022</td></tr>
+<tr><td class='l'>모스탑㈜</td><td>다</td><td>1</td><td class='nw'>0.37</td><td>2021~2021</td></tr>
+  <tr class="sum"><td colspan="2">합　계</td><td>22</td><td>2,676.85</td><td>2018~2025</td></tr>
+</table>
+<div class="note">＊한국IoT㈜ 표기는 성과등록상 ‘한국아이오티주식회사·한국IoT주식회사·한국IOT’로 혼재되어 있어 동일 법인으로 통합 집계함.</div>
+
+<div class="pb"></div>
+<div class="h">□ 건별 내역 <span style="font-size:8.4pt">(총 22건 · 2,676.85백만원)</span></div>
+<table>
+  <colgroup><col style="width:6%"><col style="width:11%"><col style="width:6%"><col style="width:41%"><col style="width:19%"><col style="width:17%"></colgroup>
+  <tr><th>연번</th><th>적용년월</th><th>분야</th><th>기술명</th><th>실시업체</th><th>실적(백만원)</th></tr>
+<tr><td>1</td><td class='nw'>2018. 10.</td><td>나</td><td class='l'>사료 배합 장치</td><td class='l'>㈜다운</td><td class='nw'>50</td></tr>
+<tr><td>2</td><td class='nw'>2020. 02.</td><td>나</td><td class='l'>사료 배합 장치</td><td class='l'>㈜다운</td><td class='nw'>60</td></tr>
+<tr><td>3</td><td class='nw'>2020. 07.</td><td>다</td><td class='l'>가축의 반추위를 모니터링하는 장치 및 방법</td><td class='l'>동방에스앤디㈜</td><td class='nw'>248.18</td></tr>
+<tr><td>4</td><td class='nw'>2020. 08.</td><td>다</td><td class='l'>가축의 반추위를 모니터링하는 장치 및 방법</td><td class='l'>한국IoT㈜</td><td class='nw'>95.64</td></tr>
+<tr><td>5</td><td class='nw'>2021. 01.</td><td>나</td><td class='l'>사료 배합 장치</td><td class='l'>㈜다운</td><td class='nw'>86</td></tr>
+<tr><td>6</td><td class='nw'>2021. 09.</td><td>다</td><td class='l'>가축의 반추위를 모니터링하는 장치 및 방법</td><td class='l'>한국IoT㈜</td><td class='nw'>128.8</td></tr>
+<tr><td>7</td><td class='nw'>2021. 10.</td><td>다</td><td class='l'>가축의 행동과 위치를 모니터링하는 장치 및 방법</td><td class='l'>모스탑㈜</td><td class='nw'>0.37</td></tr>
+<tr><td>8</td><td class='nw'>2021. 11.</td><td>다</td><td class='l'>가축의 반추위를 모니터링하는 장치 및 방법</td><td class='l'>동방에스앤디㈜</td><td class='nw'>358.9</td></tr>
+<tr><td>9</td><td class='nw'>2021. 12.</td><td>다</td><td class='l'>가축의 위 운동을 분석하는 방법</td><td class='l'>한국IoT㈜</td><td class='nw'>160.35</td></tr>
+<tr><td>10</td><td class='nw'>2021. 12.</td><td>다</td><td class='l'>가축의 행동과 위치를 모니터링하는 장치 및 방법</td><td class='l'>한국IoT㈜</td><td class='nw'>155.87</td></tr>
+<tr><td>11</td><td class='nw'>2022. 02.</td><td>나</td><td class='l'>사료 배합 장치</td><td class='l'>㈜다운</td><td class='nw'>40</td></tr>
+<tr><td>12</td><td class='nw'>2022. 08.</td><td>다</td><td class='l'>가축의 반추위를 모니터링하는 장치 및 방법</td><td class='l'>한국IoT㈜</td><td class='nw'>238.8</td></tr>
+<tr><td>13</td><td class='nw'>2022. 12.</td><td>다</td><td class='l'>가축의 위 운동을 분석하는 방법</td><td class='l'>한국IoT㈜</td><td class='nw'>198.84</td></tr>
+<tr><td>14</td><td class='nw'>2022. 12.</td><td>다</td><td class='l'>가축의 행동과 위치를 모니터링하는 장치 및 방법</td><td class='l'>한국IoT㈜</td><td class='nw'>290.7</td></tr>
+<tr><td>15</td><td class='nw'>2023. 11.</td><td>다</td><td class='l'>가축의 행동과 위치를 모니터링하는 장치 및 방법</td><td class='l'>한국IoT㈜</td><td class='nw'>76</td></tr>
+<tr><td>16</td><td class='nw'>2023. 12.</td><td>다</td><td class='l'>가축의 반추위를 모니터링하는 장치 및 방법</td><td class='l'>한국IoT㈜</td><td class='nw'>73</td></tr>
+<tr><td>17</td><td class='nw'>2024. 06.</td><td>다</td><td class='l'>가축의 반추위를 모니터링하는 장치 및 방법</td><td class='l'>동방에스앤디㈜</td><td class='nw'>50</td></tr>
+<tr><td>18</td><td class='nw'>2024. 08.</td><td>다</td><td class='l'>가축의 반추위를 모니터링하는 장치 및 방법</td><td class='l'>한국IoT㈜</td><td class='nw'>74.4</td></tr>
+<tr><td>19</td><td class='nw'>2024. 11.</td><td>다</td><td class='l'>가축의 행동과 위치를 모니터링하는 장치 및 방법</td><td class='l'>한국IoT㈜</td><td class='nw'>97.5</td></tr>
+<tr><td>20</td><td class='nw'>2025. 12.</td><td>다</td><td class='l'>가축의 반추위를 모니터링하는 장치 및 방법</td><td class='l'>한국IoT㈜</td><td class='nw'>54</td></tr>
+<tr><td>21</td><td class='nw'>2025. 12.</td><td>다</td><td class='l'>가축의 위 운동을 분석하는 방법</td><td class='l'>한국IoT㈜</td><td class='nw'>72</td></tr>
+<tr><td>22</td><td class='nw'>2025. 12.</td><td>다</td><td class='l'>가축의 행동과 위치를 모니터링하는 장치 및 방법</td><td class='l'>한국IoT㈜</td><td class='nw'>67.5</td></tr>
+  <tr class="sum"><td colspan="5">합　계</td><td>2,676.85</td></tr>
+</table>
+<div class="note">＊‘분야’ 나 = 무인 사료급이, 다 = ICT 생체정보센서. ＊전건 성과등록상 주참여자(대표연구자) = 본인.</div>
+
+<div class="h">□ 센서(다) 사업화 누적 추이 — 공적조서 수치와의 관계</div>
+<table>
+  <colgroup><col style="width:16%"><col style="width:16%"><col style="width:24%"><col style="width:24%"><col style="width:20%"></colgroup>
+  <tr><th>연도</th><th>건수</th><th>당해 실적</th><th>누적</th><th>비고</th></tr>
+<tr><td>2020</td><td>2</td><td>343.82</td><td><b>343.82</b></td><td class='l'></td></tr>
+<tr><td>2021</td><td>3</td><td>488.07</td><td><b>831.89</b></td><td class='l'></td></tr>
+<tr><td>2022</td><td>5</td><td>1,044.56</td><td><b>1,876.45</b></td><td class='l'>사업화 본격화</td></tr>
+<tr><td>2023</td><td>2</td><td>149</td><td><b>2,025.45</b></td><td class='l'></td></tr>
+<tr><td>2024</td><td>3</td><td>221.9</td><td><b>2,247.35</b></td><td class='l'></td></tr>
+<tr><td>2025</td><td>3</td><td>193.5</td><td><b>2,440.85</b></td><td class='l'>현재 누적</td></tr>
+</table>
+<div class="note">＊공적조서 기재 「사업화 1,553백만원」은 <b>NTIS 사업화실적</b> 기준의 조서 작성 시점 정산분이고, 본 대장은 <b>농진청 성과등록</b> 기준으로 집계 대상·정산 시점이 달라 수치가 다름. 사업화 실적은 <b>사후정산</b> 방식이어서 계약 후 실제 매출 확정에 따라 갱신됨. ＊성과등록 기준 센서 누적은 2022년 말 <b>1,876.45백만원</b>, 2025년 말 <b>2,440.85백만원</b>으로, 조서 수치를 <b>상회</b>함(수치가 줄지 않았음을 설명할 수 있음).</div>
+
+<div class="h">□ 증빙 자료</div>
+<table>
+  <colgroup><col style="width:30%"><col style="width:44%"><col style="width:26%"></colgroup>
+  <tr><th>자료</th><th>내용</th><th>비고</th></tr>
+  <tr><td class="l">국가 R&amp;D 성과등록 「사업화 실적」 원자료</td><td class="l">건별 성과물번호·지표년도·적용년월·실적값·참여자</td><td>본 대장의 근거</td></tr>
+  <tr><td class="l">기술실시계약서</td><td class="l">업체별 계약일·기술료·실시 범위</td><td>「기술이전대장」 참조</td></tr>
+  <tr><td class="l">특허 등록원부·특허증</td><td class="l">사업화 대상 기술의 권리 보유 확인</td><td>「특허대장」 참조</td></tr>
+  <tr><td class="l">㈜다운 판매관리대장·세금계산서</td><td class="l">로봇착유기·사료급이 로봇 실판매</td><td>「보급 실적 대장」 참조</td></tr>
+</table>
+
+
+
+<div class="section"><span class="no headf">4</span><span class="headf">보급 실적 대장</span></div>
+
+
+<div class="h">□ 개  요</div>
+<div class="o">○ 목적 : 공적조서 3대 성과 분야별 국내 보급·수출 실적 정리</div>
+<div class="o">○ 기준일 : 2026. 7. 26. <span style="font-size:8.4pt">(＊조서 제출 이후 증가분 포함)</span></div>
+<div class="o">○ 대상 : 국립축산과학원 낙농과 개발·기술이전 기술의 산업체 보급 실적</div>
+<div class="o">○ 자료 : ㈜다운 판매관리대장·전자세금계산서, 수출 계약서·신고필증·선적서류, 기술이전 업체(한국IoT) 사용자 관리시스템</div>
+
+<div class="h">□ 총괄</div>
+<table>
+  <colgroup><col style="width:22%"><col style="width:20%"><col style="width:16%"><col style="width:42%"></colgroup>
+  <tr><th>기술분야</th><th>국내 보급</th><th>수출</th><th>비고</th></tr>
+  <tr>
+    <td class="l"><b>가. 로봇착유기</b></td>
+    <td><b>16개소 18대</b></td><td><b>2개국 15대</b></td>
+    <td class="l">조서 15개소 17대·수출 13대 → 제출 이후 국내 +1대, 수출 +2대</td>
+  </tr>
+  <tr>
+    <td class="l"><b>나. 무인 사료급이</b></td>
+    <td><b>50개소</b></td><td>동반 수출</td>
+    <td class="l">TMR 자동급이 로봇(2017~2024) · 러시아 선적 시 급이로봇 1대 동반 수출</td>
+  </tr>
+  <tr>
+    <td class="l"><b>다. ICT 생체정보센서</b></td>
+    <td><b>404농가</b><br>(9개 시·도)</td><td>추진 중</td>
+    <td class="l">기술이전 업체 상용 서비스 운영, 센서 장착 2,392두(확인분)</td>
+  </tr>
+</table>
+<div class="note">＊‘가’는 ㈜다운 판매대장 기준 실거래, ‘나’는 판매대장 기준, ‘다’는 기술이전 업체 관리시스템 판독 기준(보수적 하한값).</div>
+
+<div class="h">□ 가. 국산 로봇착유기 — 국내 보급 (16개소 18대)</div>
+<table>
+  <colgroup><col style="width:5%"><col style="width:7%"><col style="width:17%"><col style="width:11%"><col style="width:7%"><col style="width:16%"><col style="width:37%"></colgroup>
+  <tr><th>연번</th><th>연도</th><th>농장(기관)</th><th>대표</th><th>대수</th><th>공급금액(원)</th><th>비고</th></tr>
+  <tr><td>1</td><td>2021</td><td class="l">국립축산과학원</td><td>문홍길</td><td>1</td><td>115,454,546</td><td class="l">원내 실험축사 — 실증 기반</td></tr>
+  <tr><td>2</td><td>2021</td><td class="l">이레목장</td><td>권택만</td><td>2</td><td>470,000,000</td><td class="l">사료급이 로봇 교차 구매</td></tr>
+  <tr><td>3</td><td>2022</td><td class="l">섭이네목장</td><td>이진섭</td><td>1</td><td>180,000,000</td><td></td></tr>
+  <tr><td>4</td><td>2022</td><td class="l">차원목장</td><td>김유찬</td><td>1</td><td>180,000,000</td><td></td></tr>
+  <tr><td>5</td><td>2022</td><td class="l">태광목장</td><td>김원석</td><td>1</td><td>180,000,000</td><td></td></tr>
+  <tr><td>6</td><td>2022</td><td class="l">대응목장</td><td>김영주</td><td>1</td><td>—</td><td class="l">K1 최초 실증농가 → K2 전환</td></tr>
+  <tr><td>7</td><td>2022</td><td class="l">수종목장</td><td>박영균</td><td>1</td><td>320,000,000</td><td></td></tr>
+  <tr><td>8</td><td>2023</td><td class="l">푸른목장</td><td>이기채</td><td>1</td><td>180,000,000</td><td></td></tr>
+  <tr><td>9</td><td>2023</td><td class="l">돌담목장</td><td>류민기</td><td>1</td><td>180,000,000</td><td class="l">EBS 다큐 촬영 농가</td></tr>
+  <tr><td>10</td><td>2023</td><td class="l">용천샘목장</td><td>안재만</td><td>1</td><td>180,000,000</td><td></td></tr>
+  <tr><td>11</td><td>2024</td><td class="l">청산목장</td><td>정영환</td><td>1</td><td>180,000,000</td><td></td></tr>
+  <tr><td>12</td><td>2024</td><td class="l">매여목장</td><td>송인법</td><td>1</td><td>180,000,000</td><td></td></tr>
+  <tr><td>13</td><td>2024</td><td class="l">애동목장</td><td>윤용원</td><td>2</td><td>488,750,000</td><td></td></tr>
+  <tr><td>14</td><td>2025</td><td class="l">베테랑목장</td><td>진윤호</td><td>1</td><td>120,000,000</td><td class="l">로봇산업진흥원 보급사업</td></tr>
+  <tr><td>15</td><td>2025</td><td class="l">가야목장</td><td>이정현</td><td>1</td><td>120,000,000</td><td class="l">외산 계약 파기 후 국산 도입</td></tr>
+  <tr><td>16</td><td>2025</td><td class="l">걸보목장</td><td>홍정현</td><td>1</td><td>170,000,000</td><td class="l">조서 제출 이후 추가</td></tr>
+  <tr class="sum"><td colspan="4">합　계 (16개소)</td><td>18</td><td>약 32.4억</td><td class="l">조서 15개소 17대 + 1대</td></tr>
+</table>
+
+<div class="h">□ 가. 국산 로봇착유기 — 수출 (2개국 15대)</div>
+<table>
+  <colgroup><col style="width:5%"><col style="width:8%"><col style="width:11%"><col style="width:26%"><col style="width:8%"><col style="width:18%"><col style="width:24%"></colgroup>
+  <tr><th>연번</th><th>연도</th><th>국가</th><th>수입자</th><th>대수</th><th>금액</th><th>비고</th></tr>
+  <tr><td>1</td><td>2025</td><td>대만</td><td class="l">BEST COMING TRADING (EDISON)</td><td>7</td><td>USD 464,267</td><td class="l">아시아 최초 국산 수출</td></tr>
+  <tr><td>2</td><td>2025</td><td>러시아</td><td class="l">지엘윈텍㈜ 경유 (3건)</td><td>6</td><td>675,720,000원</td><td class="l">최종 수하인 OOO DeLagro</td></tr>
+  <tr><td>3</td><td>2026</td><td>러시아</td><td class="l">지엘윈텍㈜ 경유</td><td>2</td><td>—</td><td class="l">조서 제출 이후 추가</td></tr>
+  <tr class="sum"><td colspan="4">합　계 (2개국)</td><td>15</td><td colspan="2" class="l">조서 13대(대만 7·러시아 6) + 2대</td></tr>
+</table>
+
+<div class="h">□ 나. 무인 사료급이 로봇 — 국내 보급 (50개소)</div>
+<table>
+  <colgroup><col style="width:14%"><col style="width:10%"><col style="width:10%"><col style="width:10%"><col style="width:10%"><col style="width:10%"><col style="width:10%"><col style="width:10%"><col style="width:8%"><col style="width:8%"></colgroup>
+  <tr><th>연도</th><th>2017</th><th>2018</th><th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>계</th></tr>
+  <tr><td>보급(개소)</td><td>4</td><td>1</td><td>12</td><td>18</td><td>7</td><td>4</td><td>2</td><td>2</td><td class="sum">50</td></tr>
+</table>
+<div class="note">＊TMR(섬유질배합사료) 자동급이 로봇. 판매관리대장·전자세금계산서(46면) 보유. 2020년 최대 보급(18개소).<br>＊2017년 4개소 중 1건은 <b>공동 구매(이종숙 외 1명) 2개소</b>임. ＊러시아 수출 시 급이로봇(Cow feed pusher ‘Mileo’) 1대가 로봇착유기와 동반 선적됨.</div>
+
+<div class="h">□ 다. ICT 생체정보센서 — 국내 보급 (404농가·9개 시·도)</div>
+<table>
+  <colgroup><col style="width:6%"><col style="width:16%"><col style="width:14%"><col style="width:16%"><col style="width:14%"><col style="width:34%"></colgroup>
+  <tr><th>순위</th><th>시·도</th><th>농가 수</th><th>센서 장착 농가</th><th>장착 두수(약)</th><th>주요 지역</th></tr>
+  <tr><td>1</td><td class="l">충남(+대전)</td><td><b>118</b></td><td>34</td><td>640</td><td class="l">금산 27·공주 20·예산 20·서산 16</td></tr>
+  <tr><td>2</td><td class="l">전남</td><td><b>88</b></td><td>33</td><td>670</td><td class="l">영광 23·강진 10·해남 9·나주 9</td></tr>
+  <tr><td>3</td><td class="l">경북</td><td>48</td><td>8</td><td>135</td><td class="l">상주 20·칠곡 7·김천 6</td></tr>
+  <tr><td>4</td><td class="l">경기</td><td>39</td><td>12</td><td>150</td><td class="l">고양 12·용인 11·화성 5</td></tr>
+  <tr><td>5</td><td class="l">경남</td><td>33</td><td>14</td><td>385</td><td class="l">창녕 7·의령 5·합천 4·사천 4</td></tr>
+  <tr><td>6</td><td class="l">충북</td><td>28</td><td>7</td><td>165</td><td class="l">청주 9·진천 7·옥천 4</td></tr>
+  <tr><td>7</td><td class="l">강원</td><td>26</td><td>4</td><td>66</td><td class="l">인제 11·홍천 5·고성 4</td></tr>
+  <tr><td>8</td><td class="l">전북</td><td>21</td><td>9</td><td>165</td><td class="l">정읍 6·고창 4·진안 3</td></tr>
+  <tr><td>9</td><td class="l">제주·울산</td><td>3</td><td>1</td><td>16</td><td class="l">제주·서귀포(축협)·울산</td></tr>
+  <tr class="sum"><td colspan="2">합　계</td><td>404</td><td>122</td><td>2,392</td><td class="l">기술이전 43건(조서) → 전국 상용 서비스</td></tr>
+</table>
+<div class="note">＊기술이전 업체(한국IoT㈜) 사용자 관리시스템 판독 기준(중복 계정·테스트·기관 계정 제외한 <b>보수적 하한값</b>). ＊시스템 1호 등록 농장 = <b>국립축산과학원</b>(108두) — 원내 실증에서 전국 확산. ＊축협·대학·농업기술센터 단위 보급 포함. ＊수출은 남미 등 도입 논의 단계(계약 전).</div>
+
+<div class="h">□ 증빙 자료</div>
+<table>
+  <colgroup><col style="width:14%"><col style="width:36%"><col style="width:30%"><col style="width:20%"></colgroup>
+  <tr><th>분야</th><th>증빙 자료</th><th>내용</th><th>비고</th></tr>
+  <tr><td rowspan="4">가.<br>로봇착유기</td><td class="l">㈜다운 판매관리대장(착유기 시트)</td><td class="l">농장·대표·연도·대수·금액</td><td class="nw">붙임 1 (p.3)</td></tr>
+  <tr><td class="l">전자세금계산서(30면)</td><td class="l">국내 16개소 거래 증빙</td><td class="nw">붙임 1 (p.3)</td></tr>
+  <tr><td class="l">수출 계약서·신고필증·선적서류</td><td class="l">대만 7대·러시아 6대</td><td class="nw">붙임 2 (p.4)</td></tr>
+  <tr><td class="l">GL Wintech 선적서류 2세트</td><td class="l">러시아 추가 2대(제출 이후)</td><td class="nw">붙임 2 (p.4)</td></tr>
+  <tr><td rowspan="2">나.<br>사료급이</td><td class="l">㈜다운 판매관리대장(급이로봇 시트)</td><td class="l">2017~2024년 50개소</td><td class="nw">붙임 3 (p.5)</td></tr>
+  <tr><td class="l">전자세금계산서(46면)·부가세 신고서</td><td class="l">거래 증빙(카드결제분 포함)</td><td class="nw">붙임 3 (p.5)</td></tr>
+  <tr><td rowspan="2">다.<br>생체정보센서</td><td class="l">업체 사용자 관리시스템 요약표</td><td class="l">지역별 농가·장착 두수</td><td class="nw">붙임 4 (p.6)</td></tr>
+  <tr><td class="l">기술실시계약서</td><td class="l">기술이전 <b>43건</b>(조서·NTIS 누적)<br>／ 성과등록 기준 32건</td><td class="nw">붙임 4 (p.6)</td></tr>
+</table>
+<div class="note">＊센서 분야 원본 화면에는 농가 연락처 등 개인정보가 포함되어 <b>요약표만 편철</b>함. ＊상세 내역은 「기술이전대장」·「특허대장」 참조.<br>＊<b>기술이전 건수 기준 차이</b> : 조서의 센서 43건은 <b>NTIS 기술이전 누적</b>(위체류형 29·질삽입형 8·목걸이형 6), 「기술이전대장」의 35건(센서 32)은 <b>농진청 성과등록(기술실시 등록건수)</b> 기준으로 집계 대상·기간이 달라 수치가 다름. 두 수치 모두 원자료로 설명 가능.</div>
+
+
+
+<div class="section"><span class="no headf">5</span><span class="headf">홍보 실적 대장</span></div>
+
+
+<div class="h">□ 개  요</div>
+<div class="o">○ 목적 : 공적조서 3대 성과 관련 언론 보도·기고·방송 등 본인 주관 홍보 실적 정리</div>
+<div class="o">○ 기간 : 2014. 12. ~ 2026. 1. <span style="font-size:8.4pt">(성과 적용 년월 기준)</span></div>
+<div class="o">○ 자료 : 농촌진흥청 국가 R&amp;D 성과등록 「홍보성과·홍보점수」 — 본인 주관분 중 공적관련 <b>37건</b></div>
+<div class="o">○ 단위 : 홍보점수 <span style="font-size:8.4pt">(＊<b>매체별 보도 건수 × 매체 가중치</b>의 합 — 성과등록 산식)</span></div>
+<div class="o">○ 유의 : 성과등록 <b>1건은 하나의 보도자료에 대한 다수 매체 보도를 묶은 단위</b>로, 실제 개별 보도 수는 건수보다 훨씬 많음</div>
+
+<div class="h">□ 총괄</div>
+<table>
+  <colgroup><col style="width:30%"><col style="width:12%"><col style="width:16%"><col style="width:42%"></colgroup>
+  <tr><th>분야</th><th>건수</th><th>홍보점수</th><th>구분</th></tr>
+  <tr><td class='l'>가. 로봇착유기</td><td><b>19</b></td><td><b>360.6</b></td><td class='l'>공적관련</td></tr>
+  <tr><td class='l'>나. 무인 사료급이</td><td><b>4</b></td><td><b>77.8</b></td><td class='l'>공적관련</td></tr>
+  <tr><td class='l'>다. ICT 생체정보센서</td><td><b>7</b></td><td><b>303.1</b></td><td class='l'>공적관련</td></tr>
+  <tr><td class='l'>스마트팜·ICT 일반</td><td><b>7</b></td><td><b>22.5</b></td><td class='l'>공적 기반 확산</td></tr>
+  <tr class="sum"><td class="l">합　계</td><td>37</td><td>764</td><td class="l">2014 ~ 2026</td></tr>
+</table>
+<div class="note">＊분야는 홍보 제목 기준 분류. ＊분야는 <b>공적조서 기재 분류</b>를 따름(2021. 10.~11. 「축사 작업 자동화」 보도는 조서와 같이 ‘나’로 계상). ＊이 밖에 일반 낙농 기술(사양관리 기고 등) 주관 55건, 부서 공동 홍보성과 457건이 별도로 있음(원자료 보존, 본 대장 미수록).<br>＊<b>‘건수’는 성과등록 건수</b>(보도자료 단위)이며, 각 건은 <b>여러 매체의 개별 보도를 묶은 것</b>임 — 실제 개별 보도 수는 이보다 훨씬 많음(아래 「보도 규모」 참조).</div>
+
+<div class="h">□ 연도별 현황 <span style="font-size:8.4pt">(단위 : 건, 점)</span></div>
+<table>
+  <colgroup><col style="width:14%"><col style="width:14%"><col style="width:20%"><col style="width:52%"></colgroup>
+  <tr><th>연도</th><th>건수</th><th>점수</th><th>분야</th></tr>
+<tr><td>2014</td><td>4</td><td><b>16.5</b></td><td class='l'>가</td></tr>
+<tr><td>2015</td><td>2</td><td><b>18.7</b></td><td class='l'>가</td></tr>
+<tr><td>2017</td><td>1</td><td><b>1.5</b></td><td class='l'>스</td></tr>
+<tr><td>2018</td><td>3</td><td><b>270.6</b></td><td class='l'>나·다</td></tr>
+<tr><td>2019</td><td>2</td><td><b>9.5</b></td><td class='l'>스</td></tr>
+<tr><td>2020</td><td>4</td><td><b>34.5</b></td><td class='l'>나·다</td></tr>
+<tr><td>2021</td><td>5</td><td><b>77.3</b></td><td class='l'>가·다·스</td></tr>
+<tr><td>2023</td><td>5</td><td><b>74.9</b></td><td class='l'>가</td></tr>
+<tr><td>2024</td><td>3</td><td><b>64.7</b></td><td class='l'>가</td></tr>
+<tr><td>2025</td><td>7</td><td><b>180.5</b></td><td class='l'>가·스</td></tr>
+<tr><td>2026</td><td>1</td><td><b>15.3</b></td><td class='l'>가</td></tr>
+  <tr class="sum"><td>합계</td><td>37</td><td>764</td><td></td></tr>
+</table>
+<div class="note">＊성과지표년도 기준. 2023년 이후 국산 로봇착유기 시범사업·수출 보도가 집중됨.</div>
+
+<div class="pb"></div>
+<div class="h">□ 건별 내역 <span style="font-size:8.4pt">(총 37건 · 764점)</span></div>
+<table>
+  <colgroup><col style="width:6%"><col style="width:11%"><col style="width:6%"><col style="width:64%"><col style="width:13%"></colgroup>
+  <tr><th>연번</th><th>적용년월</th><th>분야</th><th>홍보 제목</th><th>점수</th></tr>
+<tr><td>1</td><td class='nw'>2014. 12.</td><td>가</td><td class='l'>자동착유시스템 설치 농가 65% 노동력 절감 위해 구입</td><td>4</td></tr>
+<tr><td>2</td><td class='nw'>2015. 01.</td><td>가</td><td class='l'>자동착유시스템 설치 농가 65% 노동력 절감</td><td>10.5</td></tr>
+<tr><td>3</td><td class='nw'>2015. 02.</td><td>가</td><td class='l'>자동착유시스템 설치 농가 65% 노동력 절감 위해</td><td>1</td></tr>
+<tr><td>4</td><td class='nw'>2015. 02.</td><td>가</td><td class='l'>자동착유시스템(AMS) 도입 10년, 그 현재와 미래</td><td>1</td></tr>
+<tr><td>5</td><td class='nw'>2015. 03.</td><td>가</td><td class='l'>자동착유시스템 도입 가이드</td><td>1</td></tr>
+<tr><td>6</td><td class='nw'>2015. 11.</td><td>가</td><td class='l'>스마트낙농의 실현, 자동착유시스템</td><td>17.7</td></tr>
+<tr><td>7</td><td class='nw'>2017. 11.</td><td>스</td><td class='l'>축산업에도 알파고가 필요하다</td><td>1.5</td></tr>
+<tr><td>8</td><td class='nw'>2018. 07.</td><td>나</td><td class='l'>'기후변화 대응 젖소 TMR 운용방안' 심포지엄 열려</td><td>1</td></tr>
+<tr><td>9</td><td class='nw'>2018. 07.</td><td>다</td><td class='l'>소 건강 점검 스마트알약 개발 등</td><td>108.4</td></tr>
+<tr><td>10</td><td class='nw'>2018. 08.</td><td>다</td><td class='l'>농진청, 바이오캡슐 특허침해 인정 못해 등</td><td>161.2</td></tr>
+<tr><td>11</td><td class='nw'>2019. 05.</td><td>스</td><td class='l'>동물복지 입각한 ICT 기술로 소 건강관리 ‘스마트하게`</td><td>1.5</td></tr>
+<tr><td>12</td><td class='nw'>2019. 11.</td><td>스</td><td class='l'>대한민국 축산 빅데이터 독립을 꿈꾸다</td><td>8</td></tr>
+<tr><td>13</td><td class='nw'>2020. 03.</td><td>다</td><td class='l'>청주시, 축사 관리 '스마트알약` 보급 등</td><td>3</td></tr>
+<tr><td>14</td><td class='nw'>2020. 07.</td><td>다</td><td class='l'>캡슐하나로 젖소 관리 끝 등</td><td>8.5</td></tr>
+<tr><td>15</td><td class='nw'>2020. 08.</td><td>다</td><td class='l'>먹이는 가축 건강관리 시스템 스마트알약 개발 등</td><td>7</td></tr>
+<tr><td>16</td><td class='nw'>2020. 08.</td><td>나</td><td class='l'>스마트 사료 급이 로봇 및 K축산 홍보</td><td>16</td></tr>
+<tr><td>17</td><td class='nw'>2021. 02.</td><td>다</td><td class='l'>한국아이오티(주), 2021한국브랜드리더대상 ‘스마트팜’ 부문 대상 수상</td><td>5</td></tr>
+<tr><td>18</td><td class='nw'>2021. 10.</td><td>나</td><td class='l'>소는 로봇이 키운다 등</td><td>54.3</td></tr>
+<tr><td>19</td><td class='nw'>2021. 11.</td><td>나</td><td class='l'>로봇이 먹이 주고 젖짜고 등</td><td>6.5</td></tr>
+<tr><td>20</td><td class='nw'>2021. 11.</td><td>스</td><td class='l'>코로나19·고령화 여파 심각…ICT·낙농헬퍼 제도 도입·청년농 유입 위한 충분한 재정 필요</td><td>1.5</td></tr>
+<tr><td>21</td><td class='nw'>2021. 11.</td><td>다</td><td class='l'>한국 아이오티, ‘2021 4차 산업혁명 우수기업’ 농축부 장관상 수상 등</td><td>10</td></tr>
+<tr><td>22</td><td class='nw'>2023. 10.</td><td>가</td><td class='l'>국산 '로봇착유기'시범사업, 성공적 등</td><td>25.6</td></tr>
+<tr><td>23</td><td class='nw'>2023. 10.</td><td>가</td><td class='l'>농진청 국산 로봇착유기 산유량 증가에 도움 등</td><td>22.7</td></tr>
+<tr><td>24</td><td class='nw'>2023. 10.</td><td>가</td><td class='l'>농진청, 로봇착유기 시범사업 외국산 대비 투자비 경감 확인 등</td><td>22.1</td></tr>
+<tr><td>25</td><td class='nw'>2023. 11.</td><td>가</td><td class='l'>국산 로봇착유기 신기술 현장 적용 성공적</td><td>2.5</td></tr>
+<tr><td>26</td><td class='nw'>2023. 11.</td><td>가</td><td class='l'>농진청, 국산 로봇착유기 산유량 증가에 도움</td><td>2</td></tr>
+<tr><td>27</td><td class='nw'>2024. 03.</td><td>가</td><td class='l'>로봇착유기 도입 전 꼭 알아야 할 3가지 변화</td><td>1</td></tr>
+<tr><td>28</td><td class='nw'>2024. 10.</td><td>가</td><td class='l'>권재한 청장, '국산 로봇착유기 시범농가 방문' 등</td><td>18.7</td></tr>
+<tr><td>29</td><td class='nw'>2024. 11.</td><td>가</td><td class='l'>국산 로봇착유기 들어봤소~ 스마트 축산 도약 합니다 등</td><td>45</td></tr>
+<tr><td>30</td><td class='nw'>2025. 01.</td><td>스</td><td class='l'>스마트 낙농 ICT 기술 어디까지 왔나</td><td>1</td></tr>
+<tr><td>31</td><td class='nw'>2025. 04.</td><td>스</td><td class='l'>[기고] 대한민국 디지털낙농, 데이터 독립의 첫발을 떼다</td><td>8</td></tr>
+<tr><td>32</td><td class='nw'>2025. 08.</td><td>스</td><td class='l'>낙농 스마트팜 개발 현황 및 미래 연구 방향</td><td>1</td></tr>
+<tr><td>33</td><td class='nw'>2025. 09.</td><td>가</td><td class='l'>국산 ‘로봇착유기’ 대만 수출···세계 시장 진출 발판 등</td><td>114</td></tr>
+<tr><td>34</td><td class='nw'>2025. 09.</td><td>가</td><td class='l'>국산 ‘로봇착유기’ 대만 수출···세계 시장 진출 발판 등 추가</td><td>3</td></tr>
+<tr><td>35</td><td class='nw'>2025. 11.</td><td>가</td><td class='l'>이 로봇 실화? 대만농가도 반한국산 로봇착유기 등</td><td>14.5</td></tr>
+<tr><td>36</td><td class='nw'>2025. 12.</td><td>가</td><td class='l'>농업기술 동영상 콘텐츠 제작_국산 로봇착유기 운영 Q&A</td><td>39</td></tr>
+<tr><td>37</td><td class='nw'>2026. 01.</td><td>가</td><td class='l'>농진청, 국산 로봇착유기 도입 효과 현장 점검 등</td><td>15.3</td></tr>
+  <tr class="sum"><td colspan="4">합　계</td><td>764</td></tr>
+</table>
+<div class="note">＊‘분야’ 가 = 로봇착유기, 나 = 무인 사료급이, 다 = ICT 생체정보센서, 스 = 스마트팜·ICT 일반(공적 기반 확산). ＊제목 말미의 ‘등’은 <b>동일 주제의 복수 매체 보도를 묶어 1건으로 등록</b>한 것임(예 : 연번 9는 실보도 53건, 연번 10은 56건, 연번 18은 31건).</div>
+
+<div class="h">□ 실제 보도 건수 — 공적조서 기재 수치와의 대조</div>
+<table>
+  <colgroup><col style="width:30%"><col style="width:14%"><col style="width:14%"><col style="width:42%"></colgroup>
+  <tr><th>분야</th><th>공적조서</th><th>스크랩 확인</th><th>확인 범위</th></tr>
+  <tr><td class="l">가. 로봇착유기(수출 포함)</td><td><b>134건</b></td><td><b>136건</b></td><td class="l">2014~2015 자동착유시스템 <b>32건</b> · 2023 시범사업 32건 · 2024 현장점검 13건 · 2025 대만 수출 <b>48건</b> 등 — <b>조서 수치 충족</b></td></tr>
+  <tr><td class="l">나. 무인주행형 사료 급이 로봇</td><td><b>49건</b></td><td><b>48건</b></td><td class="l">2021. 10.~11. 「축사 작업 알아서 척척」 — 주간 보도목록 전건 집계 <b>(사실상 일치)</b></td></tr>
+  <tr><td class="l">다. ICT 융복합 인공지능 시스템</td><td><b>126건</b></td><td>122건</td><td class="l">2018. 7.~8. <b>109건</b>(주간 보도목록 전건 집계) + 2019~2021 확산 보도</td></tr>
+  <tr class="sum"><td class="l">합　계</td><td>309건</td><td>306건</td><td class="l">조서 기재 보도의 <b>99%</b>를 원자료·스크랩으로 확인</td></tr>
+</table>
+<div class="note">＊‘스크랩 확인’은 매체·게재일·제목이 확인되는 <b>보도 모음 실물</b>에서 중복을 제거해 집계한 수치임. 나머지는 동일 방식으로 등록된 보도로, 스크랩 파일 추가 확인 시 채워짐.<br>
+＊<b>대장 건수(37건)와 조서 건수(309건)의 관계</b> : 대장의 1건은 <b>보도자료 단위 성과등록 건</b>이고, 조서의 건수는 <b>개별 매체 보도 수</b>임 — 집계 단위가 다를 뿐 같은 실적임.</div>
+
+<div class="h">□ 보도 규모 — 성과등록 1건의 실제 구성 (예시)</div>
+<table>
+  <colgroup><col style="width:11%"><col style="width:27%"><col style="width:10%"><col style="width:12%"><col style="width:40%"></colgroup>
+  <tr><th>연번</th><th>성과등록 건</th><th>점수</th><th>실보도 수</th><th>매체별 구성 (건수 × 가중치)</th></tr>
+  <tr><td>1</td><td class="l">자동착유시스템 설치 농가 65% 노동력 절감 위해 구입<br><span style="font-size:7.4pt">(2014. 12. · 보도자료 157)</span></td><td>4.0</td><td><b>8건</b></td>
+      <td class="l">뉴스포털 5×0.1=0.5 ／ 정책포털(korea.kr) 1×1=1 ／ 농업전문지 1×1.5=1.5 ／ 지방일간지 1×1.5=1.5</td></tr>
+  <tr><td>2</td><td class="l">자동착유시스템 설치 농가 65% 노동력 절감<br><span style="font-size:7.4pt">(2015. 1. · 2014년 보도 후속)</span></td><td>10.5</td><td><b>7건</b></td>
+      <td class="l">농업전문지 7×1.5 <b>= 10.5</b> — 등록 점수와 <b>정확히 일치</b></td></tr>
+  <tr><td>3·4</td><td class="l">자동착유시스템 설치 농가 65% 노동력 절감 위해 / AMS 도입 10년, 그 현재와 미래<br><span style="font-size:7.4pt">(2015. 2.)</span></td><td>2.0</td><td><b>2건</b></td>
+      <td class="l">월간지 2×1 <b>= 2.0</b>(월간축산·월간낙농) — 등록 점수와 <b>정확히 일치</b></td></tr>
+  <tr><td>5</td><td class="l">자동착유시스템 도입 가이드<br><span style="font-size:7.4pt">(2015. 3.)</span></td><td>1.0</td><td><b>1건</b></td>
+      <td class="l">월간지 1×1 <b>= 1.0</b>(월간축산) — 등록 점수와 <b>정확히 일치</b></td></tr>
+  <tr><td>6</td><td class="l">스마트 낙농의 실현, 자동착유시스템<br><span style="font-size:7.4pt">(2015. 11. · 보도자료 130)</span></td><td>17.7</td><td><b>14건</b></td>
+      <td class="l">농업전문지 11×1.5=16.5 ／ 정책포털(korea.kr) 1×1=1 ／ 뉴스포털 2×0.1=0.2 <b>= 17.7</b> — 등록 점수와 <b>정확히 일치</b></td></tr>
+  <tr><td>9</td><td class="l">소 건강 점검 스마트알약 개발 등<br><span style="font-size:7.4pt">(2018. 7. · 보도자료 104)</span></td><td>108.4</td><td><b>56건</b></td>
+      <td class="l">중앙일간지 11×5=55 ／ 농업전문지 13×1.5=19.5 ／ 지방일간지 8×1.5=12 ／ 케이블 TV 2×4=8 ／ 중앙라디오 2×3=6 ／ 지방 TV 1×4=4 ／ 기타전문지 3×1=3 ／ 기타일간지 1×2=2 ／ 인터넷포털 14×0.1=1.4 ／ 정책포털 1×1=1</td></tr>
+  <tr><td>10</td><td class="l">농진청, 바이오캡슐 특허침해 인정 못해 등<br><span style="font-size:7.4pt">(2018. 8.)</span></td><td>161.2</td><td><b>53건</b></td>
+      <td class="l">중앙일간지 21×5=105 ／ 케이블 TV 5×4=20 ／ 중앙라디오 2×3=6 ／ 농업전문지 4×1.5=6 ／ 기타일간지 2×2=4 ／ 종편 TV 1×4=4 ／ 지방일간지 2×1.5=3 ／ 기타전문지 2×1=2 ／ 인터넷포털 11×0.1=1.1 ／ 월간지 1×1=1 ／ 정책포털 1×1=1</td></tr>
+  <tr><td>33·34</td><td class="l">국산 ‘로봇착유기’ 대만 수출 등<br><span style="font-size:7.4pt">(2025. 9. · 게재 2025. 7.~8.)</span></td><td>117.0</td><td><b>48건</b></td>
+      <td class="l">중앙일간지 6×5=30 ／ 지상파(중앙) TV 2×8=16 ／ 지방일간지 12×1.5=18 ／ 농업전문지 8×1.5=12 ／ 케이블 TV 3×4=12 ／ 케이블(지방) TV 4×2.5=10 ／ 지방 TV 2×4=8 ／ 종편 TV 1×4=4 ／ 인터넷포털 10×0.1=1</td></tr>
+  <tr><td>18·19</td><td class="l">소는 로봇이 키운다 / 로봇이 먹이 주고 젖짜고 등<br><span style="font-size:7.4pt">(2021. 10.~11.)</span></td><td>60.8</td><td><b>48건</b></td>
+      <td class="l">중앙일간지 2×5=10 ／ 농업전문지 6×1.5=9 ／ 케이블 TV 2×4=8 ／ 지방 TV 2×4=8 ／ 지방일간지 4×1.5=6 ／ 종편 TV 1×4=4 ／ 기타전문지 3×1=3 ／ 케이블(지방) TV 1×2.5=2.5 ／ 인터넷포털 24×0.1=2.4 ／ 기타일간지 1×2=2 ／ 주간지 1×1=1 ／ 지역주간지 1×0.5=0.5</td></tr>
+</table>
+<div class="note">＊연번 9·10의 매체별 구성은 <b>대변인실 주간 보도목록(ATIS)</b> 원자료에서 매체·게재일·매체구분·가중치를 전건 집계한 것임(2018년 7~8월·2021년 10~11월·2025년 7~9월 주간 목록 23개 주차, 2014년 10~12월·2015년 1~3월·10~12월 월간 목록 9개월). ＊연번 <b>2·3·4·5·6</b>은 집계값이 등록 점수와 <b>정확히 일치</b>(10.5 / 2.0 / 1.0 / 17.7)하여 산식이 그대로 재현됨. 나머지 건의 소폭 차이(111.9↔108.4, 153.1↔161.2, 56.4↔60.8, 111.0↔117.0)는 <b>등록 시점의 반영 범위 차이</b>임. ＊위 9개 묶음만으로 <b>실보도 237건</b> — 조서 309건의 77%. ＊이 밖에 <b>2026년 보도 9건</b>은 조서 제출 이후 추가분으로 309건에 미포함.</div>
+
+<div class="h">□ 주요 홍보 성과</div>
+<table>
+  <colgroup><col style="width:16%"><col style="width:44%"><col style="width:40%"></colgroup>
+  <tr><th>시기</th><th>내용</th><th>의미</th></tr>
+  <tr><td class="nw">2015. 11.</td><td class="l">「스마트낙농의 실현, 자동착유시스템」(17.7점)</td><td class="l">국산화 착수 전 기반 조성기 대표 기고</td></tr>
+  <tr><td class="nw">2018. 7.~8.</td><td class="l">스마트알약 개발·특허침해 대응 보도(269.6점)</td><td class="l">센서 3종 개발·국유특허 방어 — 최고 점수 홍보</td></tr>
+  <tr><td class="nw">2021. 10.~11.</td><td class="l">「소는 로봇이 키운다」 등 상용화 보도(60.8점)</td><td class="l">국산 로봇착유기(K1) 상용화 언론 확산</td></tr>
+  <tr><td class="nw">2023. 10.~11.</td><td class="l">국산 로봇착유기 시범사업 성과 보도(74.9점)</td><td class="l">외국산 대비 투자비 경감·산유량 증가 입증</td></tr>
+  <tr><td class="nw">2025. 9.~11.</td><td class="l">대만 수출 보도(131.5점)</td><td class="l">국산 로봇착유기 첫 수출 — 세계 시장 진출</td></tr>
+  <tr><td class="nw">2025. 12.</td><td class="l">「국산 로봇착유기 운영 Q&amp;A」 영상 콘텐츠(39점)</td><td class="l">농가 교육용 공식 영상 제작</td></tr>
+</table>
+
+<div class="h">□ 증빙 자료</div>
+<table>
+  <colgroup><col style="width:30%"><col style="width:44%"><col style="width:26%"></colgroup>
+  <tr><th>자료</th><th>내용</th><th>비고</th></tr>
+  <tr><td class="l">국가 R&amp;D 성과등록 「홍보성과·홍보점수」 원자료</td><td class="l">건별 성과물번호·적용년월·점수·참여자</td><td>본 대장의 근거</td></tr>
+  <tr><td class="l">보도 기사·기고 원문</td><td class="l">주요 건 스크랩(언론사·게재일 확인)</td><td>바인더 별도 편철</td></tr>
+  <tr><td class="l">보도 모음(매체별 스크랩)</td><td class="l">분야별 실보도 <b>306건</b> — 조서 309건의 99%</td><td>실물 보유</td></tr>
+  <tr><td class="l">대변인실 주간 보도목록</td><td class="l">2018·2021·2025년 주간 목록(23개 주차) + 2014~2015년 월간 목록(9개월) — 매체·게재일·매체구분</td><td>대변인실 원자료</td></tr>
+  <tr><td class="l">홍보 화판·팸플릿</td><td class="l">데어리봇 K2 홍보 화판(3면 35항목)</td><td>「화판 자료」 참조</td></tr>
+</table>
+
+
+
+<div class="section"><span class="no headf">6</span><span class="headf">현장 기술지원(컨설팅) 대장</span></div>
+
+<div class="h">□ 개  요</div>
+<div class="o">○ 목적 : 국산 로봇착유기·생체정보 센서 등 낙농 현장 기술지원(컨설팅) 실적 정리</div>
+<div class="o">○ 기간 : 2014. 7. ~ 2026. 5.</div>
+<div class="o">○ 수행 : 국립축산과학원 낙농과 (박성민 농업연구사)</div>
+<div class="o">○ 실적 : 총 <b>35건 · 62개소</b></div>
+<div class="o">○ 자료 : 결재 완료된 결과보고 문서 기준(본인 직접 참여 건)</div>
+<div class="h">□ 기술지원 내역</div>
+<table>
+  <colgroup><col style="width:6%"><col style="width:13%"><col style="width:35%"><col style="width:27%"><col style="width:7%"><col style="width:12%"></colgroup>
+  <tr><th>연번</th><th class="nw">연월일</th><th>제목</th><th>농가명(지역)</th><th>개소</th><th class="nw">비고</th></tr>
+    <tr><td>1</td><td class="nw">2014. 7. 3.</td><td class="l">외산 로봇착유기 활용 농가 생산성 조사(우덕축산)</td><td class="l">우덕축산(강원 평창)</td><td>1</td><td class="nw">붙임 1<br>(p.3)</td></tr>
+    <tr><td>2</td><td class="nw">2014. 7. 22.</td><td class="l">외산 로봇착유기 활용 농가 생산성 조사(황골목장·환이목장)</td><td class="l">황골목장·환이목장(경기 화성)</td><td>2</td><td class="nw">붙임 2<br>(p.4)</td></tr>
+    <tr><td>3</td><td class="nw">2014. 8. 7.</td><td class="l">외산 로봇착유기 활용 농가 생산성 조사(홍구목장)</td><td class="l">홍구목장(경기 화성)</td><td>1</td><td class="nw">붙임 3<br>(p.5)</td></tr>
+    <tr><td>4</td><td class="nw">2015. 5. 15.</td><td class="l">외산 로봇착유기 활용 농가 생산성 조사(성은목장)</td><td class="l">성은(OK)목장(충남 당진)</td><td>1</td><td class="nw">붙임 4<br>(p.6)</td></tr>
+    <tr><td>5</td><td class="nw">2015. 5. 20.</td><td class="l">외산 로봇착유기 활용 농가 생산성 조사(고향목장·방채정목장)</td><td class="l">고향목장·방채정목장(전북 고창)</td><td>2</td><td class="nw">붙임 5<br>(p.7)</td></tr>
+    <tr><td>6</td><td class="nw">2015. 6. 3.</td><td class="l">외산 로봇착유기 활용 농가 생산성 조사(제네틱스목장·승연목장)</td><td class="l">제네틱스목장·승연목장(경기 안성)</td><td>2</td><td class="nw">붙임 6<br>(p.8)</td></tr>
+    <tr><td>7</td><td class="nw">2015. 6. 10.</td><td class="l">외산 로봇착유기 활용 농가 생산성 조사(황골목장)</td><td class="l">황골목장(경기 화성)</td><td>1</td><td class="nw">붙임 7<br>(p.9)</td></tr>
+    <tr><td>8</td><td class="nw">2015. 6. 19.</td><td class="l">외산 로봇착유기 활용 농가 생산성 조사(현우목장·은찬목장)</td><td class="l">현우목장(전북 정읍)·은찬목장(전남 담양)</td><td>2</td><td class="nw">붙임 8<br>(p.10)</td></tr>
+    <tr><td>9</td><td class="nw">2015. 6. 26.</td><td class="l">외산 로봇착유기 활용 농가 생산성 조사(브니엘목장)</td><td class="l">브니엘목장(전북 익산)</td><td>1</td><td class="nw">붙임 9<br>(p.11)</td></tr>
+    <tr><td>10</td><td class="nw">2015. 7. 9.</td><td class="l">외산 로봇착유기 활용 농가 생산성 조사(농도원목장)</td><td class="l">농도원목장(경기 용인)</td><td>1</td><td class="nw">붙임 10<br>(p.12)</td></tr>
+    <tr><td>11</td><td class="nw">2015. 7. 17.</td><td class="l">외산 로봇착유기 활용 농가 생산성 조사(효권목장)</td><td class="l">효권목장(전북 익산)</td><td>1</td><td class="nw">붙임 11<br>(p.13)</td></tr>
+    <tr><td>12</td><td class="nw">2015. 7. 24.</td><td class="l">외산 로봇착유기 활용 농가 생산성 조사(한들목장)</td><td class="l">한들목장(경기 이천)</td><td>1</td><td class="nw">붙임 12<br>(p.14)</td></tr>
+    <tr><td>13</td><td class="nw">2015. 7. 31.</td><td class="l">외산 로봇착유기 활용 농가 생산성 조사(승수목장·풍촌목장)</td><td class="l">승수목장·풍촌목장(전북 고창)</td><td>2</td><td class="nw">붙임 13<br>(p.15)</td></tr>
+    <tr><td>14</td><td class="nw">2015. 8. 7.</td><td class="l">외산 로봇착유기 활용 농가 생산성 조사(홍구목장)</td><td class="l">홍구목장(경기 화성)</td><td>1</td><td class="nw">붙임 14<br>(p.16)</td></tr>
+    <tr><td>15</td><td class="nw">2015. 9. 17.</td><td class="l">외산 로봇착유기 활용 농가 생산성 조사(현승목장)</td><td class="l">현승목장(충북 진천)</td><td>1</td><td class="nw">붙임 15<br>(p.17)</td></tr>
+    <tr><td>16</td><td class="nw">2016. 6. 22.</td><td class="l">외산 로봇착유기 활용 농가 생산성 조사(성은목장·OK목장)</td><td class="l">성은목장·OK목장(충남 당진)</td><td>2</td><td class="nw">붙임 16<br>(p.18)</td></tr>
+    <tr><td>17</td><td class="nw">2017. 11. 13.</td><td class="l">생체정보 수집 센서 기술이전 업체 컨설팅(위치·행동/반추위 모니터링 장치)</td><td class="l">기술이전 업체</td><td>1</td><td class="nw">붙임 17<br>(p.19)</td></tr>
+    <tr><td>18</td><td class="nw">2019. 9. 3.</td><td class="l">생체정보 수집 센서(캡슐형) 활용 농가 현장기술지원</td><td class="l">○○목장(경남 산청)</td><td>1</td><td class="nw">붙임 18<br>(p.20)</td></tr>
+    <tr><td>19</td><td class="nw">2019. 10. 16.</td><td class="l">반추위 삽입형 센서 투입·활용 방법 현장기술지원</td><td class="l">○○목장(충남 천안)</td><td>1</td><td class="nw">붙임 19<br>(p.21)</td></tr>
+    <tr><td>20</td><td class="nw">2019. 11. 29.</td><td class="l">생체정보 수집 센서 기술이전 업체 기술지원(반추위·행동 모니터링)</td><td class="l">한국IOT㈜(경북 김천)</td><td>1</td><td class="nw">붙임 20<br>(p.22)</td></tr>
+    <tr><td>21</td><td class="nw">2019. 12. 24.</td><td class="l">생체정보 수집 센서 활용 농가 현장기술지원(반추위 센서·발정탐지)</td><td class="l">○○목장(경북 경주)</td><td>1</td><td class="nw">붙임 21<br>(p.23)</td></tr>
+    <tr><td>22</td><td class="nw">2020. 1. 28.</td><td class="l">생체정보 수집 센서 활용 농가 현장기술지원(반추위 센서 체온 모니터링)</td><td class="l">○○목장(충남 보령)</td><td>1</td><td class="nw">붙임 22<br>(p.24)</td></tr>
+    <tr><td>23</td><td class="nw">2020. 1. 29.</td><td class="l">생체정보 수집 센서 기술이전 업체 기술지원(목걸이형 위치·행동 모니터링)</td><td class="l">DFI㈜(경기 안성)</td><td>1</td><td class="nw">붙임 23<br>(p.25)</td></tr>
+    <tr><td>24</td><td class="nw">2020. 5. 19.</td><td class="l">생체정보 수집 센서(위 삽입형) 활용 현장기술지원</td><td class="l">금산농협생축장(충남 금산)</td><td>1</td><td class="nw">붙임 24<br>(p.26)</td></tr>
+    <tr><td>25</td><td class="nw">2021. 6. 24.</td><td class="l">생체정보 수집 센서 기술이전 업체 기술지원(위 체류형 센서)</td><td class="l">웰케어스㈜(온라인 지원)</td><td>1</td><td class="nw">붙임 25<br>(p.27)</td></tr>
+    <tr><td>26</td><td class="nw">2024. 5. 14.</td><td class="l">국산 로봇착유기 운영농가 실태조사 결과 보고</td><td class="l">보성·임실·진안·논산·이천 5농가</td><td>5</td><td class="nw">붙임 26<br>(p.28)</td></tr>
+    <tr><td>27</td><td class="nw">2024. 7. 10.</td><td class="l">NH농협 자금지원을 위한 국산 로봇착유 농가 실태조사 결과 보고</td><td class="l">보성·임실·진안·논산·이천·서산·경주·고성 8농가</td><td>8</td><td class="nw">붙임 27<br>(p.29)</td></tr>
+    <tr><td>28</td><td class="nw">2024. 7. 17.</td><td class="l">「국산 로봇착유기 운영 Q&A」활용 농가교육 결과보고</td><td class="l">논산·서산·보성·진안·임실·경주·이천·고성 8농가</td><td>8</td><td class="nw">붙임 28<br>(p.30)</td></tr>
+    <tr><td>29</td><td class="nw">2024. 12. 24.</td><td class="l">국산 로봇착유기 운영 Q&A 활용 농가교육 결과보고(임실, 보성)</td><td class="l">푸른목장(전북 임실)·수종목장(전남 보성)</td><td>2</td><td class="nw">붙임 29<br>(p.31)</td></tr>
+    <tr><td>30</td><td class="nw">2025. 5. 16.</td><td class="l">국산 로봇착유기 운영 Q&A 활용 농가교육 결과보고(파주)</td><td class="l">베테랑목장(경기 파주)</td><td>1</td><td class="nw">붙임 30<br>(p.32)</td></tr>
+    <tr><td>31</td><td class="nw">2025. 6. 2.</td><td class="l">국산 로봇착유기 운영 Q&A 활용 농가교육 결과보고(임실)</td><td class="l">푸른목장(전북 임실)</td><td>1</td><td class="nw">붙임 31<br>(p.33)</td></tr>
+    <tr><td>32</td><td class="nw">2025. 9. 25.</td><td class="l">국산 로봇착유기 운영 Q&A 활용 농가교육 결과보고(임실)</td><td class="l">푸른목장(전북 임실)</td><td>1</td><td class="nw">붙임 32<br>(p.34)</td></tr>
+    <tr><td>33</td><td class="nw">2025. 10. 13.</td><td class="l">국산 로봇착유기 운영 Q&A 활용 농가교육 결과보고(양평)</td><td class="l">대응목장(경기 양평)</td><td>1</td><td class="nw">붙임 33<br>(p.35)</td></tr>
+    <tr><td>34</td><td class="nw">2026. 2. 13.</td><td class="l">국산 로봇착유기 운영 Q&A 활용 농가교육 결과보고(양평)</td><td class="l">대응목장(경기 양평)</td><td>1</td><td class="nw">붙임 34<br>(p.36)</td></tr>
+    <tr><td>35</td><td class="nw">2026. 5. 4.</td><td class="l">국산 로봇착유기 운영 Q&A 활용 농가교육 결과보고(고성, 파주)</td><td class="l">가야목장·청산목장(경남 고성)·베테랑목장(경기 파주)</td><td>3</td><td class="nw">붙임 35<br>(p.37)</td></tr>
+  <tr class="sum"><td colspan="4">합　계</td><td>62</td><td>—</td></tr>
+</table>
+<div class="note">＊‘개소’ = 해당 건에서 지원·교육한 농가(목장)·업체 수. ＊‘비고’의 (p.○)는 첨부된 결과보고 문서(결재본)의 쪽번호.<br>
+＊<b>연번 5(붙임 5)</b>는 원 결재문서의 제목이 「젖소 농가 현장기술지원 결과 보고(성은목장, 150515)」로 <b>오기</b>되었으나, 본문(방문목장·일시)은 <b>고향목장·방채정목장(2015. 5. 20.)</b> 방문 건임.</div>
+
+
+<div class="chapter">Ⅱ. 기술 증빙</div>
+<div class="section first"><span class="no headf">1</span><span class="headf">유두탐지 정확도 실증 결과</span></div>
+
+
+<div class="sec">
+  <div class="h">□ 개  요</div>
+  <div class="o"><span class="k">○ 대상 :</span> 국산 로봇착유기(데어리봇 K2) 최신형 2호기</div>
+  <div class="o"><span class="k">○ 기간 :</span> 2026. 7. 15. ~ 7. 21. (7일간)</div>
+  <div class="o"><span class="k">○ 자료 :</span> 무힌스키농장 상용 운영 로그 실측 (부착 시도 4,574건)</div>
+  <div class="o"><span class="k">○ 정의 :</span> 유두탐지 정확도 = 유두컵 부착 성공률</div>
+  <div class="d">- 로봇이 유두를 탐지하여 유두컵을 유두에 부착한 비율</div>
+</div>
+
+<div class="sec">
+  <div class="h">□ 종합 결과</div>
+  <div class="o"><span class="k">○ 유두탐지 정확도 : 99.30%</span> (부착 성공 4,542건 / 부착 시도 4,574건)</div>
+</div>
+
+<div class="sec">
+  <div class="h">□ 컵별 결과</div>
+  <table>
+    <tr><th>구분</th><th>1번 (앞다리)</th><th>2번 (뒷다리)</th><th>3번 (앞다리)</th><th>4번 (뒷다리)</th><th>합계</th></tr>
+    <tr><td>부착 성공</td><td>1,228</td><td>952</td><td>1,344</td><td>1,018</td><td class="total">4,542</td></tr>
+    <tr><td>부착 시도</td><td>1,242</td><td>963</td><td>1,348</td><td>1,021</td><td class="total">4,574</td></tr>
+    <tr class="total"><td>정확도</td><td>98.87%</td><td>98.86%</td><td>99.70%</td><td>99.71%</td><td>99.30%</td></tr>
+  </table>
+</div>
+
+<div class="sec">
+  <div class="h">□ 일자별 결과</div>
+  <table>
+    <tr><th>구분</th><th>1일차</th><th>2일차</th><th>3일차</th><th>4일차</th><th>5일차</th><th>6일차</th><th>7일차</th><th>합계</th></tr>
+    <tr><td>부착 성공</td><td>657</td><td>642</td><td>575</td><td>471</td><td>726</td><td>812</td><td>659</td><td class="total">4,542</td></tr>
+    <tr><td>부착 시도</td><td>661</td><td>644</td><td>588</td><td>474</td><td>728</td><td>817</td><td>662</td><td class="total">4,574</td></tr>
+    <tr class="total"><td>정확도</td><td>99.39%</td><td>99.69%</td><td>97.79%</td><td>99.37%</td><td>99.73%</td><td>99.39%</td><td>99.55%</td><td>99.30%</td></tr>
+  </table>
+</div>
+
+<div class="sec">
+  <div class="h">□ 산출 기준</div>
+  <div class="o">○ 재시도(최대 4회)를 포함한 최종 판정 기준</div>
+  <div class="o">○ 재선정 폐기(abandoned) 및 미종료 시퀀스는 제외</div>
+  <div class="o">○ 2026. 7. 22. 이후 신규 알고리즘 적용 테스트 구간은 제외</div>
+</div>
+
+<div class="sign">
+  <div class="date">2026.  7.  25.</div>
+  <div class="org">국립축산과학원 낙농과</div>
+</div>
+
+
+
+<div class="section"><span class="no headf">2</span><span class="headf">국산·외국산 로봇착유기 가격 비교</span></div>
+<div class="h">□ 개  요</div>
+<div class="o" style="font-weight:normal">○ 목적 : 국산·외국산 로봇착유기 구입비 비교 — 공적조서 「구입비 40 % 절감」 근거</div>
+<div class="o" style="font-weight:normal">○ 대상 : 데어리봇 K2(국산, 2026년 모델) ↔ LELY(외국산, 네덜란드)</div>
+<div class="o" style="font-weight:normal">○ 기준 : <b>설치·옵션 포함 turnkey(농가 실부담 완료가)</b> — 양측 모두 정식 견적서 실측</div>
+<div class="o" style="font-weight:normal">○ 결과 : 외국산 대당 약 3.18억원 → 국산 1.80억원, <b>약 43 % 절감</b></div>
+
+<div class="h">□ (견적 비교) 정식 견적서 실측 총액</div>
+<table>
+  <colgroup><col style="width:22%"><col style="width:39%"><col style="width:39%"></colgroup>
+  <tr><th>항　목</th><th>외국산 — LELY</th><th>국산 — 데어리봇 K2</th></tr>
+  <tr><td>견적처 / 일자</td><td>㈜애그리로보텍 → 국립축산과학원<br>2018. 11. 13.</td><td>㈜다운<br>2026. 7. 23.</td></tr>
+  <tr><td>구성(turnkey)</td><td>2대 시스템</td><td>1대(1기 1조) 시스템</td></tr>
+  <tr><td>기본 구성</td><td>4.36억원</td><td>1.21억원 + 0.43억원</td></tr>
+  <tr><td>옵션 구성</td><td>1.24억원</td><td>(위 포함)</td></tr>
+  <tr><td>설치 구성</td><td>0.77억원</td><td>0.16억원</td></tr>
+  <tr class="sum"><td>합　계</td><td>6.37억원 (2대)</td><td>1.80억원 (1대)</td></tr>
+  <tr class="sum"><td>대당 turnkey</td><td>약 3.18억원</td><td>1.80억원 — <b>약 43 % 절감</b></td></tr>
+</table>
+<div class="note">＊외국산은 2대 시스템 6.37억원을 대당 환산(÷2)함. 국산 1대 견적은 관제서버·설치자재 등 <b>공유 인프라를 1대가 단독 부담</b>한 가격으로, 2대 구성 시 대당 단가는 더 낮아짐 — 따라서 본 비교는 국산에 <b>보수적</b>임.</div>
+
+<div class="h">□ (기능 비교) 외국산 옵션의 국산 대응 구성</div>
+<table>
+  <colgroup><col style="width:22%"><col style="width:34%"><col style="width:44%"></colgroup>
+  <tr><th>기　능</th><th>외국산 LELY</th><th>국산 데어리봇 K2</th></tr>
+  <tr><td>체세포 측정</td><td>MQC-C</td><td class="l">MQC-C 체세포 측정시스템</td></tr>
+  <tr><td>체중 측정</td><td>Gravitor 체중계</td><td class="l">체중계(Gravitor)</td></tr>
+  <tr><td>사료 감지·급이</td><td>사료감지센서 · 2차 공급</td><td class="l">사료감지센서 · 2차 사료공급 · 액상사료 급이</td></tr>
+  <tr><td>개체 인식</td><td>태그</td><td class="l">개체인식 TAG 60개</td></tr>
+  <tr><td>액상·냉각·필터</td><td>Titania · 냉각 · 트윈필터</td><td class="l">냉각실 관제 · 이중필터셋 · 우유버퍼탱크</td></tr>
+</table>
+<div class="note">＊양측 견적서의 구성 항목을 1 : 1 대조한 결과, 외국산이 옵션으로 제공하는 기능을 국산이 <b>모두 기본 또는 동등 구성</b>으로 제공함.</div>
+
+<div class="h">□ (가격 추이) 조서 제출 이후 절감 폭 유지·확대</div>
+<table>
+  <colgroup><col style="width:34%"><col style="width:22%"><col style="width:22%"><col style="width:22%"></colgroup>
+  <tr><th>시　점</th><th>외국산</th><th>국산</th><th>절감률</th></tr>
+  <tr><td class="l">공적조서 작성 시점</td><td>약 4억원/대</td><td>2.4억원/대</td><td>약 40 %</td></tr>
+  <tr><td class="l">현재(제출 이후 · 2026년 K2)</td><td>약 3.2 ~ 4억원/대</td><td><b>1.8억원/대</b></td><td><b>약 43 ~ 55 %</b></td></tr>
+</table>
+<div class="note">＊국산은 로봇팔 자체 제작 등 국산화 범위 확대로 2.4억원 → 1.8억원으로 인하되었으며, <b>2026년 최신 K2 모델도 동일가</b>를 유지함.<br>＊견적서 원본 2건(외국산 LELY 2018. 11. / 국산 데어리봇 K2 2026. 7.)은 「붙임」에 편철.</div>
+
+
+<div class="section"><span class="no headf">3</span><span class="headf">데어리봇 K2 홍보 화판 자료</span></div>
+
+
+<div class="h">□ 개  요</div>
+<div class="o">○ 명칭 : 국산 로봇착유기(데어리봇 K2) 홍보 화판 <span style="font-size:9pt">(팸플릿 겸용)</span></div>
+<div class="o">○ 구성 : <b>3면</b> (A면 로봇착유기 구성 / B면 개발의 여정 / C면 사용목적)</div>
+<div class="o">○ 제작 : 농촌진흥청 국립축산과학원 ✕ ㈜다운 <span style="font-size:9pt">(문안 기획·검수 : 낙농과 박성민 농업연구사)</span></div>
+<div class="o">○ 용도 : 현장 전시·농가 교육·박람회 홍보용 상설 게시</div>
+<div class="o">○ 확정 : 2026. 7. 22. <span style="font-size:9pt">(문안 35개 항목 전건 확정 · 인쇄 전 게이트 13건 종결)</span></div>
+
+<div class="h">□ 면별 구성</div>
+<table>
+  <colgroup><col style="width:10%"><col style="width:22%"><col style="width:10%"><col style="width:58%"></colgroup>
+  <tr><th>구분</th><th>주제</th><th>항목</th><th>주요 내용</th></tr>
+  <tr>
+    <td><b>A면</b></td><td class="l">로봇착유기 구성</td><td>20</td>
+    <td class="l">올인원 착유(세척–전착유–착유–침지), 분방 착유·우유 분류, 착유컵 일체형, <b>3D AI 카메라</b>, Smart SCAN, DW-MAZ 유질분석, 로드셀 정밀 유량측정, 자동급이·바닥청소·스마트 게이트 등</td>
+  </tr>
+  <tr>
+    <td><b>B면</b></td><td class="l">개발의 여정</td><td>8</td>
+    <td class="l">국산화 필요성(착유노동 40%·수입의존 100%·도입률 2%) → <b>1세대 K1</b> 국산화·상용화(’17~’21, 아시아 최초) → <b>2세대 K2</b> 개선·보급 확대(’22~’25) → <b>3세대 K3</b>(’26~) 및 수출</td>
+  </tr>
+  <tr>
+    <td><b>C면</b></td><td class="l">사용목적</td><td>7</td>
+    <td class="l">착유 노동시간 절감, 우유 생산량 증대, 유질·유방 건강 관리, 데이터 기반 개체 관리, 비용 절감과 수익성, 동물복지(5대 자유)</td>
+  </tr>
+  <tr class="sum"><td colspan="2">계</td><td>35</td><td class="l">전 항목 확정(’26. 7. 22.)</td></tr>
+</table>
+
+<div class="h">□ 화판 게재 수치와 근거</div>
+<table>
+  <colgroup><col style="width:9%"><col style="width:24%"><col style="width:40%"><col style="width:27%"></colgroup>
+  <tr><th>게재면</th><th>수치</th><th>근거 자료</th><th>확보 상태</th></tr>
+  <tr><td>A-4</td><td class="l"><b>유두탐지 정확도 99% 이상</b></td><td class="l">유두탐지 정확도 실증 결과<br><span style="font-size:8.4pt">(무힌스키농장 최신형 2호기, 상용 운영 로그 실측 <b>99.30%</b>)</span></td><td>보유</td></tr>
+  <tr><td>B-2 ①</td><td class="l">착유 노동 비중 <b>약 40%</b><br>(두당 연 약 27.5시간)</td><td class="l">낙농 노동시간 통계<br><span style="font-size:8.4pt">(호당 연 3,661시간 중 착유 40%)</span></td><td>보유</td></tr>
+  <tr><td>B-2 ②</td><td class="l">로봇착유기 수입 의존 <b>100%</b><br>(’21년 국산화 이전)</td><td class="l">국산화 이전 전량 외국산 — 공적조서 기재사항</td><td>보유</td></tr>
+  <tr><td>B-2 ③</td><td class="l">도입 농가 <b>약 2%</b><br>(’21년, 외국산 153대)</td><td class="l">국립축산과학원 자체 조사(’21)<br><span style="font-size:8.4pt">＊화판에 출처 각주 인쇄</span></td><td>보유</td></tr>
+  <tr><td>B-1·4</td><td class="l"><b>아시아 최초</b> 상용화(’21)<br>3세대(K1·K2·K3)</td><td class="l">세계 5번째·아시아 최초 근거표, ’21 상용화 보도자료</td><td>보유</td></tr>
+  <tr><td>A면 각</td><td class="l">사료 100g 단위, 개체인식 반경 1m,<br>샘플러 80개, 버퍼탱크 250~1,000L</td><td class="l">제품 사양 — ㈜다운 제품 규격서</td><td>보유(업체)</td></tr>
+</table>
+<div class="note">＊화판은 <b>10년 이상 상설 게시</b>를 전제로, 변동 수치를 배제하고 <b>비율·연도 고정 사실·구조적 사실</b>만 게재하도록 설계함. 절대 표현(최상급, ‘없음/해소/실현’)과 근거 미확인 표현(예: “최대 20% 절감”)은 문안 확정 단계에서 제외.</div>
+
+<div class="h">□ 본인 기여</div>
+<div class="o">○ 화판 <b>전 3면 문안 기획·검수 총괄</b> — 항목별 확정안 작성 및 업체 전달(’26. 7. 22.)</div>
+<div class="o">○ 게재 수치의 <b>근거 검증</b> — 출처 불명·변동 수치 배제, 필요 항목에 출처 각주 반영</div>
+<div class="d">- 브랜드 종속 표기 제거(예: 카메라 브랜드명 → ‘3D AI 카메라’), 세대 구분·용어 통일(착유량/산유량, 외국산 등)</div>
+<div class="o">○ 업체 수정본 <b>3면 전수 대조·검수</b> — 반영 여부 항목별 확인 후 잔여 수정사항 통보</div>
+
+<div class="h">□ 검수 경과 및 조치</div>
+<table>
+  <colgroup><col style="width:16%"><col style="width:26%"><col style="width:58%"></colgroup>
+  <tr><th>일자</th><th>구분</th><th>내용</th></tr>
+  <tr><td class="nw">2026. 7. 22.</td><td class="l">문안 확정</td><td class="l">A면 20·B면 8·C면 7 등 35개 항목 확정, 인쇄 전 확인사항 13건 종결</td></tr>
+  <tr><td class="nw">2026. 7. 22.</td><td class="l">업체 수정본 대조</td><td class="l">3면 전수 대조 — C면 100%·B면 서사/수치 전건 정상 반영 확인</td></tr>
+  <tr><td class="nw">(조치 중)</td><td class="l">잔여 수정 2건</td><td class="l">① A면 「자동급이기 기능」 본문이 「체중측정 솔루션」 문장으로 잘못 입력됨 → 확정 문안으로 교체<br>② B면 대제목 기관명 오탈자(‘농촌진<b>층</b>청’) → ‘농촌진<b>흥</b>청’ 수정 <span style="font-size:8.4pt">＊하단 로고부는 정상</span></td></tr>
+</table>
+<div class="note">＊인쇄 전 최종 교정 단계에서 위 2건 반영 예정. 표기 통일(자동착유시스템 붙임, ㈜다운) 등 경미 사항 병행 반영.</div>
+
+<div class="note" style="margin-top:3mm">＊관련 자료 : 화판 문안 확정 의견서, 업체 수정본 대조 결과, 유두탐지 정확도 실증 결과(시험성적서), 국산·외국산 가격 비교표.</div>
+
+
+
+</body></html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>유두탐지 정확도 실증 결과</title>
+<style>
+  @page { size: A4; margin: 20mm 20mm; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;
+    font-size:11pt; line-height:1.6; color:#000;
+    width:170mm; margin:0 auto;
+    word-break:keep-all; line-break:strict;
+  }
+  .title { text-align:center; font-size:17pt; font-weight:bold; letter-spacing:1px; padding-bottom:5mm; margin-bottom:6mm; border-bottom:1.2px solid #000; }
+  .sec { margin-top:4.5mm; }
+  .h { font-size:12pt; font-weight:bold; margin-bottom:1.5mm; }
+  .o { padding-left:6mm; text-indent:-4mm; margin-bottom:0.6mm; }
+  .o .k { font-weight:bold; }
+  .d { padding-left:12mm; text-indent:-4mm; color:#222; font-size:10.5pt; }
+  table { width:100%; border-collapse:collapse; margin:2mm 0 0 6mm; width:calc(100% - 6mm); }
+  th,td { border:1px solid #000; padding:1.6mm 2mm; text-align:center; font-size:10.5pt; }
+  th { background:#efefef; font-weight:bold; }
+  td.total, tr.total td { background:#f7f7f7; font-weight:bold; }
+  .sign { margin-top:12mm; text-align:center; }
+  .sign .date { font-size:11.5pt; letter-spacing:2px; }
+  .sign .org { font-size:14pt; font-weight:bold; letter-spacing:8px; margin-top:4mm; }
+</style>
+</head>
+<body>
+
+<div class="title">국산 로봇착유기(데어리봇 K2) 유두탐지 정확도 실증 결과</div>
+
+<div class="sec">
+  <div class="h">□ 개  요</div>
+  <div class="o"><span class="k">○ 대상 :</span> 국산 로봇착유기(데어리봇 K2) 최신형 2호기</div>
+  <div class="o"><span class="k">○ 기간 :</span> 2026. 7. 15. ~ 7. 21. (7일간)</div>
+  <div class="o"><span class="k">○ 자료 :</span> 무힌스키농장 상용 운영 로그 실측 (부착 시도 4,574건)</div>
+  <div class="o"><span class="k">○ 정의 :</span> 유두탐지 정확도 = 유두컵 부착 성공률</div>
+  <div class="d">- 로봇이 유두를 탐지하여 유두컵을 유두에 부착한 비율</div>
+</div>
+
+<div class="sec">
+  <div class="h">□ 종합 결과</div>
+  <div class="o"><span class="k">○ 유두탐지 정확도 : 99.30%</span> (부착 성공 4,542건 / 부착 시도 4,574건)</div>
+</div>
+
+<div class="sec">
+  <div class="h">□ 컵별 결과</div>
+  <table>
+    <tr><th>구분</th><th>1번 (앞다리)</th><th>2번 (뒷다리)</th><th>3번 (앞다리)</th><th>4번 (뒷다리)</th><th>합계</th></tr>
+    <tr><td>부착 성공</td><td>1,228</td><td>952</td><td>1,344</td><td>1,018</td><td class="total">4,542</td></tr>
+    <tr><td>부착 시도</td><td>1,242</td><td>963</td><td>1,348</td><td>1,021</td><td class="total">4,574</td></tr>
+    <tr class="total"><td>정확도</td><td>98.87%</td><td>98.86%</td><td>99.70%</td><td>99.71%</td><td>99.30%</td></tr>
+  </table>
+</div>
+
+<div class="sec">
+  <div class="h">□ 일자별 결과</div>
+  <table>
+    <tr><th>구분</th><th>1일차</th><th>2일차</th><th>3일차</th><th>4일차</th><th>5일차</th><th>6일차</th><th>7일차</th><th>합계</th></tr>
+    <tr><td>부착 성공</td><td>657</td><td>642</td><td>575</td><td>471</td><td>726</td><td>812</td><td>659</td><td class="total">4,542</td></tr>
+    <tr><td>부착 시도</td><td>661</td><td>644</td><td>588</td><td>474</td><td>728</td><td>817</td><td>662</td><td class="total">4,574</td></tr>
+    <tr class="total"><td>정확도</td><td>99.39%</td><td>99.69%</td><td>97.79%</td><td>99.37%</td><td>99.73%</td><td>99.39%</td><td>99.55%</td><td>99.30%</td></tr>
+  </table>
+</div>
+
+<div class="sec">
+  <div class="h">□ 산출 기준</div>
+  <div class="o">○ 재시도(최대 4회)를 포함한 최종 판정 기준</div>
+  <div class="o">○ 재선정 폐기(abandoned) 및 미종료 시퀀스는 제외</div>
+  <div class="o">○ 2026. 7. 22. 이후 신규 알고리즘 적용 테스트 구간은 제외</div>
+</div>
+
+<div class="sign">
+  <div class="date">2026.  7.  25.</div>
+  <div class="org">국립축산과학원 낙농과</div>
+</div>
+
+</body>
+</html>
